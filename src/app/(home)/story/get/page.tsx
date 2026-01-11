@@ -36,7 +36,7 @@ export default function getFileStory() {
             }
             })
 
-            console.log('Response:', response.data);
+            //console.log('Response:', response.data);
 
             dispatch(setUserData(response.data))
             dispatch(setAuth())
@@ -45,7 +45,7 @@ export default function getFileStory() {
             console.log(error);
             if (axios.isAxiosError(error)) {
                 const serverMessage = error
-                console.log(serverMessage);
+                //console.log(serverMessage);
                 
                 if (serverMessage.response?.data?.msg != undefined) {
                     console.log(serverMessage.response?.data?.msg);   
@@ -66,7 +66,7 @@ export default function getFileStory() {
         closeSettingsPopUpFun()
         const token = localStorage?.getItem("token")
 
-        console.log(token);
+        //console.log(token);
         
 
         try {
@@ -78,14 +78,14 @@ export default function getFileStory() {
                 }
             })
 
-            console.log('Response:', response.data);
+            //console.log('Response:', response.data);
             getUserData()
 
         } catch (error) {
             console.log(error);
             if (axios.isAxiosError(error)) {
                 const serverMessage = error
-                console.log(serverMessage);
+                //console.log(serverMessage);
                 
                 if (serverMessage.response?.data?.msg != undefined) {
                     console.log(serverMessage.response?.data?.msg);   
@@ -116,14 +116,14 @@ export default function getFileStory() {
                 }
             })
 
-            console.log('Response:', response.data);
+            //console.log('Response:', response.data);
             getUserData()
 
         } catch (error) {
             console.log(error);
             if (axios.isAxiosError(error)) {
                 const serverMessage = error
-                console.log(serverMessage);
+                //console.log(serverMessage);
                 
                 if (serverMessage.response?.data?.msg != undefined) {
                     console.log(serverMessage.response?.data?.msg);   

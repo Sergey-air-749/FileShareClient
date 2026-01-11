@@ -20,7 +20,7 @@ export default function ChangeEmail() {
 
     const validationInputEmail = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
-        console.log(emailRegexp.test(value));   
+        //console.log(emailRegexp.test(value));   
 
         if (emailRegexp.test(value) == true) {
             setError("")
@@ -29,7 +29,7 @@ export default function ChangeEmail() {
         }
 
         setEmail(value)
-        console.log(email);
+        //console.log(email);
     }
 
 
@@ -45,7 +45,7 @@ export default function ChangeEmail() {
                     emailNew: email,
                 }
 
-                console.log(userUpData);
+                //console.log(userUpData);
 
                 const response = await axios.put(apiUrl + '/api/change/email',
                     userUpData,
@@ -57,7 +57,7 @@ export default function ChangeEmail() {
                         }, 
                     }
                 );
-                console.log('Response:', response);
+                //console.log('Response:', response);
 
                 location.pathname = '/change/email/verification/'
                 
@@ -66,7 +66,7 @@ export default function ChangeEmail() {
                 console.log(error);
                 if (axios.isAxiosError(error)) {
                     const serverMessage = error
-                    console.log(serverMessage);
+                    //console.log(serverMessage);
                     
                     if (serverMessage.response?.data?.msg != undefined) {
                         console.log(serverMessage.response?.data?.msg);     

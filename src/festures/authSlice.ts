@@ -45,7 +45,7 @@ const authReducer = createSlice({
             state.isAuth = true
         },
         setUserData: (state, action) => {
-            console.log(action.payload);
+            //console.log(action.payload);
             state.userData = action.payload
             state.isAuth = true
         }

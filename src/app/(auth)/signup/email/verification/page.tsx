@@ -18,7 +18,7 @@ export default function SignupEmail() {
     const validationInputCode = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
         setCode(value)
-        console.log(code);
+        //console.log(code);
     }
 
     const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL
@@ -35,7 +35,7 @@ export default function SignupEmail() {
                     code: code,
                 }
 
-                console.log(codeObj);
+                //console.log(codeObj);
 
                 const response = await axios.post(apiUrl + '/api/signup/email/verify',
                     codeObj,
@@ -47,7 +47,7 @@ export default function SignupEmail() {
                         }, 
                     }
                 );
-                console.log('Response:', response);
+                //console.log('Response:', response);
 
                 location.pathname = '/sendfile'
                 
@@ -56,7 +56,7 @@ export default function SignupEmail() {
                 console.log(error);
                 if (axios.isAxiosError(error)) {
                     const serverMessage = error
-                    console.log(serverMessage);
+                    //console.log(serverMessage);
                     
                     if (serverMessage.response?.data?.msg != undefined) {
                         console.log(serverMessage.response?.data?.msg);     
@@ -83,7 +83,7 @@ export default function SignupEmail() {
                         }, 
                     }
                 );
-                console.log('Response:', response);  
+                //console.log('Response:', response);  
                 
                 setMessage('Новый код отправлен')
 
@@ -91,7 +91,7 @@ export default function SignupEmail() {
                 console.log(error);
                 if (axios.isAxiosError(error)) {
                     const serverMessage = error
-                    console.log(serverMessage);
+                    //console.log(serverMessage);
                     
                     if (serverMessage.response?.data?.msg != undefined) {
                         console.log(serverMessage.response?.data?.msg);     
@@ -118,7 +118,7 @@ export default function SignupEmail() {
                         }, 
                     }
                 );
-                console.log('Response:', response);  
+                //console.log('Response:', response);  
                 
                 router.push('/signup')
 
@@ -126,7 +126,7 @@ export default function SignupEmail() {
                 console.log(error);
                 if (axios.isAxiosError(error)) {
                     const serverMessage = error
-                    console.log(serverMessage);
+                    //console.log(serverMessage);
                     
                     if (serverMessage.response?.data?.msg != undefined) {
                         console.log(serverMessage.response?.data?.msg);     

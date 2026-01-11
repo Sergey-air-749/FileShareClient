@@ -14,7 +14,8 @@ interface recipientDetailsData {
     "400": string,
     "1000": string
   }, 
-  username: string
+  username: string,
+  isGuest: boolean
 }
 
 
@@ -65,7 +66,7 @@ function Sendfile() {
   }
 
   const selectFunChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value);
+    //console.log(e.target.value);
     setOption(e.target.value)
   }
 
@@ -74,19 +75,19 @@ function Sendfile() {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    console.log(option);
+    //console.log(option);
   }, [option])
 
   useEffect(() => {
-    console.log(authReducer);
+    //console.log(authReducer);
   }, [authReducer])
 
   useEffect(() => {
-    console.log(files);
+    //console.log(files);
   }, [files])
 
   useEffect(() => {
-    console.log(recipientDetailsData);
+    //console.log(recipientDetailsData);
   }, [recipientDetailsData])
 
 
@@ -94,14 +95,14 @@ function Sendfile() {
 
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(1);
-    console.log(e.target.files);
+    //console.log(1);
+    //console.log(e.target.files);
     
     
 
     if (e.target.files != null) {
       const files = e.target.files;
-      console.log(files);
+      //console.log(files);
       let fileFilter = []
 
       for (let i = 0; i < files.length; i++) {
@@ -109,7 +110,7 @@ function Sendfile() {
           fileFilter.push(files[i])
         }
 
-        console.log(fileFilter);
+        //console.log(fileFilter);
       }
 
       setFiles(fileFilter) 
@@ -121,7 +122,7 @@ function Sendfile() {
       //   reader.readAsDataURL(file);
 
       //   reader.onload = () => {
-      //     // console.log(reader.result);
+      //     // //console.log(reader.result);
       //   };
       // }   
     }
@@ -140,7 +141,7 @@ function Sendfile() {
           fileFilter.push(files[i])
         }
 
-        console.log(fileFilter);
+        //console.log(fileFilter);
       } 
 
       
@@ -158,7 +159,7 @@ function Sendfile() {
 
     if (e.target.files != null) {
       const filesValue = e.target.files;
-      console.log(filesValue);
+      //console.log(filesValue);
       let fileFilter = files
 
       for (let i = 0; i < filesValue.length; i++) {
@@ -166,7 +167,7 @@ function Sendfile() {
           fileFilter.push(filesValue[i])
         }
 
-        console.log(fileFilter);
+        //console.log(fileFilter);
       }
 
       setFiles([...fileFilter]) 
@@ -202,7 +203,7 @@ function Sendfile() {
 
         const response = await axios.get(apiUrl + '/api/getUserDataById/' + value);
   
-        console.log('Response:', response);
+        //console.log('Response:', response);
   
         setRecipientDetails(response.data)
         
@@ -216,7 +217,7 @@ function Sendfile() {
       console.log(error);
       if (axios.isAxiosError(error)) {
         const serverMessage = error
-        console.log(serverMessage);
+        //console.log(serverMessage);
         
         if (serverMessage.response?.data?.msg != undefined) {
           console.log(serverMessage.response?.data?.msg);     
@@ -239,7 +240,7 @@ function Sendfile() {
 
       let username = userData?.username
       let sentToUserId = userData?.shareId // Для коректной работы статуса файла
-      console.log(sentToUserId);
+      //console.log(sentToUserId);
       
       const token = localStorage?.getItem("token")
       const date = new Date()
@@ -272,8 +273,8 @@ function Sendfile() {
 
         if (text != null) {
 
-          console.log(device);
-          console.log(username);
+          //console.log(device);
+          //console.log(username);
 
 
           const obj = {
@@ -284,7 +285,7 @@ function Sendfile() {
             sentToUserId: sentToUserId
           }
 
-          console.log(obj);
+          //console.log(obj);
 
           const response = await axios.post(apiUrl + '/api/textLoad/' + shareId, obj, {
             headers: {
@@ -293,7 +294,7 @@ function Sendfile() {
             }
           });
 
-          console.log('Response:', response);
+          //console.log('Response:', response);
 
           setShareId("")
           setText("")
@@ -309,7 +310,7 @@ function Sendfile() {
           const formData = new FormData();
 
           for (let i = 0; i < files.length; i++) {
-            console.log(files[i]);
+            //console.log(files[i]);
             formData.append('files', files[i]); // "files" ключ по которому будут переданы файлы 
           }
 
@@ -320,11 +321,11 @@ function Sendfile() {
          
 
           formData.forEach((value, key) => {
-            console.log(`${key}:`, value);
+            //console.log(`${key}:`, value);
           });
 
-          console.log(device);
-          console.log(username);
+          //console.log(device);
+          //console.log(username);
 
 
           const response = await axios.post(apiUrl + '/api/fileLoadNew/' + shareId, formData, {
@@ -333,7 +334,7 @@ function Sendfile() {
             }
           });
 
-          console.log('Response:', response);
+          //console.log('Response:', response);
 
           setShareId("")
           setText("")
@@ -351,7 +352,7 @@ function Sendfile() {
         console.log(error);
         if (axios.isAxiosError(error)) {
             const serverMessage = error
-            console.log(serverMessage);
+            //console.log(serverMessage);
             
             if (serverMessage.response?.data?.msg != undefined) {
               console.log(serverMessage.response?.data?.msg);     
@@ -509,17 +510,37 @@ function Sendfile() {
 
                   <div className={style.recipientDetailsBlock}>
 
-                    <div className={style.recipientDetails}>
-                      
-                      <div className={style.recipientDetailsAvatarBlock}>
-                        <img src={recipientDetailsData?.avatar[400]} alt="" className={style.recipientDetailsAvatar}/>
-                      </div>
+                    {
+                      recipientDetailsData.isGuest == undefined ? (
 
-                      <div className={style.recipientDetailsInfo}>
-                        <span>{recipientDetailsData?.username}</span>
-                      </div>
+                        <div className={style.recipientDetails}>
 
-                    </div>
+                          <div className={style.recipientDetailsAvatarBlock}>
+                            <img src={recipientDetailsData.avatar[400]} alt="" className={style.recipientDetailsAvatar}/>
+                          </div>
+
+                          <div className={style.recipientDetailsInfo}>
+                            <span>{recipientDetailsData.username}</span>
+                          </div>
+
+                        </div>
+
+                      ) : (
+                        <div className={style.recipientDetails}>
+
+                          <div className={style.recipientDetailsAvatarBlock}>
+                            <img src='https://fileshareserver-8pto.onrender.com/api/images/avatars/default' alt="" className={style.recipientDetailsAvatar}/>
+                          </div>
+
+                          <div className={style.recipientDetailsInfo}>
+                            <span>Гость</span>
+                          </div>
+
+                        </div>
+                      )
+
+
+                    }
 
                   </div>
 

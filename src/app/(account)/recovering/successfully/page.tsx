@@ -21,7 +21,7 @@ export default function RecoverSuccessfully() {
 
     const validationInputPassword = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
-        console.log(passwordRegexp.test(value)); 
+        //console.log(passwordRegexp.test(value)); 
         setPassword(value)  
     }
 

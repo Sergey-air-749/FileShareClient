@@ -22,7 +22,7 @@ export default function deleteAccountVerification() {
 
     const validationInputPassword = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
-        console.log(passwordRegexp.test(value)); 
+        //console.log(passwordRegexp.test(value)); 
         setPassword(value)  
     }
 
@@ -39,7 +39,7 @@ export default function deleteAccountVerification() {
                     password: password,
                 }
 
-                console.log(obj);
+                //console.log(obj);
 
                 const response = await axios.post(apiUrl + '/api/account/delete',
                     obj,
@@ -51,7 +51,7 @@ export default function deleteAccountVerification() {
                         }, 
                     }
                 );
-                console.log('Response:', response);
+                //console.log('Response:', response);
                 localStorage.setItem('session', response.data.sessionId)
 
                 location.pathname = '/delete'
@@ -61,7 +61,7 @@ export default function deleteAccountVerification() {
                 console.log(error);
                 if (axios.isAxiosError(error)) {
                     const serverMessage = error
-                    console.log(serverMessage);
+                    //console.log(serverMessage);
                     
                     if (serverMessage.response?.data?.msg != undefined) {
                         console.log(serverMessage.response?.data?.msg);   

@@ -28,22 +28,22 @@ export default function Getfile() {
   const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL
 
   useEffect(() => {
-    console.log(files);
+    //console.log(files);
   }, [files])
 
   useEffect(() => {
-    console.log('New Share ID is:', shareId);
+    //console.log('New Share ID is:', shareId);
   }, [shareId])
   
   useEffect(() => {
     if (userData?.shareId != undefined) {
       setShareId(userData?.shareId)
-      console.log(shareId);
+      //console.log(shareId);
       pingFileFun()
     } else {
-      console.log(2);
+      //console.log(2);
     }
-    console.log(userData?.shareId);
+    //console.log(userData?.shareId);
   }, [userData?.shareId])
 
 
@@ -52,32 +52,32 @@ export default function Getfile() {
   }
   
   const ShowPopUpFun = () => {
-    console.log(1);
+    //console.log(1);
     setShowPopUp(true)
   }
   
 
   const pingFileFun = async () => {
 
-    console.log(1);
+    //console.log(1);
   
     try {
 
       const response = await axios.get(apiUrl + '/api/pingfiles/' + userData?.shareId)
-      console.log(response.data);
+      //console.log(response.data);
 
-      console.log(JSON.stringify(response.data) != JSON.stringify({}) && JSON.stringify(response.data) !=  JSON.stringify([]));
+      //console.log(JSON.stringify(response.data) != JSON.stringify({}) && JSON.stringify(response.data) !=  JSON.stringify([]));
       
       if (JSON.stringify(response.data) != JSON.stringify({}) && JSON.stringify(response.data) != JSON.stringify([])) {
-        console.log(4);
+        //console.log(4);
         setFiles(response.data)
         setShowPopUp(true)
       } else {
-        console.log(3);
+        //console.log(3);
         const intervalId2 = setTimeout(() => {
           pingFileFun()
           clearTimeout(intervalId2)
-          console.log(intervalId2);
+          //console.log(intervalId2);
         }, 5000) 
       }
     
@@ -85,7 +85,7 @@ export default function Getfile() {
       console.log(error);
         if (axios.isAxiosError(error)) {
             const serverMessage = error
-            console.log(serverMessage);
+            //console.log(serverMessage);
             
             if (serverMessage.response?.data?.msg != undefined) {
               console.log(serverMessage.response?.data?.msg);     
@@ -110,7 +110,7 @@ export default function Getfile() {
       //Получает файл преоброзует его споиащю блоб ии создаёт ссылку
 
       const response = await axios.get(apiUrl + `/api/getFileDownload/${shareId}/${id}`)
-      console.log(response.data);
+      //console.log(response.data);
 
       let link = document.createElement('a');
       link.download = String(filename);
@@ -118,18 +118,18 @@ export default function Getfile() {
       //v1
 
       let blob = new Blob([response.data])
-      console.log(blob);
+      //console.log(blob);
 
       link.href = URL.createObjectURL(blob);
       link.click();
 
-      console.log(link);
+      //console.log(link);
 
     } catch (error) {
       console.log(error);
         if (axios.isAxiosError(error)) {
             const serverMessage = error
-            console.log(serverMessage);
+            //console.log(serverMessage);
             
             if (serverMessage.response?.data?.msg != undefined) {
               console.log(serverMessage.response?.data?.msg);     
@@ -140,7 +140,7 @@ export default function Getfile() {
     } 
 
 
-    console.log({msg:'Файлы загружины'});
+    //console.log({msg:'Файлы загружины'});
     // pingFileFun()
 
 
@@ -159,7 +159,7 @@ export default function Getfile() {
 
   const filesAcceptFun = async () => {
 
-    console.log(String(files[0]?.filename));
+    //console.log(String(files[0]?.filename));
     
 
     for (let i = 0; i < files.length; i++) {
@@ -171,7 +171,7 @@ export default function Getfile() {
           navigator.clipboard.writeText(String(files[i].text))
 
           const response = await axios.get(apiUrl + `/api/getTextDownload/${shareId}/${files[i].id}`)
-          console.log(response.data);
+          //console.log(response.data);
 
         }
 
@@ -182,7 +182,7 @@ export default function Getfile() {
           //Получает файл преоброзует его споиащю блоб ии создаёт ссылку
 
           const response = await axios.get(apiUrl + `/api/getFileDownload/${shareId}/${files[i].id}`)
-          console.log(response.data);
+          //console.log(response.data);
 
           let link = document.createElement('a');
           link.download = String(files[i].filename);
@@ -190,18 +190,18 @@ export default function Getfile() {
           //v1
 
           let blob = new Blob([response.data])
-          console.log(blob);
+          //console.log(blob);
 
           link.href = URL.createObjectURL(blob);
           link.click();
           
-          console.log(link);
+          //console.log(link);
 
         } catch (error) {
           console.log(error);
           if (axios.isAxiosError(error)) {
             const serverMessage = error
-            console.log(serverMessage);
+            //console.log(serverMessage);
             
             if (serverMessage.response?.data?.msg != undefined) {
               console.log(serverMessage.response?.data?.msg);     
@@ -220,9 +220,9 @@ export default function Getfile() {
 
       // let blob = new Blob([`/api/getFileDownload/${shareId}/${files[i].filename}`])
       // link.href = URL.createObjectURL(blob);
-      // console.log(blob);
+      // //console.log(blob);
 
-      // console.log(link);
+      // //console.log(link);
       
 
       // link.click();
@@ -230,7 +230,7 @@ export default function Getfile() {
     }
 
 
-    console.log({msg:'Файлы загружины'});
+    //console.log({msg:'Файлы загружины'});
     setShowPopUp(false)
     setFiles([])
     // pingFileFun()
@@ -240,10 +240,10 @@ export default function Getfile() {
 
 
   const textCopyFun = async (text: String, id: String) => {
-    console.log(text);
+    //console.log(text);
     navigator.clipboard.writeText(String(text))
     const response = await axios.get(apiUrl + `/api/getTextDownload/${shareId}/${id}`)
-    console.log(response.data);
+    //console.log(response.data);
 
     const newFiles = files.filter((item) => item.id != id)
     if (JSON.stringify(newFiles) == JSON.stringify([])) {
@@ -267,7 +267,7 @@ export default function Getfile() {
 
       setFiles([])
       const response = await axios.get(apiUrl + '/api/files/cancel/' + userData?.shareId)
-      console.log(response.data);
+      //console.log(response.data);
       pingFileFun()
       setShowPopUp(false)
     
@@ -280,7 +280,7 @@ export default function Getfile() {
     try {
 
       const response = await axios.get(apiUrl + '/api/files/cancel/' + userData?.shareId + '/' +  id)
-      console.log(response.data);
+      //console.log(response.data);
 
       pingFileFun()
 
@@ -294,8 +294,8 @@ export default function Getfile() {
   }
 
 
-  console.log(JSON.stringify(files));
-  console.log(JSON.stringify(files) != JSON.stringify([]));
+  //console.log(JSON.stringify(files));
+  //console.log(JSON.stringify(files) != JSON.stringify([]));
 
 
 

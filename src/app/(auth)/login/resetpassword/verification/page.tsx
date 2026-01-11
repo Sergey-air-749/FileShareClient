@@ -31,7 +31,7 @@ export default function ResetPasswordVerification() {
 
     const validationInputPassword = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
-        console.log(passwordRegexp.test(value));  
+        //console.log(passwordRegexp.test(value));  
 
         if (passwordRegexp.test(value) == true) {
             setError("")
@@ -47,7 +47,7 @@ export default function ResetPasswordVerification() {
     const validationInputCode = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
         setCode(value)
-        console.log(code);
+        //console.log(code);
     }
 
 
@@ -65,7 +65,7 @@ export default function ResetPasswordVerification() {
                         passwordNew: passwordNew,
                     }
 
-                    console.log(codeObj);
+                    //console.log(codeObj);
 
                     const response = await axios.post(apiUrl + '/api/login/resetpassword/verify',
                         codeObj,
@@ -76,7 +76,7 @@ export default function ResetPasswordVerification() {
                             }, 
                         }
                     );
-                    console.log('Response:', response);
+                    //console.log('Response:', response);
                     localStorage.removeItem('userEmail')
 
                     localStorage.setItem("token", response.data.token)
@@ -91,7 +91,7 @@ export default function ResetPasswordVerification() {
                 console.log(error);
                 if (axios.isAxiosError(error)) {
                     const serverMessage = error
-                    console.log(serverMessage);
+                    //console.log(serverMessage);
                     
                     if (serverMessage.response?.data?.msg != undefined) {
                         console.log(serverMessage.response?.data?.msg);     
@@ -118,7 +118,7 @@ export default function ResetPasswordVerification() {
                         }, 
                     }
                 );
-                console.log('Response:', response);  
+                //console.log('Response:', response);  
                 
                 setMessage('Новый код отправлен')
 
@@ -126,7 +126,7 @@ export default function ResetPasswordVerification() {
                 console.log(error);
                 if (axios.isAxiosError(error)) {
                     const serverMessage = error
-                    console.log(serverMessage);
+                    //console.log(serverMessage);
                     
                     if (serverMessage.response?.data?.msg != undefined) {
                         console.log(serverMessage.response?.data?.msg);     
@@ -153,7 +153,7 @@ export default function ResetPasswordVerification() {
                         }, 
                     }
                 );
-                console.log('Response:', response);  
+                //console.log('Response:', response);  
                 
                 router.back()
 
@@ -161,7 +161,7 @@ export default function ResetPasswordVerification() {
                 console.log(error);
                 if (axios.isAxiosError(error)) {
                     const serverMessage = error
-                    console.log(serverMessage);
+                    //console.log(serverMessage);
                     
                     if (serverMessage.response?.data?.msg != undefined) {
                         console.log(serverMessage.response?.data?.msg);     

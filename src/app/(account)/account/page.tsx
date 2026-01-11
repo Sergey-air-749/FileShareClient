@@ -34,14 +34,14 @@ export default function Account() {
     
     
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log(1);
-        console.log(e.target.files);
+        //console.log(1);
+        //console.log(e.target.files);
         
         
 
         if (e.target.files != null) {
             const files = e.target.files;
-            console.log(files);
+            //console.log(files);
             let fileFilter = []
 
             if (files[0].size != 0 || files[0].size != undefined) {
@@ -56,7 +56,7 @@ export default function Account() {
             reader.readAsDataURL(file);
 
             reader.onload = () => {
-                console.log(reader.result);
+                //console.log(reader.result);
                 setFilePreviwe(reader.result)      
             };  
 
@@ -80,7 +80,7 @@ export default function Account() {
                 formData.append('avatar', fileAvatar[0]);
 
                 formData.forEach((value, key) => {
-                    console.log(`${key}:`, value);
+                    //console.log(`${key}:`, value);
                 });
 
 
@@ -93,7 +93,7 @@ export default function Account() {
                         }
                     });
 
-                console.log(response);
+                //console.log(response);
                 closeAvatarFullViewPopUp()
                 // location.reload()
                 
@@ -106,7 +106,7 @@ export default function Account() {
         console.log(error);
         if (axios.isAxiosError(error)) {
             const serverMessage = error
-            console.log(serverMessage);
+            //console.log(serverMessage);
             
             if (serverMessage.response?.data?.msg != undefined) {
               console.log(serverMessage.response?.data?.msg);     
@@ -133,7 +133,7 @@ export default function Account() {
             }
         );
 
-        console.log(response);
+        //console.log(response);
         closeAvatarFullViewPopUp()
         location.reload()
     }

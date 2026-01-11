@@ -6,11 +6,11 @@ const locales = ['en', 'ru'];
 
 export default getRequestConfig(async ({locale = 'ru'}) => {
 
-  console.log(`./translationsPage/${locale}.json`);
+  //console.log(`./translationsPage/${locale}.json`);
   
   if (!locale || !locales.includes(locale)) {
     notFound();
-    // console.log(12);
+    // //console.log(12);
   }
 
   return {  

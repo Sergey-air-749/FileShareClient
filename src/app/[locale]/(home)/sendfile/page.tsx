@@ -39,7 +39,7 @@ function Sendfile() {
   }
 
   const selectFunChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value);
+    //console.log(e.target.value);
     setOption(e.target.value)
   }
 
@@ -48,15 +48,15 @@ function Sendfile() {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    console.log(option);
+    //console.log(option);
   }, [option])
 
   useEffect(() => {
-    console.log(authReducer);
+    //console.log(authReducer);
   }, [authReducer])
 
   useEffect(() => {
-    console.log(files);
+    //console.log(files);
   }, [files])
 
 
@@ -67,11 +67,11 @@ function Sendfile() {
   const t = useTranslations('sendfilePage');
 
   // useEffect(() => {
-  //   console.log(i18n.isInitialized);
+  //   //console.log(i18n.isInitialized);
   // }, [i18n.isInitialized])
 
   // useEffect(() => {
-  //   console.log(ready);
+  //   //console.log(ready);
   // }, [ready])
 
   // useEffect(() => {
@@ -94,14 +94,14 @@ function Sendfile() {
 
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(1);
-    console.log(e.target.files);
+    //console.log(1);
+    //console.log(e.target.files);
     
     
 
     if (e.target.files != null) {
       const files = e.target.files;
-      console.log(files);
+      //console.log(files);
       let fileFilter = []
 
       for (let i = 0; i < files.length; i++) {
@@ -109,7 +109,7 @@ function Sendfile() {
           fileFilter.push(files[i])
         }
 
-        console.log(fileFilter);
+        //console.log(fileFilter);
       }
 
       setFiles(fileFilter) 
@@ -121,7 +121,7 @@ function Sendfile() {
       //   reader.readAsDataURL(file);
 
       //   reader.onload = () => {
-      //     // console.log(reader.result);
+      //     // //console.log(reader.result);
       //   };
       // }   
     }
@@ -140,7 +140,7 @@ function Sendfile() {
           fileFilter.push(files[i])
         }
 
-        console.log(fileFilter);
+        //console.log(fileFilter);
       } 
 
       
@@ -158,7 +158,7 @@ function Sendfile() {
 
     if (e.target.files != null) {
       const filesValue = e.target.files;
-      console.log(filesValue);
+      //console.log(filesValue);
       let fileFilter = files
 
       for (let i = 0; i < filesValue.length; i++) {
@@ -166,7 +166,7 @@ function Sendfile() {
           fileFilter.push(filesValue[i])
         }
 
-        console.log(fileFilter);
+        //console.log(fileFilter);
       }
 
       setFiles([...fileFilter]) 
@@ -235,8 +235,8 @@ function Sendfile() {
 
         if (text != null) {
 
-          console.log(device);
-          console.log(username);
+          //console.log(device);
+          //console.log(username);
 
 
           const obj = {
@@ -254,7 +254,7 @@ function Sendfile() {
             }
           });
 
-          console.log('Response:', response);
+          //console.log('Response:', response);
 
           setShareId("")
           setText("")
@@ -269,18 +269,18 @@ function Sendfile() {
           const formData = new FormData();
 
           for (let i = 0; i < files.length; i++) {
-            console.log(files[i]);
+            //console.log(files[i]);
             formData.append('files', files[i]); // "files" ключ по которому будут переданы файлы 
           }
 
           formData.forEach((value, key) => {
-            console.log(`${key}:`, value);
+            //console.log(`${key}:`, value);
           });
   
 
 
-          console.log(device);
-          console.log(username);
+          //console.log(device);
+          //console.log(username);
 
 
           const response = await axios.post(apiUrl + '/api/fileLoad/' + shareId, formData, {
@@ -293,7 +293,7 @@ function Sendfile() {
             }
           });
 
-          console.log('Response:', response);
+          //console.log('Response:', response);
 
           setShareId("")
           setText("")
@@ -310,7 +310,7 @@ function Sendfile() {
         console.log(error);
         if (axios.isAxiosError(error)) {
             const serverMessage = error
-            console.log(serverMessage);
+            //console.log(serverMessage);
             
             if (serverMessage.response?.data?.msg != undefined) {
               console.log(serverMessage.response?.data?.msg);     

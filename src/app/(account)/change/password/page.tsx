@@ -24,13 +24,13 @@ export default function Login() {
 
     const validationInputPasswordOld = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
-        console.log(passwordRegexp.test(value)); 
+        //console.log(passwordRegexp.test(value)); 
         setPasswordOld(value)  
     }
 
     const validationInputPasswordNew = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
-        console.log(passwordRegexp.test(value)); 
+        //console.log(passwordRegexp.test(value)); 
 
         if (passwordRegexp.test(value) == true) {
             setError("")
@@ -43,7 +43,7 @@ export default function Login() {
 
     const validationInputPasswordRepeatNew = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
-        console.log(passwordRegexp.test(value)); 
+        //console.log(passwordRegexp.test(value)); 
 
         if (passwordRegexp.test(value) == true) {
             setError("")
@@ -100,7 +100,7 @@ export default function Login() {
                     passwordRepeatNew: passwordRepeatNew,
                 }
 
-                console.log(userUpData);
+                //console.log(userUpData);
 
                 const response = await axios.put(apiUrl + '/api/change/password', 
                     userUpData,
@@ -112,7 +112,7 @@ export default function Login() {
                     }
 
                 );
-                console.log('Response:', response);
+                //console.log('Response:', response);
 
                 router.push('/sendfile')
                 
@@ -123,7 +123,7 @@ export default function Login() {
                 console.log(error);
                 if (axios.isAxiosError(error)) {
                     const serverMessage = error
-                    console.log(serverMessage);
+                    //console.log(serverMessage);
                     
                     if (serverMessage.response?.data?.msg != undefined) {
                         console.log(serverMessage.response?.data?.msg);     

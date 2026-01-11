@@ -18,9 +18,9 @@ export default function Resetpassword() {
 
     const validationInputEmail = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
-        console.log(emailRegexp.test(value));   
+        //console.log(emailRegexp.test(value));   
         setEmail(value)
-        console.log(email);
+        //console.log(email);
     }
 
 
@@ -33,12 +33,12 @@ export default function Resetpassword() {
                     email: email,
                 }
 
-                console.log(userData);
+                //console.log(userData);
 
                 localStorage.setItem('userEmail', email)
                 const response = await axios.post(apiUrl + '/api/login/resetpassword', userData);
-                console.log('Response:', response);
-                console.log('Token:', response.data.token);
+                //console.log('Response:', response);
+                //console.log('Token:', response.data.token);
 
                 localStorage.setItem("token", response.data.token)
                 router.push('/login/resetpassword/verification')
@@ -49,7 +49,7 @@ export default function Resetpassword() {
                 console.log(error);
                 if (axios.isAxiosError(error)) {
                     const serverMessage = error
-                    console.log(serverMessage);
+                    //console.log(serverMessage);
                     
                     if (serverMessage.response?.data?.msg != undefined) {
                         console.log(serverMessage.response?.data?.msg);   

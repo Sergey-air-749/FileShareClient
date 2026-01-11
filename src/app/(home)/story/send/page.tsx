@@ -52,7 +52,7 @@ export default function sendFileStory() {
             }
             })
 
-            console.log('Response:', response.data);
+            //console.log('Response:', response.data);
 
             dispatch(setUserData(response.data))
             dispatch(setAuth())
@@ -61,7 +61,7 @@ export default function sendFileStory() {
             console.log(error);
             if (axios.isAxiosError(error)) {
                 const serverMessage = error
-                console.log(serverMessage);
+                //console.log(serverMessage);
                 
                 if (serverMessage.response?.data?.msg != undefined) {
                     console.log(serverMessage.response?.data?.msg);   
@@ -91,14 +91,14 @@ export default function sendFileStory() {
                 }
             })
 
-            console.log('Response:', response.data);
+            //console.log('Response:', response.data);
             getUserData()
 
         } catch (error) {
             console.log(error);
             if (axios.isAxiosError(error)) {
                 const serverMessage = error
-                console.log(serverMessage);
+                //console.log(serverMessage);
                 
                 if (serverMessage.response?.data?.msg != undefined) {
                     console.log(serverMessage.response?.data?.msg);   
@@ -120,7 +120,7 @@ export default function sendFileStory() {
         closeSettingsPopUpFun()
         const token = localStorage?.getItem("token")
 
-        console.log(token);
+        //console.log(token);
         
 
         try {
@@ -132,14 +132,14 @@ export default function sendFileStory() {
                 }
             })
 
-            console.log('Response:', response.data);
+            //console.log('Response:', response.data);
             getUserData()
 
         } catch (error) {
             console.log(error);
             if (axios.isAxiosError(error)) {
                 const serverMessage = error
-                console.log(serverMessage);
+                //console.log(serverMessage);
                 
                 if (serverMessage.response?.data?.msg != undefined) {
                     console.log(serverMessage.response?.data?.msg);   
@@ -161,7 +161,7 @@ export default function sendFileStory() {
         closeSettingsPopUpFun()
         const token = localStorage?.getItem("token")
 
-        console.log(token);
+        //console.log(token);
         
 
         try {
@@ -178,7 +178,7 @@ export default function sendFileStory() {
                 }
             )
 
-            console.log('Response:', response.data);
+            //console.log('Response:', response.data);
             socketRef.current.emit('pingfilesUserName', userWillReceive);
             getUserData()
 
@@ -186,7 +186,7 @@ export default function sendFileStory() {
             console.log(error);
             if (axios.isAxiosError(error)) {
                 const serverMessage = error
-                console.log(serverMessage);
+                //console.log(serverMessage);
                 
                 if (serverMessage.response?.data?.msg != undefined) {
                     console.log(serverMessage.response?.data?.msg);   

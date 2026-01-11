@@ -43,11 +43,11 @@ export default function Getfile() {
   }, []);
 
   useEffect(() => {
-    console.log(files);
+    //console.log(files);
   }, [files])
 
   useEffect(() => {
-    console.log('New Share ID is:', shareId);
+    //console.log('New Share ID is:', shareId);
   }, [shareId])
   
 
@@ -56,7 +56,7 @@ export default function Getfile() {
     if (userData?.shareId != undefined) {
 
       socketRef.current.on('files', async (files: any[]) => {
-        console.log(files);
+        //console.log(files);
         setFiles(files)
         showPopUpFun()
       });
@@ -64,9 +64,9 @@ export default function Getfile() {
       socketRef.current.emit('pingfilesShareId', userData?.shareId);
 
     } else {
-      console.log(2);
+      //console.log(2);
     }
-    console.log(userData?.shareId);
+    //console.log(userData?.shareId);
   }, [userData?.shareId])
 
 
@@ -92,7 +92,7 @@ export default function Getfile() {
       //Получает файл преоброзует его споиащю блоб ии создаёт ссылку
 
       const response = await axios.get(apiUrl + `/api/getDownloadNew/file/${userData?.shareId}/${id}`)
-      console.log(response.data);
+      //console.log(response.data);
 
       let link = document.createElement('a');
       link.download = String(filename);
@@ -100,13 +100,13 @@ export default function Getfile() {
       link.href = response.data.url
       link.click();
 
-      console.log(link);
+      //console.log(link);
 
     } catch (error) {
       console.log(error);
         if (axios.isAxiosError(error)) {
             const serverMessage = error
-            console.log(serverMessage);
+            //console.log(serverMessage);
             
             if (serverMessage.response?.data?.msg != undefined) {
               console.log(serverMessage.response?.data?.msg);     
@@ -117,7 +117,7 @@ export default function Getfile() {
     } 
 
 
-    console.log({msg:'Файлы загружины'});
+    //console.log({msg:'Файлы загружины'});
 
 
     const newFiles = files.filter((item) => item.id != id)
@@ -134,10 +134,10 @@ export default function Getfile() {
   
 
   const textCopyFun = async (text: String, id: String) => {
-    console.log(text);
+    //console.log(text);
     navigator.clipboard.writeText(String(text))
     const response = await axios.get(apiUrl + `/api/getDownloadNew/text/${userData?.shareId}/${id}`)
-    console.log(response.data);
+    //console.log(response.data);
 
     const newFiles = files.filter((item) => item.id != id)
     if (JSON.stringify(newFiles) == JSON.stringify([])) {
@@ -153,7 +153,7 @@ export default function Getfile() {
 
   const filesAcceptFun = async () => {
 
-    console.log(String(files[0]?.filename));
+    //console.log(String(files[0]?.filename));
     
 
     for (let i = 0; i < files.length; i++) {
@@ -165,7 +165,7 @@ export default function Getfile() {
           navigator.clipboard.writeText(String(files[i].text))
 
           const response = await axios.get(apiUrl + `/api/getDownloadNew/text/${userData?.shareId}/${files[i].id}`)
-          console.log(response.data);
+          //console.log(response.data);
 
           const newFiles = files.filter((item) => item.id != files[i].id)
           setFiles(newFiles)
@@ -179,7 +179,7 @@ export default function Getfile() {
           //Получает файл преоброзует его споиащю блоб ии создаёт ссылку
 
           const response = await axios.get(apiUrl + `/api/getDownloadNew/file/${userData?.shareId}/${files[i].id}`)
-          console.log(response.data);
+          //console.log(response.data);
 
           let link = document.createElement('a');
           link.download = String(files[i].filename);
@@ -190,13 +190,13 @@ export default function Getfile() {
           const newFiles = files.filter((item) => item.id != files[i].id)
           setFiles(newFiles)
           
-          console.log(link);
+          //console.log(link);
 
         } catch (error) {
           console.log(error);
           if (axios.isAxiosError(error)) {
             const serverMessage = error
-            console.log(serverMessage);
+            //console.log(serverMessage);
             
             if (serverMessage.response?.data?.msg != undefined) {
               console.log(serverMessage.response?.data?.msg);     
@@ -211,7 +211,7 @@ export default function Getfile() {
     }
 
 
-    console.log({msg:'Файлы загружины'});
+    //console.log({msg:'Файлы загружины'});
     setShowPopUp(false)
     setFiles([])
 
@@ -238,7 +238,7 @@ export default function Getfile() {
           }
         }
       )
-      console.log(response.data);
+      //console.log(response.data);
 
       setShowPopUp(false)
     
@@ -261,7 +261,7 @@ export default function Getfile() {
           }
         }
       )
-      console.log(response.data);
+      //console.log(response.data);
 
       if (JSON.stringify(response.data) == JSON.stringify([])) {
         setShowPopUp(false)
@@ -277,8 +277,8 @@ export default function Getfile() {
   }
 
 
-  console.log(JSON.stringify(files));
-  console.log(JSON.stringify(files) != JSON.stringify([]));
+  //console.log(JSON.stringify(files));
+  //console.log(JSON.stringify(files) != JSON.stringify([]));
 
 
 

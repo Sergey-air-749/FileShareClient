@@ -26,7 +26,7 @@ export default function Signup() {
 
     const validationInputEmail = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
-        console.log(emailRegexp.test(value));  
+        //console.log(emailRegexp.test(value));  
 
         if (emailRegexp.test(value) == true) {
             setError("")
@@ -39,7 +39,7 @@ export default function Signup() {
 
     const validationInputUserName = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
-        console.log(usernameRegexp.test(value));   
+        //console.log(usernameRegexp.test(value));   
 
         if (usernameRegexp.test(value) == true) {
             setError("")
@@ -52,7 +52,7 @@ export default function Signup() {
 
     const validationInputPassword = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
-        console.log(passwordRegexp.test(value));  
+        //console.log(passwordRegexp.test(value));  
 
         if (passwordRegexp.test(value) == true) {
             setError("")
@@ -65,7 +65,7 @@ export default function Signup() {
 
     const validationInputPasswordRepeat = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
-        console.log(passwordRegexp.test(value));  
+        //console.log(passwordRegexp.test(value));  
 
         if (passwordRegexp.test(value) == true) {
             setError("")
@@ -99,10 +99,10 @@ export default function Signup() {
 
     const submitSignUpUser = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        console.log(password);
-        console.log(passwordRepeat);
+        //console.log(password);
+        //console.log(passwordRepeat);
         
-        console.log(password == passwordRepeat);
+        //console.log(password == passwordRepeat);
         
         if (password == passwordRepeat) {
             try {
@@ -113,11 +113,11 @@ export default function Signup() {
                     password: password,
                 }
 
-                console.log(userData);
+                //console.log(userData);
 
                 const response = await axios.post(apiUrl + '/api/signup', userData);
-                console.log('Response:', response);
-                console.log('Token:', response.data.token);
+                //console.log('Response:', response);
+                //console.log('Token:', response.data.token);
 
                 localStorage.setItem("token", response.data.token)
                 route.push('/signup/email/verification')
@@ -128,7 +128,7 @@ export default function Signup() {
                 console.log(error);
                 if (axios.isAxiosError(error)) {
                     const serverMessage = error
-                    console.log(serverMessage);
+                    //console.log(serverMessage);
                     
                     if (serverMessage.response?.data?.msg != undefined) {
                         console.log(serverMessage.response?.data?.msg);     
@@ -152,8 +152,8 @@ export default function Signup() {
         try {
             
             const response = await axios.post(apiUrl + '/api/signup/guest');
-            console.log('Response:', response);
-            console.log('Token:', response.data.token);
+            //console.log('Response:', response);
+            //console.log('Token:', response.data.token);
 
             localStorage.setItem("token", response.data.token)
             route.push('/sendfile')
@@ -163,7 +163,7 @@ export default function Signup() {
             console.log(error);
             if (axios.isAxiosError(error)) {
                 const serverMessage = error
-                console.log(serverMessage);
+                //console.log(serverMessage);
                 
                 if (serverMessage.response?.data?.msg != undefined) {
                     console.log(serverMessage.response?.data?.msg);     

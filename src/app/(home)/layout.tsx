@@ -28,20 +28,22 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   const router = useRouter();
   // const searchParams = useSearchParams();
 
+    //useSearchParams Error
+
   const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL
 
   useEffect(() => {
-    console.log(isAuth);
+    //console.log(isAuth);
   }, [isAuth])
 
-  console.log(router);
+  //console.log(router);
   
   const logOutFun = () => {
     localStorage.removeItem('token')
     window.location.reload()
   }
 
-  // console.log(searchParams.get('locale'));
+  // //console.log(searchParams.get('locale'));
 
   // const changeLanguageFun = async (lang: "en" | "ru") => {
   //   await i18nextCF.changeLanguage(lang);
@@ -65,7 +67,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           }
         })
 
-        console.log('Response:', response.data);
+        //console.log('Response:', response.data);
 
         dispatch(setUserData(response.data))
         dispatch(setAuth())
@@ -74,7 +76,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           console.log(error);
           if (axios.isAxiosError(error)) {
               const serverMessage = error
-              console.log(serverMessage);
+              //console.log(serverMessage);
               
               if (serverMessage.response?.data?.msg != undefined) {
                 console.log(serverMessage.response?.data?.msg);   

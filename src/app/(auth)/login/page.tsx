@@ -25,20 +25,20 @@ export default function Login() {
 
     const validationInputEmail = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
-        console.log(emailRegexp.test(value));   
+        //console.log(emailRegexp.test(value));   
         setEmail(value)
-        console.log(email);
+        //console.log(email);
     }
 
     const validationInputUserName = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
-        console.log(usernameRegexp.test(value));   
+        //console.log(usernameRegexp.test(value));   
         setUsername(value)
     }
 
     const validationInputPassword = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
-        console.log(passwordRegexp.test(value)); 
+        //console.log(passwordRegexp.test(value)); 
         setPassword(value)  
     }
 
@@ -72,11 +72,11 @@ export default function Login() {
                     password: password,
                 }
 
-                console.log(userData);
+                //console.log(userData);
 
                 const response = await axios.post(apiUrl + '/api/login', userData);
-                console.log('Response:', response);
-                console.log('Token:', response.data.token);
+                //console.log('Response:', response);
+                //console.log('Token:', response.data.token);
 
                 localStorage.setItem("token", response.data.token)
                 router.push('/sendfile')
@@ -87,7 +87,7 @@ export default function Login() {
                 console.log(error);
                 if (axios.isAxiosError(error)) {
                     const serverMessage = error
-                    console.log(serverMessage);
+                    //console.log(serverMessage);
                     
                     if (serverMessage.response?.data?.msg != undefined) {
                         console.log(serverMessage.response?.data?.msg);   

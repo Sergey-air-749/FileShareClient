@@ -10,8 +10,8 @@ export default function StoreProvider({ children }: { children: React.ReactNode 
     storeRef.current = store()
   }
 
-  // console.log(storeRef.current);
-  // console.log(store);
+  // //console.log(storeRef.current);
+  // //console.log(store);
   
   return <Provider store={storeRef.current}>{children}</Provider>
 }

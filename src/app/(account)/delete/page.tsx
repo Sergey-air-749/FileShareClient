@@ -37,8 +37,8 @@ export default function DeleteAccount() {
                 const localSession = localStorage.getItem('session')
                 const serverSession = response.data.sessionId
 
-                console.log(response);
-                console.log(localSession);
+                //console.log(response);
+                //console.log(localSession);
                 
                 if (localSession != serverSession) {
                     router.back()
@@ -50,7 +50,7 @@ export default function DeleteAccount() {
                 console.log(error);
                 if (axios.isAxiosError(error)) {
                     const serverMessage = error
-                    console.log(serverMessage);
+                    //console.log(serverMessage);
                     
                     if (serverMessage.response?.data?.msg != undefined) {
                         console.log(serverMessage.response?.data?.msg);     
@@ -92,7 +92,7 @@ export default function DeleteAccount() {
                         }, 
                     }
                 );
-                console.log('Response:', response);
+                //console.log('Response:', response);
 
                 location.pathname = '/delete/successfully'
 
@@ -103,7 +103,7 @@ export default function DeleteAccount() {
                 console.log(error);
                 if (axios.isAxiosError(error)) {
                     const serverMessage = error
-                    console.log(serverMessage);
+                    //console.log(serverMessage);
                     
                     if (serverMessage.response?.data?.msg != undefined) {
                         console.log(serverMessage.response?.data?.msg);     

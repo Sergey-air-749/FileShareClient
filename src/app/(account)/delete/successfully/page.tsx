@@ -23,7 +23,7 @@ export default function SignupEmail() {
 
     const validationInputPassword = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
-        console.log(passwordRegexp.test(value)); 
+        //console.log(passwordRegexp.test(value)); 
         setPassword(value)  
     }
 
@@ -49,8 +49,8 @@ export default function SignupEmail() {
                 const localSession = localStorage.getItem('session')
                 const serverSession = response.data.sessionId
 
-                console.log(response);
-                console.log(localSession);
+                //console.log(response);
+                //console.log(localSession);
                 
                 if (localSession != serverSession) {
                     router.back()
@@ -62,7 +62,7 @@ export default function SignupEmail() {
                 console.log(error);
                 if (axios.isAxiosError(error)) {
                     const serverMessage = error
-                    console.log(serverMessage);
+                    //console.log(serverMessage);
                     
                     if (serverMessage.response?.data?.msg != undefined) {
                         console.log(serverMessage.response?.data?.msg);     
