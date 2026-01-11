@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { setAuth, setUserData } from '@/festures/authSlice'
 import axios from "axios";
 
-import { useRouter, useSearchParams  } from "next/navigation";
+import { useRouter  } from "next/navigation";
 
 const robotoSans = Roboto({
   weight: ["400"],
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   const { isAuth, userData } = useAppSelector(state => state.authReducer)
   const dispatch = useAppDispatch()
   const router = useRouter();
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
 
   const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL
 
