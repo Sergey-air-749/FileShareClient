@@ -1,10 +1,10 @@
 "use client"
 import { ChangeEvent, FormEvent, useState } from "react";
 import Link from "next/link";
-import style from "../../../../style/change.name.module.css"
+import style from "@/style/change.name.module.css"
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { useAppSelector } from "../../../../components/hooks";
+import { useAppSelector } from "@/components/hooks";
 
 export default function ChangeEmail() {
 
@@ -86,7 +86,7 @@ export default function ChangeEmail() {
         <div className={style.changeName}>
 
             
-            <form className={style.changePassword} onSubmit={(e) => submitUserUpData(e)}>
+            <form className={style.formChangeName} onSubmit={(e) => submitUserUpData(e)}>
 
                 {/* <header className={style.accountHeader}>
   
@@ -109,8 +109,8 @@ export default function ChangeEmail() {
                         <svg width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M54 49.5C54 54.1944 45.4934 58 35 58C24.5066 58 16 54.1944 16 49.5C16 47.0553 18.3069 44.8517 22 43.301C25.3986 41.874 29.9712 41 35 41C45.4934 41 54 44.8056 54 49.5Z" fill="#96C3FF"/>
                             <circle cx="35" cy="30" r="8" fill="#96C3FF"/>
-                            <circle cx="35" cy="35" r="23.5" stroke="#008CFF" stroke-width="3"/>
-                            <circle cx="52" cy="51" r="8" fill="white" stroke="white" stroke-width="2"/>
+                            <circle cx="35" cy="35" r="23.5" stroke="#008CFF" strokeWidth="3"/>
+                            <circle cx="52" cy="51" r="8" fill="white" stroke="white" strokeWidth="2"/>
                             <path d="M50.4024 54.6395L47.7522 55.1684L48.2811 52.5182L54.8923 45.907L57.0136 48.0283L50.4024 54.6395Z" fill="white" stroke="#008CFF"/>
                             <rect x="57.7207" y="48.0283" width="3" height="4" rx="0.2" transform="rotate(135 57.7207 48.0283)" fill="#008CFF"/>
                         </svg>

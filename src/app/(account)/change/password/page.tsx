@@ -1,7 +1,7 @@
 "use client"
 import { ChangeEvent, FormEvent, useState } from "react";
 import Link from "next/link";
-import style from "../../../../style/change.password.module.css"
+import style from "@/style/change.password.module.css"
 import { useRouter } from "next/navigation";
 import axios from "axios";
 

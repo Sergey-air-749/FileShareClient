@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect, ChangeEvent, useRef, FormEvent } from "react"
-import style from "../../../style/account.module.css";
-import { useAppSelector, useAppDispatch, useAppStore } from '../../../components/hooks'
+import style from "@/style/account.module.css";
+import { useAppSelector, useAppDispatch, useAppStore } from '@/components/hooks'
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";

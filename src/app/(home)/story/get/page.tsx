@@ -1,9 +1,9 @@
 "use client"
 import { useState, useEffect } from "react";
-import style from "../../../../style/getFileStory.module.css";
+import style from "@/style/getFileStory.module.css";
 
-import { useAppSelector, useAppDispatch, useAppStore } from '../../../../components/hooks'
-import { setAuth, setUserData } from '../../../../festures/authSlice'
+import { useAppSelector, useAppDispatch, useAppStore } from '@/components/hooks'
+import { setAuth, setUserData } from '@/festures/authSlice'
 import { useRouter } from "next/navigation";
 
 import Link from "next/link";

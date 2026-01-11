@@ -1,6 +1,6 @@
 "use client"
 import { ChangeEvent, FormEvent, MouseEvent, useState } from "react";
-import style from "../../../style/signup.module.css"
+import style from "@/style/signup.module.css"
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import Link from "next/link";

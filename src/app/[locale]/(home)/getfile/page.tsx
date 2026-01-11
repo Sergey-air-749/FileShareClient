@@ -1,9 +1,9 @@
 "use client"
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import style from "../../../style/getfile.module.css";
+import style from "@/style/getfile.module.css";
 
-import { setAuth, setUserData } from '../../../../festures/authSlice'
-import { useAppSelector, useAppDispatch, useAppStore } from '../../../../components/hooks'
+import { setAuth, setUserData } from '@/festures/authSlice'
+import { useAppSelector, useAppDispatch, useAppStore } from '@/components/hooks'
 
 
 import Link from "next/link";
@@ -497,7 +497,7 @@ export default function Getfile() {
               <p>id Вашего устройства устройства</p>
               {
                 userData == null ? (
-                  <h2>Загрузка...</h2>
+                  <h2>Загрузка@.</h2>
                 ) : (
                   <div className={style.userId}>
 

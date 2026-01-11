@@ -5,8 +5,8 @@ import Link from "next/link";
 import { NextIntlClientProvider } from "next-intl";
 import {getMessages} from 'next-intl/server';
 
-import "../../style/global.css";
-import style from "../../style/layout.main.module.css";
+import "@/style/global.css";
+import style from "@/style/layout.main.module.css";
 
 import StoreProvider from "@/components/StoreProvider";
 

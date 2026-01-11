@@ -2,15 +2,15 @@
 import { Roboto } from "next/font/google";
 import Link from "next/link";
 
-import "../../style/global.css";
-import style from "../../style/layout.home.module.css";
-import { useAppSelector, useAppDispatch, useAppStore } from '../../components/hooks'
+import "@/style/global.css";
+import style from "@/style/layout.home.module.css";
+import { useAppSelector, useAppDispatch, useAppStore } from '@/components/hooks'
 import { useEffect, useState } from "react";
 
 // import { useTranslation } from "react-i18next";
-// import i18nextCF from "../../translations/i18n.client";
+// import i18nextCF from "translations/i18n.client";
 
-import { setAuth, setUserData } from '../../festures/authSlice'
+import { setAuth, setUserData } from '@/festures/authSlice'
 import axios from "axios";
 
 import { useRouter, useSearchParams  } from "next/navigation";

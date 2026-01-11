@@ -1,12 +1,12 @@
 'use client'
 
-import "../../style/global.css";
-import style from "../../style/layout.account.module.css";
-import accessdDnied from "../../style/accessd.dnied.account.module.css"
-import { useAppSelector, useAppDispatch, useAppStore } from '../../components/hooks'
+import "@/style/global.css";
+import style from "@/style/layout.account.module.css";
+import accessdDnied from "@/style/accessd.dnied.account.module.css"
+import { useAppSelector, useAppDispatch, useAppStore } from '@/components/hooks'
 import { useEffect, useState } from "react";
 
-import { setAuth, setUserData } from '../../festures/authSlice'
+import { setAuth, setUserData } from '@/festures/authSlice'
 import axios from "axios";
 
 import { useRouter, useSearchParams  } from "next/navigation";

@@ -1,10 +1,10 @@
 "use client"
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
-import style from "../../../../style/recovering.successfully.module.css"
+import style from "@/style/recovering.successfully.module.css"
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { useAppSelector } from "../../../../components/hooks";
+import { useAppSelector } from "@/components/hooks";
 
 export default function RecoverSuccessfully() {
 
