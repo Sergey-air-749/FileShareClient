@@ -34,7 +34,7 @@ export default function Getfile() {
 
   useEffect(() => {
     if (!socketRef.current) {
-      socketRef.current = io('http://localhost:7001/');
+      socketRef.current = io(`${soketUrl}/`);
     }
 
     return () => {

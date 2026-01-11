@@ -42,10 +42,11 @@ function Sendfile() {
   const socketRef = useRef<Socket | any>(null);
 
   const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL
+  const soketUrl = process.env.NEXT_PUBLIC_SERVER_SOKET_URL
   
   useEffect(() => {
     if (!socketRef.current) {
-      socketRef.current = io('http://localhost:7001/');
+      socketRef.current = io(`${soketUrl}/`);
     }
 
     return () => {
