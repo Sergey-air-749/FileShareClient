@@ -76,7 +76,7 @@ export default function ChangeEmail() {
             
                 const token = localStorage?.getItem('token')
 
-                const response = await axios.get('/api/change/email/new',
+                const response = await axios.get(apiUrl + '/api/change/email/new',
                     {
                         headers: {
                             'authorization': `Bearer ${token}`,
@@ -111,7 +111,7 @@ export default function ChangeEmail() {
             
                 const token = localStorage?.getItem('token')
 
-                const response = await axios.get('/api/change/email/cancel',
+                const response = await axios.get(apiUrl + '/api/change/email/cancel',
                     {
                         headers: {
                             'authorization': `Bearer ${token}`,

@@ -33,6 +33,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   const router = useRouter();
   // const searchParams = useSearchParams();
 
+
+
+  // ⨯ Функция useSearchParams() должна быть заключена в разделитель Suspense на странице "/change/email". Подробнее: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout в g (/vercel/path0/.next/server/chunks/560.js:1:106635) в m (/vercel/path0/.next/server/chunks/560.js:9:14166) в k (/vercel/path0/.next/server/app/(account)/account/page.js:2:21308) в n3 (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:2:82831) в n6 (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:2:84601) в n5 (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:2:104801) в n7 (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:2:102219) в n8 (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:2:83183) в n6 (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:2:84647) в n6 (/vercel/path0/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:2:101560)Произошла ошибка при предварительной отрисовке страницы "/change/email". Подробнее: https://nextjs.org/docs/messages/prerender-errorПри экспорте возникла ошибка в /(account)/change/email/page: /change/email, сборка завершена.⨯ Рабочий процесс сборки Next.js завершился с кодом: 1 и сигналом: nullОшибка: Команда "npm run build" завершилась с кодом 1.
+
   //useSearchParams Error
 
   const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL
