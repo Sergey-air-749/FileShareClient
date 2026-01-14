@@ -393,7 +393,7 @@ function Sendfile() {
             </div>
 
             <div className={style.formTitle}>
-              <h2>Отпавить файл</h2>
+              <h2>Отправить файл</h2>
               <p>Здесь вы можите отправить файл на другое устройства</p>
             </div>
 

@@ -196,7 +196,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                   { 
 
                   isAuth == false ? (
-                    <div></div>
+                    <div className={style.loadingUserData}>
+                      <h2>Загрузка</h2>
+                    </div>
                   ) : (
 
                     userData?.isGuest == undefined ? (
@@ -243,11 +245,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                     ) : (
                       <div>
 
+
                         <nav className={style.navBurgerMenuLinks}>
                           <a className={style.LinkBurgerMenu} href="/sendfile">Отправить</a>
                           <a className={style.LinkBurgerMenu} href="/getfile">Получить</a>
                           <a className={style.LinkBurgerMenu} href="/story">История</a>
-                          <button className={style.buttonLogOutBurgerMenu} onClick={() => logOutFun()}>Выход</button>
+
+                          <a className={style.LinkBurgerMenu} href="/signup">Регистрация</a>
+                          <a className={style.LinkBurgerMenu} href="/login">Вход</a>
+
 
                           {/* <button onClick={() => changeLanguageFun("en")}>EN</button>
                           <button onClick={() => changeLanguageFun("ru")}>RU</button> */}
