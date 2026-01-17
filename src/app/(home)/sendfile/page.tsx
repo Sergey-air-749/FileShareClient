@@ -529,7 +529,7 @@ function Sendfile() {
                         <div className={style.recipientDetails}>
 
                           <div className={style.recipientDetailsAvatarBlock}>
-                            <img src='https://fileshareserver-8pto.onrender.com/api/images/avatars/default' alt="" className={style.recipientDetailsAvatar}/>
+                            <img src={apiUrl + '/api/images/avatars/default'} alt="" className={style.recipientDetailsAvatar}/>
                           </div>
 
                           <div className={style.recipientDetailsInfo}>

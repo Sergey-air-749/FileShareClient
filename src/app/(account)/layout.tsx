@@ -58,7 +58,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 if (serverMessage.response?.data?.msg != "invalid token" || serverMessage.response?.data?.msg != "invalid data") {
 
                   if (location.pathname != '/delete/successfully' && location.pathname != '/recovering/successfully') {
-                    // router.push('/login')
+                    router.push('/login')
                   }
 
                 }
