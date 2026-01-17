@@ -30,7 +30,7 @@ export default function Getfile() {
   const socketRef = useRef<Socket | any>(null);
 
   const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL
-  const soketUrl = process.env.NEXT_PUBLIC_SERVER_SOKET_URL
+  const soketUrl = process.env.NEXT_PUBLIC_SERVER_SOCET_URL
 
   useEffect(() => {
     if (!socketRef.current) {
@@ -91,7 +91,7 @@ export default function Getfile() {
 
       //Получает файл преоброзует его споиащю блоб ии создаёт ссылку
 
-      const response = await axios.get(apiUrl + `/api/getDownloadNew/file/${userData?.shareId}/${id}`)
+      const response = await axios.get(soketUrl + `/api/getDownloadNew/file/${userData?.shareId}/${id}`)
       //console.log(response.data);
 
       let link = document.createElement('a');
@@ -136,7 +136,7 @@ export default function Getfile() {
   const textCopyFun = async (text: String, id: String) => {
     //console.log(text);
     navigator.clipboard.writeText(String(text))
-    const response = await axios.get(apiUrl + `/api/getDownloadNew/text/${userData?.shareId}/${id}`)
+    const response = await axios.get(soketUrl + `/api/getDownloadNew/text/${userData?.shareId}/${id}`)
     //console.log(response.data);
 
     const newFiles = files.filter((item) => item.id != id)
@@ -164,7 +164,7 @@ export default function Getfile() {
 
           navigator.clipboard.writeText(String(files[i].text))
 
-          const response = await axios.get(apiUrl + `/api/getDownloadNew/text/${userData?.shareId}/${files[i].id}`)
+          const response = await axios.get(soketUrl + `/api/getDownloadNew/text/${userData?.shareId}/${files[i].id}`)
           //console.log(response.data);
 
           const newFiles = files.filter((item) => item.id != files[i].id)
@@ -178,7 +178,7 @@ export default function Getfile() {
 
           //Получает файл преоброзует его споиащю блоб ии создаёт ссылку
 
-          const response = await axios.get(apiUrl + `/api/getDownloadNew/file/${userData?.shareId}/${files[i].id}`)
+          const response = await axios.get(soketUrl + `/api/getDownloadNew/file/${userData?.shareId}/${files[i].id}`)
           //console.log(response.data);
 
           let link = document.createElement('a');
@@ -229,7 +229,7 @@ export default function Getfile() {
       const token = localStorage?.getItem("token")
 
       setFiles([])
-      const response = await axios.post(apiUrl + '/api/files/cancel/' + userData?.shareId,
+      const response = await axios.post(soketUrl + '/api/files/cancel/' + userData?.shareId,
         {}, 
         {
           headers: {
@@ -252,7 +252,7 @@ export default function Getfile() {
 
       const token = localStorage?.getItem("token")
 
-      const response = await axios.post(apiUrl + '/api/files/cancel/' + userData?.shareId + '/' +  id, 
+      const response = await axios.post(soketUrl + '/api/files/cancel/' + userData?.shareId + '/' +  id, 
         {}, 
         {
           headers: {

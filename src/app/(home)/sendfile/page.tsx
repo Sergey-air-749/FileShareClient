@@ -43,7 +43,7 @@ function Sendfile() {
   const socketRef = useRef<Socket | any>(null);
 
   const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL
-  const soketUrl = process.env.NEXT_PUBLIC_SERVER_SOKET_URL
+  const soketUrl = process.env.NEXT_PUBLIC_SERVER_SOCET_URL
   
   useEffect(() => {
     if (!socketRef.current) {
@@ -201,7 +201,7 @@ function Sendfile() {
         
         setRecipientDetailsDataShow(true)
 
-        const response = await axios.get(apiUrl + '/api/getUserDataById/' + value);
+        const response = await axios.get(soketUrl + '/api/getUserDataById/' + value);
   
         //console.log('Response:', response);
   
@@ -287,7 +287,7 @@ function Sendfile() {
 
           //console.log(obj);
 
-          const response = await axios.post(apiUrl + '/api/textLoad/' + shareId, obj, {
+          const response = await axios.post(soketUrl + '/api/textLoad/' + shareId, obj, {
             headers: {
               'Content-Type': 'application/json',
               'authorization': `Bearer ${token}`,
@@ -328,7 +328,7 @@ function Sendfile() {
           //console.log(username);
 
 
-          const response = await axios.post(apiUrl + '/api/fileLoadNew/' + shareId, formData, {
+          const response = await axios.post(soketUrl + '/api/fileLoadNew/' + shareId, formData, {
             headers: {
               'authorization': `Bearer ${token}`,
             }

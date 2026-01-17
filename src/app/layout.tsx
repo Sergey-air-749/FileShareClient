@@ -21,7 +21,10 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   
   return (
-    <html lang='en'>
+    <html lang='ru'>
+      <head>
+        <meta name="google" content="notranslate" />
+      </head>
       <body className={robotoSans.className}>
 
           <StoreProvider>
