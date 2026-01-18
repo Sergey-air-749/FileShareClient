@@ -43,7 +43,7 @@ function Sendfile() {
   const socketRef = useRef<Socket | any>(null);
 
   const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL
-  const fileApiUrl = process.env.NEXT_PUBLIC_SERVER_FILE_API_UR
+  const fileApiUrl = process.env.NEXT_PUBLIC_SERVER_FILE_API_URL
   const soketUrl = process.env.NEXT_PUBLIC_SERVER_SOCET_URL
   
   useEffect(() => {
