@@ -22,6 +22,8 @@ export default function getFileStory() {
     const router = useRouter()
 
     const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL
+    const fileApiUrl = process.env.NEXT_PUBLIC_SERVER_FILE_API_UR
+    const soketUrl = process.env.NEXT_PUBLIC_SERVER_SOCET_URL
 
     const getUserData = async () => {
 
@@ -71,7 +73,7 @@ export default function getFileStory() {
 
         try {
 
-            const response = await axios.post(apiUrl + '/api/story/get/deleteAll/', {}, {
+            const response = await axios.post(fileApiUrl + '/api/story/get/deleteAll/', {}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
@@ -109,7 +111,7 @@ export default function getFileStory() {
 
         try {
 
-            const response = await axios.post(apiUrl + '/api/story/get/delete/' + id, {}, {
+            const response = await axios.post(fileApiUrl + '/api/story/get/delete/' + id, {}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,

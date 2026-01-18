@@ -23,6 +23,7 @@ export default function sendFileStory() {
     const socketRef = useRef<Socket | any>(null);
 
     const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL
+    const fileApiUrl = process.env.NEXT_PUBLIC_SERVER_FILE_API_UR
     const soketUrl = process.env.NEXT_PUBLIC_SERVER_SOCET_URL
 
     useEffect(() => {
@@ -84,7 +85,7 @@ export default function sendFileStory() {
 
         try {
 
-            const response = await axios.post(soketUrl + '/api/story/send/deleteAll/', {}, {
+            const response = await axios.post(fileApiUrl + '/api/story/send/deleteAll/', {}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
@@ -125,7 +126,7 @@ export default function sendFileStory() {
 
         try {
 
-            const response = await axios.post(soketUrl + '/api/story/send/delete/' + id, {}, {
+            const response = await axios.post(fileApiUrl + '/api/story/send/delete/' + id, {}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
@@ -166,7 +167,7 @@ export default function sendFileStory() {
 
         try {
 
-            const response = await axios.post(soketUrl + '/api/files/send/delete/' + id, 
+            const response = await axios.post(fileApiUrl + '/api/files/send/delete/' + id, 
                 {
                     userWillReceiveName: userWillReceive
                 }, 

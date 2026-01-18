@@ -211,6 +211,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
                             <div className={style.userData}>
 
+                              {/* Все аватарки хранятся в S3 из-за чего незьзя сделать конструкцию {`${apiUrl}${userData?.avatar[400] as string | undefined}`} */}
+
                               <div className={style.userAvatarBlock}>
                                 <img className={style.userAvatarImg} src={ userData?.avatar[400] as string | undefined } alt={`Аватар пользователя ${userData?.username}`}/>
                               </div>
