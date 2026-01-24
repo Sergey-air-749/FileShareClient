@@ -95,7 +95,7 @@ export default function Account() {
 
                 //console.log(response);
                 closeAvatarFullViewPopUp()
-                location.reload()
+                // location.reload()
                 
                     
             } else {
