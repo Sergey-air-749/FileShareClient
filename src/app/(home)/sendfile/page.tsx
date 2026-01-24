@@ -253,13 +253,19 @@ function Sendfile() {
       const date = new Date()
       let device = ""
 
+      let month: number | string = date.getMonth() + 1
+
+      if (month < 10) {
+        month = '0' + month
+      }
+
       let minutes: string | number = date.getMinutes();
 
       if (minutes < 10) {
         minutes = '0' + minutes;
       }
 
-      let dateParse = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}, ${date.getHours()}:${minutes}`
+      let dateParse = `${date.getDate()}.${month}.${date.getFullYear()}, ${date.getHours()}:${minutes}`
 
       const userAgentString = navigator.userAgent;
 
