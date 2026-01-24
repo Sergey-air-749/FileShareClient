@@ -76,8 +76,19 @@ export default function Account() {
 
                 const token = localStorage?.getItem("token")
 
+                const date = new Date()
+
+                let month: number | string = date.getMonth() + 1
+
+                if (month < 10) {
+                    month = '0' + month
+                }
+
+                // console.log(`${date.getDate()}${month}${date.getFullYear()}`)
+
                 const formData = new FormData();
                 formData.append('avatar', fileAvatar[0]);
+                formData.append('v', `${date.getDate()}${month}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`);
 
                 formData.forEach((value, key) => {
                     //console.log(`${key}:`, value);
@@ -95,7 +106,7 @@ export default function Account() {
 
                 //console.log(response);
                 closeAvatarFullViewPopUp()
-                // location.reload()
+                location.reload()
                 
                     
             } else {
