@@ -95,7 +95,7 @@ export default function Account() {
 
                 //console.log(response);
                 closeAvatarFullViewPopUp()
-                // location.reload()
+                location.reload()
                 
                     
             } else {
@@ -235,12 +235,12 @@ export default function Account() {
                     )
                 }
 
-
+{/* 
                 {
                     deleteAccountPopUp != false ? (
                         <div className={style.deleteAccountBackground}>
 
-                            <form className={style.deleteAccount} onSubmit={(e) => upLoadAvatar(e)}>
+                            <div className={style.deleteAccount}>
 
                                 <div className={style.deleteAccountInfo}>
                                     <h2>Удалить аккаунт</h2>
@@ -252,7 +252,7 @@ export default function Account() {
                                     <button type="button" onClick={() => closeDeleteAccountPopUpFun()} className={style.styleButtonCancel}>Отмена</button>
                                 </div>
 
-                            </form>
+                            </div>
 
                         </div>
                     ) : (
@@ -260,7 +260,7 @@ export default function Account() {
                     )
                 }
 
-                
+                 */}
 
 
 

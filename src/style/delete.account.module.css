@@ -119,8 +119,17 @@
     font-weight: 600;
     border-radius: 100px;
     padding: 10px 120px;
+    transition: 0.2s all ;
     outline: none;
     gap: 5px;
+}
+
+.styleButtonDelete:hover {
+    background-color: var(--colorCancelHover);
+}
+
+.styleButtonDelete:active {
+    background-color: var(--colorCancel);
 }
 
 
@@ -128,6 +137,57 @@
 .error {
     color: rgb(255, 137, 137);
 }
+
+
+
+
+
+
+
+
+
+.userDataLoaderBackground {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-color: #000000;
+}
+
+.userDataLoader {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.userDataLoaderImg {
+  width: 75px;
+  animation: load linear 2s infinite; 
+}
+
+@keyframes load {
+    0% { 
+        transform: rotate(0deg); 
+    }
+
+    100% { 
+        transform: rotate(360deg); 
+    }    
+
+}
+
+
+
+
+
 
 
 

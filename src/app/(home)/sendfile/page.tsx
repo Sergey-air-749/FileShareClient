@@ -34,6 +34,12 @@ function Sendfile() {
   const { isAuth, userData } = useAppSelector(state => state.authReducer)
   const route = useRouter()
 
+  // увеличеть размер текст в инпутах ✅
+  // добавить анимации ✅
+  // переделать обновление аватарок
+  // добавить загрузку ✅
+  // адаптировать насстройки аккаунта ✅
+
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const fileAddInputRef = useRef<HTMLInputElement | null>(null);
   const textareaInputRef = useRef<HTMLTextAreaElement | null>(null);
@@ -395,7 +401,7 @@ function Sendfile() {
 
             <div className={style.formTitle}>
               <h2>Отправить файл</h2>
-              <p>Здесь вы можите отправить файл на другое устройства</p>
+              <p>Здесь вы можете отправить файл на другое устройства</p>
             </div>
 
             <div className={style.selectBlock}>

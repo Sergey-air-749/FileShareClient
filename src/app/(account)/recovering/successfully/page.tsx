@@ -2,28 +2,9 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import style from "@/style/recovering.successfully.module.css"
-import { useRouter } from "next/navigation";
-import axios from "axios";
-import { useAppSelector } from "@/components/hooks";
 
 export default function RecoverSuccessfully() {
 
-    const { isAuth, userData } = useAppSelector(state => state.authReducer)
-    const [password, setPassword] = useState("")
-    const [showPasswordStatus, setShowPasswordStatus] = useState("password")
-    const [isVerify, setIsVerify] = useState(false)
-    const [message, setMessage] = useState("")
-    const [error, setError] = useState("")
-
-    const passwordRegexp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    
-    const router = useRouter()
-
-    const validationInputPassword = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value
-        //console.log(passwordRegexp.test(value)); 
-        setPassword(value)  
-    }
 
     return (
         <div className={style.recoverAccountSuccessfully}>

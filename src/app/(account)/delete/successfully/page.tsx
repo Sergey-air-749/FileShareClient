@@ -9,92 +9,10 @@ import { useAppSelector } from "@/components/hooks";
 export default function SignupEmail() {
 
     const { isAuth, userData } = useAppSelector(state => state.authReducer)
-    const [password, setPassword] = useState("")
-    const [showPasswordStatus, setShowPasswordStatus] = useState("password")
-    const [isVerify, setIsVerify] = useState(false)
-    const [message, setMessage] = useState("")
-    const [error, setError] = useState("")
-
-    const passwordRegexp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    
+   
     const router = useRouter()
 
     const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL
-
-    const validationInputPassword = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value
-        //console.log(passwordRegexp.test(value)); 
-        setPassword(value)  
-    }
-
-
-
-    useEffect(() => {
-
-        const verifySession = async () => {
-            try {
-
-                const token = localStorage?.getItem('token')
-
-                const response = await axios.get(apiUrl + '/api/get/session',
-
-                    {
-                        headers: {
-                            'authorization': `Bearer ${token}`,
-                            'Content-Type': 'application/json'
-                        }, 
-                    }
-                );
-
-                const localSession = localStorage.getItem('session')
-                const serverSession = response.data.sessionId
-
-                //console.log(response);
-                //console.log(localSession);
-                
-                if (localSession != serverSession) {
-                    router.back()
-                } else {
-                    setIsVerify(true)
-                }
-
-            } catch (error) {
-                console.log(error);
-                if (axios.isAxiosError(error)) {
-                    const serverMessage = error
-                    //console.log(serverMessage);
-                    
-                    if (serverMessage.response?.data?.msg != undefined) {
-                        console.log(serverMessage.response?.data?.msg);     
-                        if (serverMessage.response?.data?.msg == 'Нет сессий') {
-                            location.pathname = '/delete/verification'
-                        }
-                        setError(serverMessage.response?.data?.msg)
-                    } else {
-                        console.log(serverMessage.message)
-                        setError(serverMessage.message)
-                    }
-                }
-            }
-        }
-
-        // verifySession()
-
-    }, [])
-
-
-    const buttonBackPage = async () => {
-        router.back
-    }
-
-    const showPasswordFun = () => {
-        if (showPasswordStatus == "password") {
-            setShowPasswordStatus("text")
-        } else {
-            setShowPasswordStatus("password")
-        }
-    }
-
 
     return (
         <div className={style.deleteAccountSuccessfully}>
@@ -136,7 +54,6 @@ export default function SignupEmail() {
 
                     </main>
                 </div>
-
 
 
 

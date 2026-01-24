@@ -115,7 +115,17 @@
     text-decoration: none;
     padding: 15px 20px;
     border-bottom: 1px solid #343434;
+    transition: 0.1s all ;
 }
+
+.link:hover {
+    background-color:#2c2c2c;
+}
+
+.link:active {
+    background-color:#343434;
+}
+
 
 .linkButton {
     color: #ffffff;
@@ -126,6 +136,15 @@
     border-bottom: 1px solid #343434;
     font-size: 16px;
     text-align: start;
+    transition: 0.2s all ;
+}
+
+.linkButton:hover {
+    background-color: #2c2c2c;
+}
+
+.linkButton:active {
+    background-color: #202020;
 }
 
 
@@ -230,6 +249,15 @@
     padding: 12px 15px;
     outline: none;
     width: 100%;
+    transition: 0.2s all ;
+}
+
+.styleButtonSave:hover {
+    background-color: #0078da;;
+}
+
+.styleButtonSave:active {
+    background-color: #008cff;
 }
 
 .styleButtonCancel {
@@ -242,6 +270,15 @@
     padding: 12px 15px;
     outline: none;
     width: 100%;
+    transition: 0.2s all ;
+}
+
+.styleButtonCancel:hover {
+    background-color: #1d1d1d;
+}
+
+.styleButtonCancel:active {
+    background-color: #131313;;
 }
 
 .styleButtonPopUpClose {
@@ -323,6 +360,15 @@
     padding: 12px 15px;
     outline: none;
     width: 100%;
+    transition: 0.2s all;
+}
+
+.styleButtonDelete:hover {
+    background-color: var(--colorCancelHover);
+}
+
+.styleButtonDelete:active {
+    background-color: var(--colorCancel);
 }
 
 
@@ -357,11 +403,20 @@
     padding: 5px;
 }
 
-.colorRed {
+.buttonLogOut:hover {
+    color: #ff6868;
+}
+
+.buttonLogOut:active {
     color: #ff7b7b;
 }
 
 
+
+
+.colorRed {
+    color: #ff7b7b;
+}
 
 .hide {
     display: none;
@@ -370,7 +425,7 @@
 @media (max-width: 430px) {
 
     .accountBlock {
-        width: 370px;
+        width: 90%;
     }
 
     .avatarPreviwe {
@@ -379,21 +434,4 @@
     }
 
 }
-
-@media (max-width: 380px) {
-
-    .accountBlock {
-        width: 350px;
-    }
-
-}
-
-@media (max-width: 320px) {
-
-    .accountBlock {
-        width: 300px;
-    }
-
-}
-
 

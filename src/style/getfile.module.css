@@ -222,8 +222,17 @@
     font-weight: 600;
     border-radius: 100px;
     padding: 10px 15px;
+    transition: 0.2s all ;
     outline: none;
     gap: 5px;
+}
+
+.styleButtonDownlode:hover {
+    background-color: var(--blueHover);
+}
+
+.styleButtonDownlode:active {
+    background-color: var(--blue);
 }
 
 .styleButtonDownlodeCancel {
@@ -237,8 +246,17 @@
     font-weight: 600;
     border-radius: 100px;
     padding: 10px 15px;
+    transition: 0.2s all ;
     outline: none;
     gap: 5px;
+}
+
+.styleButtonDownlodeCancel:hover {
+    background-color: var(--colorCancelHover);
+}
+
+.styleButtonDownlodeCancel:active {
+    background-color: var(--colorCancel);
 }
 
 
@@ -250,8 +268,17 @@
     font-weight: 600;
     border-radius: 100px;
     padding: 12px 15px;
+    transition: 0.2s all ;
     outline: none;
     width: 100%;
+}
+
+.styleButtonAccept:hover {
+    background-color: var(--blueHover);
+}
+
+.styleButtonAccept:active {
+    background-color: var(--blue);
 }
 
 .styleButtonCancel {
@@ -262,8 +289,17 @@
     font-weight: 600;
     border-radius: 100px;
     padding: 12px 15px;
+    transition: 0.2s all ;
     outline: none;
     width: 100%;
+}
+
+.styleButtonCancel:hover {
+    background-color: var(--colorCancelHover);
+}
+
+.styleButtonCancel:active {
+    background-color: var(--colorCancel);
 }
 
 
@@ -301,6 +337,7 @@
     font-weight: 600;
     border-radius: 100px;
     padding: 10px 15px;
+    
     outline: none;
     gap: 5px;
     width: 100%;
@@ -359,6 +396,7 @@
     color: var(--width);
     border-radius: 100px;
     padding: 12px 15px;
+    font-size: 16px;
     outline: none;
 }
 
@@ -452,6 +490,11 @@
     text-decoration: none;
     padding: 10px 30px;
     border-radius: 50px;
+    transition: 0.2s all ;
+}
+
+.LinkExchange:hover {
+    background-color: rgb(52, 52, 52);
 }
 
 .select {

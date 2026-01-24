@@ -24,7 +24,16 @@
 }
 
 .Link {
+    font-size: 16px;
     color: #b8b8b8;
     text-decoration: none;
-    padding: 5px;
+    transition: 0.2s all ;
+}
+
+.Link:hover {
+    color: #d4d4d4;
+}
+
+.Link:active {
+    color: #b8b8b8;
 }
