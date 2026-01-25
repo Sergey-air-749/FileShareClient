@@ -282,6 +282,29 @@
     background-color: #131313;;
 }
 
+
+
+.styleButtonChooseAnother {
+    background-color: #131313;
+    border: none;
+    color: var(--width);
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 100px;
+    padding: 12px 15px;
+    outline: none;
+    width: 100%;
+    transition: 0.2s all ;
+}
+
+.styleButtonChooseAnother:hover {
+    background-color: #1d1d1d;
+}
+
+.styleButtonChooseAnother:active {
+    background-color: #131313;;
+}
+
 .styleButtonPopUpClose {
     display: flex;
     align-items: center;

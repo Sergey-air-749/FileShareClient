@@ -293,7 +293,10 @@ export default function Account() {
                                                     </button>
 
                                                 ) : (
-                                                    <button type="submit" className={style.styleButtonSave}>Сохранить</button>
+                                                    <div className={style.avatarPreviweButtons}>
+                                                        <button type="submit" className={style.styleButtonSave}>Сохранить</button>
+                                                        <button type="button" onClick={() => fileInputChange()} className={style.styleButtonChooseAnother}>Выбрать другую</button>
+                                                    </div>
                                                 )
 
                                             }
