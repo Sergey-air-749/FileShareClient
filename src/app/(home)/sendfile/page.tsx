@@ -20,25 +20,35 @@ interface recipientDetailsData {
 
 
 
+// увеличеть размер текст в инпутах ✅
+// добавить анимации ✅
+// переделать обновление аватарок ✅
+// добавить загрузку ✅
+// адаптировать насстройки аккаунта ✅
+
+
+// Gif Аватарки ✅
+// Анимация загрузки при отправке файла ✅
+
+
+
 function Sendfile() {
   const [files, setFiles] = useState<File[]>([])
   const [text, setText] = useState("")
   const [shareId, setShareId] = useState("")
+
   const [option, setOption] = useState("File")
   const [error, setError] = useState("")
   const [message, setMessage] = useState("")
+
   const [recipientDetailsDataShow, setRecipientDetailsDataShow] = useState<boolean>(false)
   const [recipientDetailsData, setRecipientDetails] = useState<null | recipientDetailsData>(null)
-  const [translationsLoading, setTranslationsLoading] = useState(false);
+  
+  const [submitFileLoader, setSubmitFileLoader] = useState(false);
 
   const { isAuth, userData } = useAppSelector(state => state.authReducer)
   const route = useRouter()
 
-  // увеличеть размер текст в инпутах ✅
-  // добавить анимации ✅
-  // переделать обновление аватарок
-  // добавить загрузку ✅
-  // адаптировать насстройки аккаунта ✅
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const fileAddInputRef = useRef<HTMLInputElement | null>(null);
@@ -61,6 +71,18 @@ function Sendfile() {
       socketRef.current.disconnect();
     };
   }, []);
+
+
+
+
+  const showSubmitFileLoaderFun = () => {
+    setSubmitFileLoader(true)
+  }
+
+  const closeSubmitFileLoaderFun = () => {
+    setSubmitFileLoader(false)
+  }
+
 
 
 
@@ -243,7 +265,10 @@ function Sendfile() {
   const upLoadFiles = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
+
     try {
+
+      showSubmitFileLoaderFun()
 
       let username = userData?.username
       let sentToUserId = userData?.shareId // Для коректной работы статуса файла
@@ -273,6 +298,10 @@ function Sendfile() {
         device = "iPhone"
       } else if (/iPad/i.test(userAgentString)) {
         device = "iPad"
+      } else if (/Macintosh/i.test(userAgentString)) {
+        device = "Macintosh"
+      } else if (/Linux/i.test(userAgentString)) {
+        device = "Linux"
       } else if (/Android/i.test(userAgentString)) {
         device = "Android"
       } else if (/Windows/i.test(userAgentString)) {
@@ -313,6 +342,8 @@ function Sendfile() {
           setText("")
           socketRef.current.emit('pingfilesShareId', shareId);
           setMessage("Текст отправлены")
+
+          closeSubmitFileLoaderFun()
 
         }
         
@@ -355,6 +386,8 @@ function Sendfile() {
           socketRef.current.emit('pingfilesShareId', shareId);
           setMessage("Файлы отправлены")
 
+          closeSubmitFileLoaderFun()
+
         }
           
       }
@@ -362,6 +395,7 @@ function Sendfile() {
 
 
     } catch (error) {
+        closeSubmitFileLoaderFun()
         console.log(error);
         if (axios.isAxiosError(error)) {
             const serverMessage = error
@@ -567,8 +601,54 @@ function Sendfile() {
 
           </div>
 
+
+          {
+            submitFileLoader != false ? (
+
+              <div className={style.submitFileLoaderBackground}>
+
+              </div>
+
+            ) : (
+              <div></div>
+            )
+          }
+
+
+
+
+
+
           <div className={style.formButtons} style={{color: 'white' }}>
-            <button className={style.styleButton} type="submit">Отправить</button>
+
+            {
+              submitFileLoader != false ? (
+
+                <button className={style.styleButtonSubmitFileLoader} type="button">
+                  
+                  <svg width="25" height="25" className={style.userDataLoaderImg} viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clipPath="url(#clip0_223_516)">
+                          <circle cx="25" cy="25" r="22.5" stroke="#132a47" strokeWidth="5"/>
+                          <path d="M34.5524 45.3716C35.1386 46.6217 34.6033 48.1232 33.3009 48.5817C29.1743 50.0343 24.7234 50.3834 20.3948 49.5722C15.2442 48.6069 10.5271 46.0475 6.91016 42.2557C3.29318 38.4638 0.959162 33.6313 0.237921 28.4408C-0.368215 24.0788 0.19048 19.6493 1.83617 15.5958C2.35556 14.3165 3.88066 13.8527 5.10172 14.4972V14.4972C6.32277 15.1417 6.77389 16.6504 6.28665 17.9423C5.1119 21.0571 4.72854 24.4293 5.19034 27.7527C5.76733 31.905 7.63454 35.7711 10.5281 38.8045C13.4217 41.838 17.1954 43.8855 21.3159 44.6578C24.6137 45.2758 28.0003 45.052 31.1671 44.0255C32.4805 43.5997 33.9662 44.1215 34.5524 45.3716V45.3716Z" fill="#C7E6FF"/>
+                      </g>
+
+                      <defs>
+                          <clipPath id="clip0_223_516">
+                              <rect width="50" height="50" fill="white"/>
+                          </clipPath>
+                      </defs>
+                  </svg>
+                  
+                </button>
+
+              ) : (
+
+                <button className={style.styleButtonSubmit} type="submit">Отправить</button>
+
+              )
+
+            }
+
             <span className={style.message}>{ message }</span>
             <span className={style.error}>{ error }</span>
           </div>

@@ -290,6 +290,7 @@ export default function Getfile() {
 
         <div className={style.formGetfile}>
 
+          {/* file popup */}
 
           <div className={JSON.stringify(files) != JSON.stringify([]) && showPopUp != false ? (style.getFilePopUpBackground) : (style.hide)}>
 
@@ -375,12 +376,12 @@ export default function Getfile() {
 
                                   file.filename != undefined ? ( 
                                     <div className={style.fileButtons}>
-                                      <button className={style.styleButtonDownlodeCancel} type="button" onClick={() => fileCancelFun(file.id)}>Откланить</button>
+                                      <button className={style.styleButtonDownlodeCancel} type="button" onClick={() => fileCancelFun(file.id)}>Отклонить</button>
                                       <button className={style.styleButtonDownlode} type="button" onClick={() => fileAcceptFun(file.filename, file.id)}>Скачать</button>
                                     </div>
                                   ) : file.text != undefined ? (
                                     <div className={style.fileButtons}>
-                                      <button className={style.styleButtonDownlodeCancel} type="button" onClick={() => fileCancelFun(file.id)}>Откланить</button>
+                                      <button className={style.styleButtonDownlodeCancel} type="button" onClick={() => fileCancelFun(file.id)}>Отклонить</button>
                                       <button className={style.styleButtonDownlode} type="button" onClick={() => textCopyFun(file.text, file.id)}>Капировать</button>
                                     </div>
                                   ) : (
@@ -407,7 +408,7 @@ export default function Getfile() {
               <div className={style.getFilePopUpButtonsBlock}>
 
                 <div className={style.getFilePopUpButtons}>
-                  <button type="button" onClick={() => allFilesCancelFun()} className={style.styleButtonCancel}>Откланить всё</button>
+                  <button type="button" onClick={() => allFilesCancelFun()} className={style.styleButtonCancel}>Отклонить всё</button>
                   <button type="button" onClick={() => filesAcceptFun()} className={style.styleButtonAccept}>Принять всё</button>
                 </div>
 
@@ -420,7 +421,11 @@ export default function Getfile() {
           </div>  
 
 
-          <div className={style.formInfo}>
+
+          {/* getfile */}
+
+
+          <div className={style.formHead}>
 
             <div className={style.formIcon}>
 
@@ -446,7 +451,7 @@ export default function Getfile() {
           <div className={style.formData}>
             
             <div className={style.userIdBlock}>
-              <p>id Вашего устройства устройства</p>
+              <p>ID Вашего устройства устройства</p>
               {
                 userData == null ? (
                   <h2>Загрузка</h2>

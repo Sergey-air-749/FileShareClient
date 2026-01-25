@@ -12,6 +12,8 @@ export default function Account() {
     const [showAvatarPreviwePopUp, setAvatarPreviweShowPopUp] = useState(false)
     const [deleteAccountPopUp, setDeleteAccountPopUp] = useState(false)
     const [filePreviwe, setFilePreviwe] = useState<string | ArrayBuffer | null>(null)
+
+    const [submitLoader, setSubmitLoader] = useState(false);
     const [error, setError] = useState('')
 
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -31,6 +33,17 @@ export default function Account() {
         // localStorage.setItem('leave', 'true')
 
     }, [])
+
+
+    
+    const showSubmitLoaderFun = () => {
+        setSubmitLoader(true)
+    }
+
+    const closeSubmitLoaderFun = () => {
+        setSubmitLoader(false)
+    }
+
     
     
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -72,6 +85,8 @@ export default function Account() {
         
         try {
 
+            showSubmitLoaderFun()
+
             if (fileAvatar != null) {
 
                 const token = localStorage?.getItem("token")
@@ -90,12 +105,14 @@ export default function Account() {
                 formData.append('avatar', fileAvatar[0]);
                 formData.append('v', `${date.getDate()}${month}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`);
 
-                formData.forEach((value, key) => {
+                // formData.forEach((value, key) => {
                     //console.log(`${key}:`, value);
-                });
+                // });
 
 
                 const response = await axios.post(apiUrl + '/api/change/avatar', 
+
+
                     formData, 
 
                     {
@@ -114,20 +131,21 @@ export default function Account() {
             }
 
         } catch (error) {
-        console.log(error);
-        if (axios.isAxiosError(error)) {
-            const serverMessage = error
-            //console.log(serverMessage);
-            
-            if (serverMessage.response?.data?.msg != undefined) {
-              console.log(serverMessage.response?.data?.msg);     
-              setError(serverMessage.response?.data?.msg)
-            } else {
-              console.log(serverMessage.message)
-              setError(serverMessage.message)
+            closeSubmitLoaderFun()
+            console.log(error);
+            if (axios.isAxiosError(error)) {
+                const serverMessage = error
+                //console.log(serverMessage);
+                
+                if (serverMessage.response?.data?.msg != undefined) {
+                console.log(serverMessage.response?.data?.msg);     
+                setError(serverMessage.response?.data?.msg)
+                } else {
+                console.log(serverMessage.message)
+                setError(serverMessage.message)
+                }
             }
         }
-    }
 
     }
 
@@ -135,17 +153,38 @@ export default function Account() {
 
         const token = localStorage?.getItem("token")
 
-        const response = await axios.post(apiUrl + '/api/change/avatar/default', 
-            {},
-            {
-                headers: {
-                    'authorization': `Bearer ${token}`,
+        try {
+
+            showSubmitLoaderFun()
+
+            const response = await axios.post(apiUrl + '/api/change/avatar/default', 
+                {},
+                {
+                    headers: {
+                        'authorization': `Bearer ${token}`,
+                    }
+                }
+            );
+
+        } catch (error) {
+            closeSubmitLoaderFun()
+            console.log(error);
+            if (axios.isAxiosError(error)) {
+                const serverMessage = error
+                //console.log(serverMessage);
+                
+                if (serverMessage.response?.data?.msg != undefined) {
+                console.log(serverMessage.response?.data?.msg);     
+                setError(serverMessage.response?.data?.msg)
+                } else {
+                console.log(serverMessage.message)
+                setError(serverMessage.message)
                 }
             }
-        );
+        }
 
         //console.log(response);
-        closeAvatarFullViewPopUp()
+        // closeAvatarFullViewPopUp()
         location.reload()
     }
     
@@ -231,8 +270,48 @@ export default function Account() {
                                         </div>
                                     ) : (
                                         <div className={style.avatarPreviweButtons}>
-                                            <button type="submit" className={style.styleButtonSave}>Сохранить</button>
+
+                                            {
+
+                                                submitLoader != false ? (
+
+                                                    <button className={style.styleButtonLoader} type="button">
+                                                    
+                                                        <svg width="25" height="25" className={style.userDataLoaderImg} viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <g clipPath="url(#clip0_223_516)">
+                                                                <circle cx="25" cy="25" r="22.5" stroke="#132a47" strokeWidth="5"/>
+                                                                <path d="M34.5524 45.3716C35.1386 46.6217 34.6033 48.1232 33.3009 48.5817C29.1743 50.0343 24.7234 50.3834 20.3948 49.5722C15.2442 48.6069 10.5271 46.0475 6.91016 42.2557C3.29318 38.4638 0.959162 33.6313 0.237921 28.4408C-0.368215 24.0788 0.19048 19.6493 1.83617 15.5958C2.35556 14.3165 3.88066 13.8527 5.10172 14.4972V14.4972C6.32277 15.1417 6.77389 16.6504 6.28665 17.9423C5.1119 21.0571 4.72854 24.4293 5.19034 27.7527C5.76733 31.905 7.63454 35.7711 10.5281 38.8045C13.4217 41.838 17.1954 43.8855 21.3159 44.6578C24.6137 45.2758 28.0003 45.052 31.1671 44.0255C32.4805 43.5997 33.9662 44.1215 34.5524 45.3716V45.3716Z" fill="#C7E6FF"/>
+                                                            </g>
+
+                                                            <defs>
+                                                                <clipPath id="clip0_223_516">
+                                                                    <rect width="50" height="50" fill="white"/>
+                                                                </clipPath>
+                                                            </defs>
+                                                        </svg>
+                                                    
+                                                    </button>
+
+                                                ) : (
+                                                    <button type="submit" className={style.styleButtonSave}>Сохранить</button>
+                                                )
+
+                                            }
+
                                         </div>
+                                    )
+                                }
+
+
+                                {
+                                    submitLoader != false ? (
+
+                                        <div className={style.submitLoaderBackground}>
+
+                                        </div>
+
+                                    ) : (
+                                        <div style={{position: 'absolute'}}></div>
                                     )
                                 }
 
