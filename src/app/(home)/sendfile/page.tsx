@@ -18,19 +18,7 @@ interface recipientDetailsData {
   isGuest: boolean
 }
 
-
-
-// увеличеть размер текст в инпутах ✅
-// добавить анимации ✅
-// переделать обновление аватарок ✅
-// добавить загрузку ✅
-// адаптировать насстройки аккаунта ✅
-
-
-// Gif Аватарки ✅
-// Анимация загрузки при отправке файла ✅
-// Аватарка с fixed сколися исправить ✅
-
+// fix отчистки файлов после отправки
 
 
 function Sendfile() {
@@ -143,18 +131,7 @@ function Sendfile() {
         //console.log(fileFilter);
       }
 
-      setFiles(fileFilter) 
-
-      // for (let i = 0; i < files.length; i++) {
-      //   const file = files[i];
-      //   const reader = new FileReader();
-
-      //   reader.readAsDataURL(file);
-
-      //   reader.onload = () => {
-      //     // //console.log(reader.result);
-      //   };
-      // }   
+      setFiles(fileFilter)  
     }
   };
 
@@ -346,6 +323,8 @@ function Sendfile() {
 
           closeSubmitFileLoaderFun()
 
+          setRecipientDetailsDataShow(false)
+
         }
         
       } else if (option == 'File') {
@@ -384,10 +363,16 @@ function Sendfile() {
           setShareId("")
           setText("")
           setFiles([])
+          if (fileInputRef.current && fileAddInputRef.current) {
+            fileInputRef.current.value = ""; // Очищаем сам инпут
+            fileAddInputRef.current.value = ""; // Очищаем сам инпут
+          }
           socketRef.current.emit('pingfilesShareId', shareId);
           setMessage("Файлы отправлены")
 
           closeSubmitFileLoaderFun()
+
+          setRecipientDetailsDataShow(false)
 
         }
           

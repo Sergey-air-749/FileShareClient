@@ -93,6 +93,7 @@
     color: #ffffff;
     border-radius: 100px;
     padding: 10px 30px;
+    transition: 0.2s all ;
     width: 100%;
     font-size: 16px;
     font-weight: 600;
@@ -130,10 +131,11 @@
     font-size: 16px;
     background: none;
     border: none;
+    transition: 0.2s all ;
 }
 
 .loginByButton:hover {
-    color: #d4d4d4;
+    color: #eaeaea;
 }
 
 .loginByButton:active {
@@ -153,7 +155,7 @@
 }
 
 .Link:hover {
-    color: #d4d4d4;
+    color: #eaeaea;
 }
 
 .Link:active {
