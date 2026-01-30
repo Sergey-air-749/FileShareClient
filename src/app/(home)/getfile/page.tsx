@@ -300,7 +300,13 @@ export default function Getfile() {
 
                 <header className={style.getFilePopUpHeader}>
 
-                  <h2 className={style.getFilePopUpTitle}>Принять файлы</h2>
+                  <div className={style.getFilePopUpTitle}>
+
+                    <h2 className={style.getFilePopUpTitleInfo}>Принять файлы</h2>
+                    
+                    <span className={style.getFilePopUpFilesLength}>Количество файлов: {files.length}</span>
+
+                  </div>
 
                   <button type="button" onClick={() => closePopUpFun()} className={style.buttonFilePopUpClose}>                    
                     <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#FFFFFF"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
@@ -346,8 +352,8 @@ export default function Getfile() {
 
                                       </div>
 
-                                      <div className={style.fileName}>
-                                        <span>{file.filename}</span>
+                                      <div>
+                                        <span className={style.fileName}>{file.filename}</span>
                                       </div>
 
                                     </div>
@@ -451,7 +457,7 @@ export default function Getfile() {
           <div className={style.formData}>
             
             <div className={style.userIdBlock}>
-              <p>ID Вашего устройства устройства</p>
+              <p>ID Вашего устройства</p>
               {
                 userData == null ? (
                   <h2>Загрузка</h2>

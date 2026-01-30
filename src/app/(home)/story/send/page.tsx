@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import style from "@/style/sendFileStory.module.css";
 
 import { useAppSelector, useAppDispatch, useAppStore } from '@/components/hooks'
@@ -23,7 +23,7 @@ export default function sendFileStory() {
     const socketRef = useRef<Socket | any>(null);
 
     const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL
-    const fileApiUrl = process.env.NEXT_PUBLIC_SERVER_FILE_API_URLL
+    const fileApiUrl = process.env.NEXT_PUBLIC_SERVER_FILE_API_URL
     const soketUrl = process.env.NEXT_PUBLIC_SERVER_SOCET_URL
 
     useEffect(() => {
@@ -40,7 +40,12 @@ export default function sendFileStory() {
 
     const router = useRouter()
 
-    const getUserData = async () => {
+    useEffect(() => {
+        getUserData()
+    }, [])
+
+
+    const getUserData = useCallback(async () => {
 
         const token = localStorage?.getItem("token")
 
@@ -75,7 +80,7 @@ export default function sendFileStory() {
                 }
             }
         }
-    }
+    }, [])
 
     const deleteAllFilesStory = async () => {
 
@@ -386,8 +391,8 @@ export default function sendFileStory() {
 
                                                         </div>
 
-                                                        <div className={style.fileName}>
-                                                            <span>{file.filename}</span>
+                                                        <div>
+                                                            <span className={style.fileName}>{file.filename}</span>
                                                         </div>
 
                                                     </div>
@@ -423,11 +428,11 @@ export default function sendFileStory() {
                                             </div>
 
                                             <div className={style.fileButtons}>
-                                                <button type="button" onClick={() => deleteFileStory(file.id)} className={` ${style.messageDeletePopUpOptionButton} ${style.filesAllDelete} `}>Удалить</button>
+                                                <button type="button" onClick={() => deleteFileStory(file.id)} className={` ${style.messageDeletePopUpOptionButton} `}>Удалить</button>
 
                                                 {
                                                     file.status == 'sent' ? (
-                                                        <button type="button" onClick={() => deleteSentFile(file.id, file.userWillReceive)} className={` ${style.messageDeletePopUpOptionButton} ${style.filesAllDelete} `}>Отменить отправку</button>
+                                                        <button type="button" onClick={() => deleteSentFile(file.id, file.userWillReceive)} className={` ${style.messageDeletePopUpOptionButton} `}>Отменить отправку</button>
                                                     ) : (
                                                         <div></div>
                                                     )

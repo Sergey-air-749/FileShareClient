@@ -40,7 +40,7 @@
 }
 
 .formHead p {
-    color: #6d6d6d;
+    color: #a5a5a5;
     text-align: center;
 }
 
@@ -140,6 +140,23 @@
 
 .buttonSubmit:active {
     background-color: var(--blue);
+}
+
+
+.styleButtonSubmitLoader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+    background-color: #212121;
+    border: none;
+    color: #ffffff;
+    border-radius: 100px;
+    padding: 10px 30px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 
@@ -273,16 +290,21 @@
   animation: load linear 2s infinite; 
 }
 
+.loaderImg {
+  animation: load linear 2s infinite; 
+}
+
 @keyframes load {
     0% { 
         transform: rotate(0deg); 
-    }
+    }    
 
     100% { 
         transform: rotate(360deg); 
-    }    
+    }        
 
-}
+}    
+
 
 
 

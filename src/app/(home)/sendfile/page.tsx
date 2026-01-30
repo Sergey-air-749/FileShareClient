@@ -18,8 +18,10 @@ interface recipientDetailsData {
   isGuest: boolean
 }
 
-// fix отчистки файлов после отправки
-
+// fix отчистки файлов после отправки ✅
+// Отоброжать количество файлов ✅
+// Кнопку отказ перекрасить в серый ✅
+// Добавить загрузки на кнопку "Получить новый код" ✅
 
 function Sendfile() {
   const [files, setFiles] = useState<File[]>([])
@@ -528,7 +530,9 @@ function Sendfile() {
                 null
               )
             }
-            <input type="tel" value={shareId} name="userId" onChange={(e) => valueShareId(e)} placeholder="id Устройства" className={` ${style.styleInput} `} required/>
+
+
+            <input type="tel" value={shareId} name="userId" onChange={(e) => valueShareId(e)} placeholder="ID Устройства" className={` ${style.styleInput} `} required/>
               
 
             {

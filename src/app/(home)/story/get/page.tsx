@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import style from "@/style/getFileStory.module.css";
 
 import { useAppSelector, useAppDispatch, useAppStore } from '@/components/hooks'
@@ -25,7 +25,12 @@ export default function getFileStory() {
     const fileApiUrl = process.env.NEXT_PUBLIC_SERVER_FILE_API_URL
     const soketUrl = process.env.NEXT_PUBLIC_SERVER_SOCET_URL
 
-    const getUserData = async () => {
+    useEffect(() => {
+        getUserData()
+    })
+
+
+    const getUserData = useCallback(async () => {
 
         const token = localStorage?.getItem("token")
 
@@ -60,7 +65,7 @@ export default function getFileStory() {
                 }
             }
         }
-    }
+    }, [])
 
     const deleteAllFilesStory = async () => {
 
@@ -322,8 +327,8 @@ export default function getFileStory() {
 
                                                             </svg>
                                                                 
-                                                            <div className={style.fileName}>
-                                                                <span>{file.filename}</span>
+                                                            <div>
+                                                                <span className={style.fileName}>{file.filename}</span>
                                                             </div>
 
                                                         </div>

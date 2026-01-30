@@ -79,7 +79,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 450px;
+    width: 500px;
     height: 550px;
     padding: 10px;
     background-color: rgb(36, 36, 36);;
@@ -108,9 +108,21 @@
 }
 
 .getFilePopUpTitle {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.getFilePopUpTitleInfo {
     color: #ffffff;
 }
 
+.getFilePopUpFilesLength {
+    display: flex;
+    align-items: center;
+    color: #c2c2c2;
+    word-break: break-all;
+}
 
 .getFilePopUpItems {
     display: flex;
@@ -174,6 +186,8 @@
     color: #ffffff;
     word-break: break-all;
 }
+
+
 
 .metaData {
     font-size: 14px;
@@ -239,7 +253,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--colorCancel);
+    background-color: #353535;
     border: none;
     color: var(--width);
     font-size: 16px;
@@ -252,11 +266,11 @@
 }
 
 .styleButtonDownlodeCancel:hover {
-    background-color: var(--colorCancelHover);
+    background-color: #2f2f2f;
 }
 
 .styleButtonDownlodeCancel:active {
-    background-color: var(--colorCancel);
+    background-color: #353535;
 }
 
 
@@ -282,7 +296,7 @@
 }
 
 .styleButtonCancel {
-    background-color: var(--colorCancel);
+    background-color: #353535;
     border: none;
     color: var(--width);
     font-size: 16px;
@@ -295,11 +309,11 @@
 }
 
 .styleButtonCancel:hover {
-    background-color: var(--colorCancelHover);
+    background-color: #2f2f2f;
 }
 
 .styleButtonCancel:active {
-    background-color: var(--colorCancel);
+    background-color: #353535;
 }
 
 
@@ -510,6 +524,10 @@
         height: 600px;
     }
 
+    .getFilePopUpTitle {
+        flex-direction: column;
+    }
+
 }
 
 @media (max-width: 430px) {
@@ -529,6 +547,7 @@
 
     .getFilePopUp {
         height: 100%;
+        border-radius: 0px;
     }
 
 }
