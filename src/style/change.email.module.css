@@ -95,19 +95,20 @@
 
 
 
-.currentName {
+.currentEmail {
     display: flex;
     gap: 7px;
 }
 
-.currentName h3 {
+.currentEmail h3 {
     font-size: 16px;
     color: #ffffff;
 }
 
-.currentName span {
+.currentEmail span {
     font-size: 16px;
     color: #b1b1b1;
+    word-break: break-all;
 }
 
 
@@ -326,7 +327,7 @@
         padding-top: 100px;
     }
 
-    .currentName {
+    .currentEmail {
         display: flex;
         flex-direction: column;
         gap: 10px;

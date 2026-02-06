@@ -47,6 +47,12 @@ export default function RecoverSuccessfully() {
                         
                         </div>
 
+                        <div className={style.recoverAccountSuccessfullyButtons}>
+
+                            <a href="/" className={style.linkButton}>На главную</a>
+                        
+                        </div>
+
                     </main>
                 </div>
 

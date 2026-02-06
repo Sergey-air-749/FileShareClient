@@ -109,29 +109,36 @@
     width: 100%;
 }
 
-.styleButtonDelete {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--colorCancel);
+
+
+
+
+
+.linkButton {
+    background-color: #008cff;
     border: none;
-    color: var(--width);
+    color: #ffffff;
+    border-radius: 100px;
+    padding: 10px 30px;
+    transition: 0.2s all;
+    width: 100%;
     font-size: 16px;
     font-weight: 600;
-    border-radius: 100px;
-    padding: 10px 120px;
-    transition: 0.2s all ;
-    outline: none;
-    gap: 5px;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
 }
 
-.styleButtonDelete:hover {
-    background-color: var(--colorCancelHover);
+.linkButton:hover {
+    background-color: #0078da;
 }
 
-.styleButtonDelete:active {
-    background-color: var(--colorCancel);
+.linkButton:active {
+    background-color: #008cff;
 }
+
+
+
 
 
 

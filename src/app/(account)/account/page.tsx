@@ -411,11 +411,11 @@ export default function Account() {
                         <div className={style.accountSetting}>
 
                             <div className={style.links}>
-                                <Link className={style.link} href={'/change/email'}>Изменить адрес эл. почты</Link>
-                                <Link className={style.link} href={'/change/name'}>Изменить имя пользователя</Link>
-                                <Link className={style.link} href={'/change/password'}>Изменить пароль</Link>
+                                <Link className={style.link} href={'account/change/email'}>Изменить адрес эл. почты</Link>
+                                <Link className={style.link} href={'account/change/name'}>Изменить имя пользователя</Link>
+                                <Link className={style.link} href={'account/change/password'}>Изменить пароль</Link>
                                 {/* <button className={`${style.colorRed} ${style.linkButton}`} onClick={() => showDeleteAccountPopUpFun()}>Удалить аккаунт</button> */}
-                                <Link className={`${style.colorRed} ${style.link}`} href={'/delete/verification'}>Удалить аккаунт</Link>
+                                <Link className={`${style.colorRed} ${style.link}`} href={'account/delete/verification'}>Удалить аккаунт</Link>
                             </div>
 
                         </div>

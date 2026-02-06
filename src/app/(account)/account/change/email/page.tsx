@@ -135,12 +135,12 @@ export default function ChangeEmail() {
 
                     {
                         userData != null ? (
-                            <div className={style.currentName}>
+                            <div className={style.currentEmail}>
                                 <h3>Текущее эл. почта: </h3>
                                 <span>{userData.email}</span>
                             </div>
                         ) : (
-                            <div className={style.currentName}>
+                            <div className={style.currentEmail}>
                                 <span>Загрузка...</span>
                             </div>
                         )
