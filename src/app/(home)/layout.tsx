@@ -154,7 +154,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 <Link className={style.Link} href="/sendfile">Отправить</Link>
                 <Link className={style.Link} href="/getfile">Получить</Link>
                 <Link className={style.Link} href="/story">История</Link>
-                <button className={style.buttonLogOut} onClick={() => logOutFun()}>Выход</button>
+                <Link className={style.Link} href="/signup">Регистрация</Link>
+                <Link className={style.Link} href="/login">Вход</Link>
               </nav>
             )
           )

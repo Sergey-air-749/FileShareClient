@@ -315,7 +315,8 @@ export default function Getfile() {
                 </header>
 
 
-                <div>
+
+                <div className={style.fileList}>
 
                   {
                     showPopUp != false ? (

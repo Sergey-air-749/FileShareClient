@@ -4,9 +4,9 @@
   "private": true,
   "proxy": "http://localhost:7001/",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
+    "start": "next start --webpack"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.9.0",
@@ -16,9 +16,9 @@
     "next-intl": "^4.4.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react-imask": "^7.6.1",
     "react-redux": "^9.2.0",
-    "socket.io-client": "^4.8.1",
-    "uploadthing": "^7.7.4"
+    "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

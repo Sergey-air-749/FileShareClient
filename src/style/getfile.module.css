@@ -46,8 +46,14 @@
 }
 
 
+.acceptFiles {
+    display: flex;
+    flex-direction: column;
+}
 
+.fileList {
 
+}
 
 
 
@@ -91,10 +97,13 @@
     display: flex;
     justify-content: space-between;
     padding: 10px 10px 20px 10px;
+    border-bottom: 1px solid rgb(125, 125, 125);
+    flex-shrink: 0;
 }
 
 .buttonFilePopUpClose {
     display: flex;
+    overflow: hidden;
     align-items: center;
     background: none;
     border: none;
@@ -109,7 +118,8 @@
 
 .getFilePopUpTitle {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    overflow: hidden;
     gap: 10px;
 }
 
@@ -526,6 +536,7 @@
 
     .getFilePopUpTitle {
         flex-direction: column;
+        align-items: start;
     }
 
 }

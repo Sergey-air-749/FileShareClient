@@ -108,6 +108,7 @@ export default function Login() {
     const submitUserUpData = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
+        if (passwordNew == passwordRepeatNew) {
             try {
 
                 showLoaderFun()
@@ -117,7 +118,6 @@ export default function Login() {
                 const userUpData = {
                     passwordOld: passwordOld,
                     passwordNew: passwordNew,
-                    passwordRepeatNew: passwordRepeatNew,
                 }
 
                 //console.log(userUpData);
@@ -155,6 +155,11 @@ export default function Login() {
                     }
                 }
             }
+            
+        } else {
+            closeLoaderFun()  
+            setError("Пароль не совподает")
+        }
     }
 
 

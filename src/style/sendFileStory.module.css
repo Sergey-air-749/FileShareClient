@@ -69,6 +69,60 @@
 
 
 
+.formFileStoryFiltersBlock {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+.inputFiltersDate {
+    background-color: var(--dark-gray-input);
+    border: 1px solid #2e2e2e;
+    color: var(--width);
+    border-radius: 100px;
+    padding: 12px 15px;
+    font-size: 16px;
+    outline: none;
+}
+
+.inputFiltersDate::placeholder {
+    color: #9a9a9a;
+}
+
+.selectOptionStyle {
+    background-color: var(--dark-gray-input);
+    border: 1px solid #2e2e2e;
+    color: #d0d0d0;
+    font-size: 16px;
+    /* color: #9a9a9a; */
+    width: 100%;
+    border-radius: 100px;
+    padding: 12px 15px;
+    outline: none;
+
+    -webkit-appearance: none; /* Для старых Safari */
+    -moz-appearance: none; /* Для старых Firefox */
+    appearance: none; /* Для современных браузеров */
+    /*  background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 24h24V0H0z" fill="none"/></svg>'); Пример SVG-стрелки */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="%239a9a9a"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>'); /* Пример SVG-стрелки */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px; 
+    padding-right: 30px; /* Место для стрелки */
+    cursor: pointer;
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

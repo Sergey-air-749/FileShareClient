@@ -199,19 +199,7 @@ export default function SignupEmail() {
                     </div>
 
                     <div className={style.formTitle}>
-                        <h2>Введите код из эл. почты</h2>
-
-                        {
-                            userData != null ? (
-                                <div >
-                                    <p>Мы отправели код потверждения на <span>{userData?.email} потвердите почту для завершения регистрации</span></p>    
-                                </div>
-                            ) : (
-                                <div></div>
-                            )
-                             
-                        }
-                       
+                        <h2>Введите код из эл. почты</h2>  
                     </div>
 
                 </div>

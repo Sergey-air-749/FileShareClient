@@ -57,6 +57,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 
                 if (serverMessage.response?.data?.msg != "invalid token" || serverMessage.response?.data?.msg != "invalid data") {
 
+
                   if (location.pathname != '/delete/successfully' && location.pathname != '/recovering/successfully') {
                     router.push('/login')
                   }
@@ -91,7 +92,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           
         );
   
-      } else {
+      } else if (userData?.isGuest == true) {
         
         return (
           <div className={styleAccount.accountSettingstyle}>
@@ -149,11 +150,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         );
       }
       
-    } else {
+  } else {
 
-      return (
-
-        <div className={style.accountLayout}>
+    return (
+      
+      <div className={style.accountLayout}>
           
           {
             userData == null ? (
@@ -188,11 +189,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           }
 
         </div>
-        
-      );
-      
-    }
 
-  
+      
+    );
+  }
 
 }

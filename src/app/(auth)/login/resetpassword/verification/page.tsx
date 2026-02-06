@@ -282,18 +282,6 @@ export default function ResetPasswordVerification() {
 
                     <div className={style.formTitle}>
                         <h2>Введите код из эл. почты</h2>
-{/* 
-                        {
-                            email != null ? (
-                                <div>
-                                    <p>Мы отправели код потверждения на <span>{email}</span></p>    
-                                </div>
-                            ) : (
-                                <div></div>
-                            )
-                             
-                        } */}
-                       
                     </div>
 
                 </div>

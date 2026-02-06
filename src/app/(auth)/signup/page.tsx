@@ -134,12 +134,29 @@ export default function Signup() {
 
                 //console.log(userData);
 
-                const response = await axios.post(apiUrl + '/api/signup', userData);
+                let response
+                const token = localStorage?.getItem("token")
+
+                if (token != null) {
+                    response = await axios.post(apiUrl + '/api/signup', userData, {
+                        headers: {
+                            'authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                } else {
+                    response = await axios.post(apiUrl + '/api/signup', userData);
+                }
+
+                if (response?.data.token != null) {
+                    localStorage.setItem("token", response?.data.token)
+                }
+
+                route.push('/signup/email/verification')
+
                 //console.log('Response:', response);
                 //console.log('Token:', response.data.token);
 
-                localStorage.setItem("token", response.data.token)
-                route.push('/signup/email/verification')
                 
 
 
@@ -160,6 +177,7 @@ export default function Signup() {
                 }
             }
         } else {
+            closeLoaderFun()  
             setError("Пароль не совподает")
         }
     }

@@ -32,8 +32,6 @@ export default function DeleteAccount() {
         const verifySession = async () => {
             try {
 
-                showLoaderFun()
-
                 const token = localStorage?.getItem('token')
 
                 const response = await axios.get(apiUrl + '/api/get/session',
@@ -59,7 +57,6 @@ export default function DeleteAccount() {
                 }
 
             } catch (error) {
-                closeLoaderFun()
                 console.log(error);
                 if (axios.isAxiosError(error)) {
                     const serverMessage = error
