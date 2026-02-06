@@ -263,7 +263,7 @@
 
 
 
-.userDataLoaderBackground {
+.formLoaderBackground {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -276,7 +276,7 @@
     background-color: #000000;
 }
 
-.userDataLoader {
+.formLoader {
     width: 100px;
     height: 100px;
     display: flex;
@@ -285,7 +285,7 @@
     overflow: hidden;
 }
 
-.userDataLoaderImg {
+.formLoaderImg {
   width: 75px;
   animation: load linear 2s infinite; 
 }

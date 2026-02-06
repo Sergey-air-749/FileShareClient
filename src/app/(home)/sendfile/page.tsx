@@ -27,6 +27,18 @@ interface recipientDetailsData {
 
 // Обновление данных гостевого аккаунта при регистраци ✅
 
+
+
+
+// Фильтры в истории
+// Добавить страницу настройки (settings)
+
+//Титулы на страницах
+
+
+
+
+
 function Sendfile() {
   const [files, setFiles] = useState<File[]>([])
   const [text, setText] = useState("")
