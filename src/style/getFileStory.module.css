@@ -60,12 +60,107 @@
     color: #ffffff;
 }
 
+.inputShareBlock {
+    padding: 10px 20px 20px 20px;
+}
+
+.formFileStoryButtons {
+    display: flex;
+    gap: 10px;
+}
+
+
 .formFileStorySettings {
     display: flex;
     align-items: center;
     background: none;
     border: none;
 }
+
+.formFileStoryFilrets {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+}
+
+
+
+
+
+
+
+.formFileStoryFiltersBlock {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+
+.inputFilters {
+    background-color: var(--dark-gray-input);
+    border: 1px solid #2e2e2e;
+    color: var(--width);
+    border-radius: 100px;
+    padding: 12px 15px;
+    font-size: 16px;
+    outline: none;
+    width: 100%;
+}
+
+.inputFilters::placeholder {
+    color: #9a9a9a;
+}
+
+.inputFiltersDate {
+    background-color: var(--dark-gray-input);
+    border: 1px solid #2e2e2e;
+    color: var(--width);
+    border-radius: 100px;
+    padding: 12px 15px;
+    font-size: 16px;
+    outline: none;
+    width: 100%;
+}
+
+.inputFiltersDate::placeholder {
+    color: #9a9a9a;
+}
+
+.inputFiltersDate[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+
+.selectOptionStyle {
+    background-color: var(--dark-gray-input);
+    border: 1px solid #2e2e2e;
+    color: #d0d0d0;
+    font-size: 16px;
+    /* color: #9a9a9a; */
+    width: 100%;
+    border-radius: 100px;
+    padding: 12px 15px;
+    outline: none;
+
+    -webkit-appearance: none; /* Для старых Safari */
+    -moz-appearance: none; /* Для старых Firefox */
+    appearance: none; /* Для современных браузеров */
+    /*  background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 24h24V0H0z" fill="none"/></svg>'); Пример SVG-стрелки */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="%239a9a9a"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>'); /* Пример SVG-стрелки */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px; 
+    padding-right: 30px; /* Место для стрелки */
+    cursor: pointer;
+
+}
+
+
+
+
+
+
 
 
 
@@ -195,6 +290,122 @@
    font-size: 16px;
    color: #aaaaaa;
 }
+
+
+
+
+
+
+
+
+
+
+
+/* filtersStoryPopUp */
+
+.filtersStoryPopUpBackground {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100vh;
+    background-color: #00000066;
+}
+
+.filtersStoryPopUp {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 500px;
+    height: 550px;
+    padding: 10px;
+    background-color: rgb(36, 36, 36);;
+    border: 1px solid rgb(31, 31, 31);;
+    border-radius: 20px;
+}
+
+.filtersStoryPopUpHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px 20px 10px;
+}
+
+.filtersStoryPopUpHeader h2 {
+    color: #ffffff;
+}
+
+.buttonFilePopUpClose {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+}
+
+
+.buttonFiltersStoryPopUpClose {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+}
+
+.filtersStoryPopUpOptions {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+}
+
+.filtersStoryPopUpOptionBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.filtersStoryPopUpButtons {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    padding: 20px 10px 10px 10px;
+    align-items: center;
+}
+
+.styleButtonResetFilters {
+    background-color: #353535;
+    border: none;
+    color: var(--width);
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 100px;
+    padding: 12px 15px;
+    transition: 0.2s all;
+    outline: none;
+    width: 100%;
+}
+
+.styleButtonResetFilters:hover {
+    background-color: #2f2f2f;
+}
+
+.styleButtonResetFilters:active {
+    background-color: #353535;
+}
+
+.delete {
+    color: #ff7070;
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -430,18 +641,25 @@
 }
 
 .LinkStoryOptions:hover {
-    color: #cecece;
+    background-color: rgb(52, 52, 52);
 }
 
-.LinkStoryOptions:active {
-    color: #bfbfbf;
-}
 
 .select {
     color: #ffffff;
     background-color: var(--blue);
 }
 
+.select:hover {
+    background-color: var(--blueHover);
+}
+
+
+@media (max-width: 500px) {
+    .filtersStoryPopUp, .settingsStoryPopUp {
+        height: 600px;
+    }
+}
 
 @media (max-width: 430px) {
 
@@ -463,6 +681,11 @@
 
     .navStoryOptions {
        width: 300px;
+    }
+
+    .filtersStoryPopUp, .settingsStoryPopUp {
+        height: 100%;
+        border-radius: 0px;
     }
 
 }

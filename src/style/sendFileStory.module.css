@@ -50,17 +50,33 @@
 
 /* StoryView */
 
-.formFileStoryTitleBlock {
+.formFileStoryHead {
     display: flex;
     justify-content: space-between;
     padding: 10px 20px 20px 20px;
 }
 
-.formFileStoryTitleBlock h2 {
+.formFileStoryHead h2 {
     color: #ffffff;
 }
 
+.inputShareBlock {
+    padding: 10px 20px 20px 20px;
+}
+
+.formFileStoryButtons {
+    display: flex;
+    gap: 10px;
+}
+
 .formFileStorySettings {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+}
+
+.formFileStoryFilrets {
     display: flex;
     align-items: center;
     background: none;
@@ -75,6 +91,22 @@
     padding: 20px;
 }
 
+
+.inputFilters {
+    background-color: var(--dark-gray-input);
+    border: 1px solid #2e2e2e;
+    color: var(--width);
+    border-radius: 100px;
+    padding: 12px 15px;
+    font-size: 16px;
+    outline: none;
+    width: 100%;
+}
+
+.inputFilters::placeholder {
+    color: #9a9a9a;
+}
+
 .inputFiltersDate {
     background-color: var(--dark-gray-input);
     border: 1px solid #2e2e2e;
@@ -83,11 +115,17 @@
     padding: 12px 15px;
     font-size: 16px;
     outline: none;
+    width: 100%;
 }
 
 .inputFiltersDate::placeholder {
     color: #9a9a9a;
 }
+
+.inputFiltersDate[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
 
 .selectOptionStyle {
     background-color: var(--dark-gray-input);
@@ -112,8 +150,6 @@
     cursor: pointer;
 
 }
-
-
 
 
 
@@ -258,6 +294,110 @@
 
 
 
+/* filtersStoryPopUp */
+
+.filtersStoryPopUpBackground {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100vh;
+    background-color: #00000066;
+}
+
+.filtersStoryPopUp {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 500px;
+    height: 550px;
+    padding: 10px;
+    background-color: rgb(36, 36, 36);;
+    border: 1px solid rgb(31, 31, 31);;
+    border-radius: 20px;
+}
+
+.filtersStoryPopUpHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px 20px 10px;
+}
+
+.filtersStoryPopUpHeader h2 {
+    color: #ffffff;
+}
+
+.buttonFilePopUpClose {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+}
+
+
+.buttonFiltersStoryPopUpClose {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+}
+
+.filtersStoryPopUpOptions {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+}
+
+.filtersStoryPopUpOptionBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.filtersStoryPopUpButtons {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    padding: 20px 10px 10px 10px;
+    align-items: center;
+}
+
+.styleButtonResetFilters {
+    background-color: #353535;
+    border: none;
+    color: var(--width);
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 100px;
+    padding: 12px 15px;
+    transition: 0.2s all;
+    outline: none;
+    width: 100%;
+}
+
+.styleButtonResetFilters:hover {
+    background-color: #2f2f2f;
+}
+
+.styleButtonResetFilters:active {
+    background-color: #353535;
+}
+
+.delete {
+    color: #ff7070;
+}
+
+
+
+
+
+
+
 /* settingsStoryPopUp */
 
 .settingsStoryPopUpBackground {
@@ -276,7 +416,7 @@
     display: flex;
     flex-direction: column;
     justify-content: start;
-    width: 450px;
+    width: 500px;
     height: 550px;
     padding: 10px;
     background-color: rgb(36, 36, 36);;
@@ -483,11 +623,7 @@
 }
 
 .LinkStoryOptions:hover {
-    color: #cecece;
-}
-
-.LinkStoryOptions:active {
-    color: #bfbfbf;
+    background-color: rgb(52, 52, 52);
 }
 
 
@@ -496,6 +632,18 @@
     background-color: var(--blue);
 }
 
+.select:hover {
+    background-color: var(--blueHover);
+}
+
+
+
+
+@media (max-width: 500px) {
+    .filtersStoryPopUp, .settingsStoryPopUp {
+        height: 600px;
+    }
+}
 
 @media (max-width: 430px) {
 
@@ -517,6 +665,11 @@
 
     .navStoryOptions {
        width: 300px;
+    }
+
+    .filtersStoryPopUp, .settingsStoryPopUp {
+        height: 100%;
+        border-radius: 0px;
     }
 
 }

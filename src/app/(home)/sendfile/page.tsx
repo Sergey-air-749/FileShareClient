@@ -28,12 +28,7 @@ interface recipientDetailsData {
 // Обновление данных гостевого аккаунта при регистраци ✅
 
 
-
-
 // Фильтры в истории
-// Добавить страницу настройки (settings)
-
-//Титулы на страницах
 
 
 
@@ -266,13 +261,26 @@ function Sendfile() {
 
       showSubmitFileLoaderFun()
 
-      let username = userData?.username
+      let username:String = ''
+
+      if (userData?.username != undefined) {
+        username = userData?.username
+      } else {
+        username = 'Гость'
+      }
+
       let sentToUserId = userData?.shareId // Для коректной работы статуса файла
       //console.log(sentToUserId);
       
       const token = localStorage?.getItem("token")
       const date = new Date()
       let device = ""
+
+      let day: number | string = date.getDate()
+
+      if (day < 10) {
+        day = '0' + day
+      }
 
       let month: number | string = date.getMonth() + 1
 
@@ -286,7 +294,7 @@ function Sendfile() {
         minutes = '0' + minutes;
       }
 
-      let dateParse = `${date.getDate()}.${month}.${date.getFullYear()}, ${date.getHours()}:${minutes}`
+      let dateParse = `${day}.${month}.${date.getFullYear()}, ${date.getHours()}:${minutes}`
 
       const userAgentString = navigator.userAgent;
 

@@ -165,7 +165,7 @@ export default function deleteAccountVerification() {
                 {
                     showLoader ? (
 
-                        <div className={style.userDataLoaderBackground}>
+                        <div className={style.formLoaderBackground}>
 
                             <div className={style.formLoader}>
 

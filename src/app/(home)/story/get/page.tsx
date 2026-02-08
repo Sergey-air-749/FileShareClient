@@ -8,14 +8,26 @@ import { useRouter } from "next/navigation";
 
 import Link from "next/link";
 import axios from "axios";
+import { IMaskInput } from "react-imask";
 
 
 export default function getFileStory() {
 
     const [showSettingsPopUp, setShowSettingsPopUp] = useState(false)
+    const [showFiltersPopUp, setShowFiltersPopUp] = useState(false)
     const [showMessageSettingsPopUp, setShowMessageSettingsPopUp] = useState(false)
     const { isAuth, userData } = useAppSelector(state => state.authReducer)
+
+
     const userFileStory = userData?.filseStoryGet
+
+    const [filters, setFilters] = useState({
+        date: '',
+        type: 'all',      // all | file | text
+        status: 'all',    // all | sent | accepted | refusal
+        search: '',
+    })
+    
 
     const dispatch = useAppDispatch()
 
@@ -66,6 +78,57 @@ export default function getFileStory() {
             }
         }
     }, [])
+
+
+
+
+
+    const filteredFileStory = userFileStory?.filter((file) => {
+
+        // Фильтр по дате
+        if (filters.date) {
+            console.log(filters.date);
+            if (!file.data?.includes(filters.date)) return false
+        }
+
+        // Тип
+        if (filters.type == 'file' && !file.filename) return false
+        if (filters.type == 'text' && !file.text) return false
+
+        // Статус
+        if (filters.status !== 'all' && file.status !== filters.status) return false
+
+        // Поиск
+        if (filters.search) {
+            const search = filters.search.toLowerCase()
+            let target = ''
+            
+            if (file.filename != undefined) {
+                target = file.filename.toLowerCase()
+
+            } else if (file.text != undefined)  {
+                target = file.text.toLowerCase()
+            }
+
+
+            if (!target.includes(search)) return false // <- Исключить файл
+        }
+
+        return true // <- Оставить файл
+    })
+
+    const filesResetFiltersFun = () => {
+        setFilters({
+            date: '',
+            type: 'all',      
+            status: 'all',
+            search: '',
+        })
+    }
+
+
+
+
 
     const deleteAllFilesStory = async () => {
 
@@ -167,12 +230,94 @@ export default function getFileStory() {
         setShowSettingsPopUp(false)
     }
 
+    
+    const showFiltersPopUpFun = () => {
+        setShowFiltersPopUp(true)
+    }
+
+    const closeFiltersPopUpFun = () => {
+        setShowFiltersPopUp(false)
+    }
+
     return (
         <div className={style.getFileStory}>
 
             <div className={style.blockStory}>
                 
                 <div className={style.formGetFileStory}>
+
+
+                    {
+                        showFiltersPopUp != false ? (
+                            <div className={style.filtersStoryPopUpBackground}>
+
+                                <div className={style.filtersStoryPopUp}>
+
+                                    <div className={style.filtersStoryPopUpMain}>
+
+                                        <div className={style.filtersStoryPopUpHeader}>
+
+                                            <h2>Фильтры</h2>
+
+                                            <button type="button" onClick={() => closeFiltersPopUpFun()} className={style.buttonFilePopUpClose}>                    
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#FFFFFF"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+                                            </button>
+                                            
+                                        </div>
+
+                                        <div className={style.filtersStoryPopUpOptions}>
+                                            
+                                            <div className={style.filtersStoryPopUpOptionBlock}>
+
+                                                {/* <input className={style.inputFiltersDate} type="date" value={filters.date} onChange={(e) => setFilters({ ...filters, date: e.target.value }) }/> */}
+
+                                                <IMaskInput
+                                                    mask="00.00.0000"
+                                                    lazy={false}
+                                                    placeholder="Д.ММ.ГГГГ"
+                                                    className={style.inputFiltersDate}
+                                                    value={filters.date}
+                                                    onAccept={(value) => {
+                                                        setFilters(prev => ({
+                                                            ...prev,
+                                                            date: value.trim()
+                                                        }))
+                                                    }}
+                                                />
+
+                                                <select className={style.selectOptionStyle} value={filters.type} onChange={(e) => setFilters({ ...filters, type: e.target.value }) }>
+                                                    <option value="all">Все</option>
+                                                    <option value="file">Файлы</option>
+                                                    <option value="text">Текст</option>
+                                                </select>
+
+                                                <select className={style.selectOptionStyle} value={filters.status} onChange={(e) => setFilters({ ...filters, status: e.target.value }) }>
+                                                    <option value="all">Любой статус</option>
+                                                    <option value="sent">Отправлено</option>
+                                                    <option value="accepted">Принято</option>
+                                                    <option value="refusal">Отказано</option>
+                                                </select>
+
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div className={style.filtersStoryPopUpButtons}>
+                                        <button type="button" onClick={() => filesResetFiltersFun()} className={style.styleButtonResetFilters}>Сбросить фильтры</button>
+                                    </div>
+
+                                    
+                                </div>
+
+                            </div>
+                        ) : (
+                            <div></div>
+                        )
+                    }
 
 
                     {
@@ -287,19 +432,33 @@ export default function getFileStory() {
                     <div className={style.formFileStoryView}>
 
                         <div className={style.formFileStoryTitleBlock}>
+
                             <h2>История</h2>
 
-                            <button type="button" onClick={() => showSettingsPopUpFun()} className={style.formFileStorySettings}>
-                                <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#ffffff"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z"/></svg>
-                            </button>
+                            <div className={style.formFileStoryButtons}>
+                                
+                                <button type="button" onClick={() => showFiltersPopUpFun()} className={style.formFileStorySettings}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#ffffff"><path d="M440-160q-17 0-28.5-11.5T400-200v-240L168-736q-15-20-4.5-42t36.5-22h560q26 0 36.5 22t-4.5 42L560-440v240q0 17-11.5 28.5T520-160h-80Zm40-308 198-252H282l198 252Zm0 0Z"/></svg>                                
+                                </button>
+
+                                <button type="button" onClick={() => showSettingsPopUpFun()} className={style.formFileStorySettings}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#ffffff"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z"/></svg>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <div className={style.inputShareBlock}>
+                            <input className={style.inputFilters} type="text" placeholder="Поиск" value={filters.search} onChange={(e) => setFilters({ ...filters, search: e.target.value }) }/>
                         </div>
 
                         <div className={style.fileStoryViewBlock}>
 
                             {
-                                JSON.stringify(userFileStory) != JSON.stringify([]) ? (
+                                JSON.stringify(filteredFileStory) != JSON.stringify([]) ? (
 
-                                    userFileStory?.map((file, index) => (
+                                    filteredFileStory?.map((file, index) => (
                                         
                                         
                                         <div key={index} className={style.fileItem}>

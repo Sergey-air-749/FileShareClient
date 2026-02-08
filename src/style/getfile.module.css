@@ -526,6 +526,11 @@
     background-color: var(--blue);
 }
 
+.select:hover {
+    color: #ffffff;
+    background-color: var(--blueHover);
+}
+
 
 
 @media (max-width: 500px) {
