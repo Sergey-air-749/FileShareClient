@@ -309,8 +309,14 @@
         width: 100%;
         border: none;
         border-radius: 0px;
-        padding-top: 100px;
+        /* padding-top: 100px; */
+        padding: 100px 25px 40px 25px;
     }
+
+    .formLoaderBackground {
+        position: fixed;
+    }
+
 
     .changeEmail {
         align-items: start;
@@ -323,7 +329,7 @@
 @media (max-width: 380px) {
 
     .formChangeEmail {
-        padding: 30px;
+        padding: 25px;
         padding-top: 100px;
     }
 
@@ -338,7 +344,7 @@
 @media (max-width: 320px) {
 
     .formChangeEmail {
-        padding: 30px;
+        padding: 25px;
         padding-top: 100px;
     }
 

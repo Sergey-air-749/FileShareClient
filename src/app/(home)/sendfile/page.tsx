@@ -28,10 +28,18 @@ interface recipientDetailsData {
 // Обновление данных гостевого аккаунта при регистраци ✅
 
 
-// Фильтры в истории
+// Фильтры в истории ✅
 
+// Страница настройки
+// Титулы для каждой страницы
+// Иконка
 
+// @media (max-width: 380px) {
+// SVG Иконка на странице удалить аккаунт
 
+// Переделать историю
+// Переделать кнопки выбора истори ✅
+// Страница удаления аккаунта
 
 
 function Sendfile() {
@@ -114,7 +122,7 @@ function Sendfile() {
   }, [authReducer])
 
   useEffect(() => {
-    //console.log(files);
+    // console.log(files);
   }, [files])
 
   useEffect(() => {
@@ -671,8 +679,8 @@ function Sendfile() {
 
             <div className={style.navExchange}>
 
-              <Link className={`${style.LinkExchange}`} href={'/getfile'}>Получить</Link>
-              <Link className={`${style.LinkExchange} ${style.select}`} href={'/sendfile'}>Отправить</Link>
+              <a className={`${style.LinkExchange}`} href={'/getfile'}>Получить</a>
+              <a className={`${style.LinkExchange} ${style.select}`} href={'/sendfile'}>Отправить</a>
 
             </div>
 

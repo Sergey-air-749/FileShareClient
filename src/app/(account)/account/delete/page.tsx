@@ -144,11 +144,11 @@ export default function DeleteAccount() {
 
                 <header className={style.deleteAccountHead}>
 
-                    <div className={style.buttonBackPageBlock}>
+                    {/* <div className={style.buttonBackPageBlock}>
                         <button type="button" onClick={() => buttonBackPage()} className={style.buttonBackPage}>
                             <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px" fill="#ffffff"><path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z"/></svg>
                         </button>
-                    </div>           
+                    </div>            */}
                             
                     {/* <div className={style.headerTitle}>
                         <h2>Аккаунт</h2>
@@ -203,7 +203,10 @@ export default function DeleteAccount() {
                         {
 
                             isVerify == true ? (
-                                <button type="submit" className={style.styleButtonDelete}>Удалить</button>
+                                <div className={style.formButtons}>
+                                    <button type="submit" className={style.styleButtonDelete}>Удалить</button>
+                                    <button type="button" onClick={() => buttonBackPage()} className={style.buttonCancel}>Отмена</button>
+                                </div>
                             ) : (
                                 <div></div>
                             )

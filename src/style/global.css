@@ -15,3 +15,28 @@
     --colorCancel: #e62727;
     --colorCancelHover: #be2121;
 }
+
+
+::selection {
+    background-color: #073ba7;
+    color: #ffffff;                
+}
+
+::-moz-selection {
+    background-color: #073ba7;
+    color: #ffffff;
+}
+
+
+/* Test */
+
+/* ::selection {
+    background-color: #d1d1d1; /* Фон выделения 
+    color: red;                /* Цвет текста 
+}
+
+/* Для Firefox (дополнительно) 
+::-moz-selection {
+    background-color: #d1d1d1;
+    color: red;
+} */

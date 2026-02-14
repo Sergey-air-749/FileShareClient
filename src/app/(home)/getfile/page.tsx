@@ -489,8 +489,8 @@ export default function Getfile() {
 
             <div className={style.navExchange}>
 
-              <Link className={`${style.LinkExchange} ${style.select}`} href={'/getfile'}>Получить</Link>
-              <Link className={`${style.LinkExchange}`} href={'/sendfile'}>Отправить</Link>
+              <a className={`${style.LinkExchange} ${style.select}`} href={'/getfile'}>Получить</a>
+              <a className={`${style.LinkExchange}`} href={'/sendfile'}>Отправить</a>
 
             </div>
 

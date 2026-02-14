@@ -401,7 +401,7 @@
 
 .submitLoaderBackground {
     background-color: #00000073; 
-    position: absolute; 
+    position: fixed; 
     z-index: 9999; 
     top: 0px; 
     left: 0px; 

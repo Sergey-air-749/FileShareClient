@@ -320,7 +320,12 @@
         width: 100%;
         border: none;
         border-radius: 0px;
-        padding-top: 100px;
+        /* padding-top: 100px; */
+        padding: 100px 25px 40px 25px;
+    }
+
+    .formLoaderBackground {
+        position: fixed;
     }
 
     .changeEmail {
@@ -331,7 +336,7 @@
 }
 
 
-@media (max-width: 380px) {
+/* @media (max-width: 380px) {
 
     .formLogin {
         padding: 30px;
@@ -347,4 +352,4 @@
         padding-top: 50px;
     }
 
-}
+} */

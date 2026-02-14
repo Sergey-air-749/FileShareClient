@@ -233,8 +233,6 @@
 
 
 
-
-
 .styleButtonDownlode {
     display: flex;
     align-items: center;
@@ -534,6 +532,11 @@
 
 
 @media (max-width: 500px) {
+
+    .getFilePopUpBackground {
+        padding-top: 20px;
+        align-items: start;
+    }
 
     .getFilePopUp {
         height: 600px;

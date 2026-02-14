@@ -149,8 +149,9 @@
         height: 100vh;
         border: none;
         border-radius: 0px;
-        padding-top: 100px;
-        padding: 20px;
+        /* padding-top: 100px;
+        padding: 20px; */
+        padding: 100px 25px 40px 25px;
     }
 
     .content {
@@ -165,26 +166,3 @@
     }
 }
 
-
-
-
-/* 
-
-@media (max-width: 430px) {
-    .deleteAccountBlock {
-        width: 400px;
-    }
-}
-
-@media (max-width: 380px) {
-    .deleteAccountBlock {
-        width: 350px;
-    }
-}
-
-@media (max-width: 320px) {
-    .deleteAccountBlock {
-        width: 300px;
-    }
-}
- */

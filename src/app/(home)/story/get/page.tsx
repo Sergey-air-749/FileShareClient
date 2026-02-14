@@ -39,7 +39,7 @@ export default function getFileStory() {
 
     useEffect(() => {
         getUserData()
-    })
+    }, [])
 
 
     const getUserData = useCallback(async () => {
@@ -511,7 +511,7 @@ export default function getFileStory() {
                                                 </div>
 
                                                 <div className={style.fileButtons}>
-                                                    <button type="button" onClick={() => deleteFileStory(file.id)} className={` ${style.messageDeletePopUpOptionButton} ${style.filesAllDelete} `}>Удалить</button>
+                                                    <button type="button" onClick={() => deleteFileStory(file.id)} className={` ${style.buttonFileDeleteStory}`}>Удалить</button>
                                                 </div>
                                             
                                             </div>

@@ -182,22 +182,6 @@
 }
 
 
-@media (max-width: 500px) {
-    .formLogin {
-        width: 100%;
-        border: none;
-        border-radius: 0px;
-        padding-top: 100px;
-    }
-
-    .login {
-        align-items: start;
-        background-color: rgb(0, 0, 0);
-    }
-}
-
-
-
 
 
 
@@ -227,21 +211,41 @@
 }
 
 .formLoaderImg {
-  width: 75px;
-  animation: load linear 2s infinite; 
+    width: 75px;
+    animation: load linear 2s infinite; 
 }
 
 @keyframes load {
     0% { 
         transform: rotate(0deg); 
     }
-
+    
     100% { 
         transform: rotate(360deg); 
     }    
-
+    
 }
 
 
+
+
+
+@media (max-width: 500px) {
+    .formLogin {
+        width: 100%;
+        border: none;
+        border-radius: 0px;
+        padding: 100px 25px 40px 25px;
+    }
+
+    .formLoaderBackground {
+        position: fixed;
+    }
+
+    .login {
+        align-items: start;
+        background-color: rgb(0, 0, 0);
+    }
+}
 
 

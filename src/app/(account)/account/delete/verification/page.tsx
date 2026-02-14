@@ -67,7 +67,7 @@ export default function deleteAccountVerification() {
                 //console.log('Response:', response);
                 localStorage.setItem('session', response.data.sessionId)
 
-                location.pathname = '/delete'
+                location.pathname = '/account/delete'
                 
 
             } catch (error) {

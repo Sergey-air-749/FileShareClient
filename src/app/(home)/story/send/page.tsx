@@ -584,11 +584,11 @@ export default function sendFileStory() {
                                             </div>
 
                                             <div className={style.fileButtons}>
-                                                <button type="button" onClick={() => deleteFileStory(file.id)} className={` ${style.messageDeletePopUpOptionButton} `}>Удалить</button>
+                                                <button type="button" onClick={() => deleteFileStory(file.id)} className={` ${style.buttonFileDeleteStory} `}>Удалить</button>
 
                                                 {
                                                     file.status == 'sent' ? (
-                                                        <button type="button" onClick={() => deleteSentFile(file.id, file.userWillReceive)} className={` ${style.messageDeletePopUpOptionButton} `}>Отменить отправку</button>
+                                                        <button type="button" onClick={() => deleteSentFile(file.id, file.userWillReceive)} className={` ${style.buttonFileCancelSend} `}>Отменить отправку</button>
                                                     ) : (
                                                         <div></div>
                                                     )

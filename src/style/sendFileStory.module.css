@@ -34,6 +34,7 @@
     align-items: center;
     color: var(--width);
     gap: 10px;
+    padding: 10px;
 }
 
 .formTitle h2 {
@@ -237,7 +238,8 @@
 
 
 
-.textItem {
+
+/* .textItem {
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -268,7 +270,62 @@
     flex-shrink: 5;
     width: 100%;
     gap: 10px;
+} */
+
+.buttonFileDeleteStory {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:  var(--colorCancel);
+    border: none;
+    color: var(--width);
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 100px;
+    padding: 10px 15px;
+    transition: 0.2s all ;
+    outline: none;
+    gap: 5px;
 }
+
+.buttonFileDeleteStory:hover {
+    background-color:  var(--colorCancelHover);
+}
+
+.buttonFileDeleteStory:active {
+    background-color:  var(--colorCancel);
+}
+
+
+.buttonFileCancelSend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:  var(--colorCancel);
+    border: none;
+    color: var(--width);
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 100px;
+    padding: 10px 15px;
+    transition: 0.2s all ;
+    outline: none;
+    gap: 5px;
+}
+
+.buttonFileCancelSend:hover {
+    background-color:  var(--colorCancelHover);
+}
+
+.buttonFileCancelSend:active {
+    background-color:  var(--colorCancel);
+}
+
+
+
+
+
+
 
 
 
@@ -538,7 +595,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--colorCancel);
+    background-color: #3b3b3b;
     border: none;
     color: var(--width);
     font-size: 16px;
@@ -552,15 +609,23 @@
 }
 
 .messageDeletePopUpOptionButton:hover {
-    background-color: var(--colorCancelHover);
+    background-color: #2f2f2f;
 }
 
 .messageDeletePopUpOptionButton:active {
-    background-color: var(--colorCancel);
+    background-color: #3b3b3b;
 }
 
 
 .filesAllDelete {
+    background-color: var(--colorCancel);
+}
+
+.filesAllDelete:hover {
+    background-color: var(--colorCancelHover);
+}
+
+.filesAllDelete:active {
     background-color: var(--colorCancel);
 }
 
@@ -640,6 +705,17 @@
 
 
 @media (max-width: 500px) {
+
+    .settingsStoryPopUpBackground {
+        padding-top: 20px;
+        align-items: start;
+    }
+
+    .filtersStoryPopUpBackground {
+        padding-top: 20px;
+        align-items: start;
+    }
+
     .filtersStoryPopUp, .settingsStoryPopUp {
         height: 600px;
     }
