@@ -57,7 +57,7 @@ export default function Story() {
                     </div>
 
                     <div className={style.formTitle}>
-                        <h2>История вашых файлов</h2>
+                        <h2>История ваших файлов</h2>
                     </div>
 
                 </div>

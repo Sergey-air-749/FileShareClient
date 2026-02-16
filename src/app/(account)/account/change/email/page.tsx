@@ -76,7 +76,7 @@ export default function ChangeEmail() {
                 );
                 //console.log('Response:', response);
 
-                location.pathname = '/change/email/verification/'
+                location.pathname = '/account/change/email/verification/'
                 
 
             } catch (error) {

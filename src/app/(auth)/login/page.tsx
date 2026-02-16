@@ -168,16 +168,16 @@ export default function Login() {
                 <div className={style.formHead}>
 
                     <div className={style.formIcon}>
+                        
                         <svg width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M54 49.5C54 54.1944 45.4934 58 35 58C24.5066 58 16 54.1944 16 49.5C16 47.0553 18.3069 44.8517 22 43.301C25.3986 41.874 29.9712 41 35 41C45.4934 41 54 44.8056 54 49.5Z" fill="#96C3FF"/>
                             <circle cx="35" cy="30" r="8" fill="#96C3FF"/>
                             <circle cx="35" cy="35" r="23.5" stroke="#008CFF" strokeWidth="3"/>
                             <circle cx="52" cy="51" r="8" fill="white" stroke="white" strokeWidth="2"/>
-                            <rect x="47" y="50" width="10" height="2" rx="1" fill="#008CFF"/>
-                            <rect x="53.9355" y="47.5" width="5" height="2" rx="1" transform="rotate(45 53.9355 47.5)" fill="#008CFF"/>
-                            <rect x="52.5215" y="53.1567" width="5" height="2" rx="1" transform="rotate(-45 52.5215 53.1567)" fill="#008CFF"/>
+                            <rect x="46.5" y="50" width="10" height="2" rx="1" fill="#008CFF"/>
+                            <rect x="53.1143" y="46.7002" width="6" height="2" rx="1" transform="rotate(45 53.1143 46.7002)" fill="#008CFF"/>
+                            <rect x="51.6992" y="53.7422" width="6" height="2" rx="1" transform="rotate(-45 51.6992 53.7422)" fill="#008CFF"/>
                         </svg>
-
 
                     </div>
 
