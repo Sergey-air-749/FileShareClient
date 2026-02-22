@@ -106,14 +106,14 @@ export default function Getfile() {
     } catch (error) {
       console.log(error);
         if (axios.isAxiosError(error)) {
-            const serverMessage = error
-            //console.log(serverMessage);
-            
-            if (serverMessage.response?.data?.msg != undefined) {
-              console.log(serverMessage.response?.data?.msg);     
-            } else {
-              console.log(serverMessage.message)
-            }
+          const serverMessage = error
+          //console.log(serverMessage);
+          
+          if (serverMessage.response?.data?.msg != undefined) {
+            console.log(serverMessage.response?.data?.msg);     
+          } else {
+            console.log(serverMessage.message)
+          }
         }
     } 
 

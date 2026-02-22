@@ -42,6 +42,12 @@ interface recipientDetailsData {
 // Страница удаления аккаунта
 
 
+
+// sendToUserId - для статуса
+// userWillReceive - для отмены отправки
+
+
+
 function Sendfile() {
   const [files, setFiles] = useState<File[]>([])
   const [text, setText] = useState("")
@@ -277,7 +283,8 @@ function Sendfile() {
         username = 'Гость'
       }
 
-      let sentToUserId = userData?.shareId // Для коректной работы статуса файла
+      let sentToUserId = userData?._id // Для коректной работы статуса файла
+      // let sentToUserId = userData?.shareId // Для коректной работы статуса файла
       //console.log(sentToUserId);
       
       const token = localStorage?.getItem("token")

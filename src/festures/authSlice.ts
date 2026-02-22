@@ -17,6 +17,7 @@ interface AuthState {
     isAuth: boolean,
     token: String | null,
     userData: {
+        _id: String,
         avatar: {
             "400": String,
             "1000": String

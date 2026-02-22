@@ -10,16 +10,25 @@ import Link from "next/link";
 import axios from "axios";
 import { IMaskInput } from "react-imask";
 
+interface FileItem {
+  filename: string;
+  sentFromDevice: string;
+  sentToUser: string;
+  userWillReceive: string;
+  text: string;
+  data: string;
+  status: string;
+  id: string;
+}
 
 export default function getFileStory() {
 
     const [showSettingsPopUp, setShowSettingsPopUp] = useState(false)
     const [showFiltersPopUp, setShowFiltersPopUp] = useState(false)
     const [showMessageSettingsPopUp, setShowMessageSettingsPopUp] = useState(false)
+    const [userFileStory, setUserFileStory] = useState<FileItem[]>([])
+
     const { isAuth, userData } = useAppSelector(state => state.authReducer)
-
-
-    const userFileStory = userData?.filseStoryGet
 
     const [filters, setFilters] = useState({
         date: '',
@@ -38,27 +47,26 @@ export default function getFileStory() {
     const soketUrl = process.env.NEXT_PUBLIC_SERVER_SOCET_URL
 
     useEffect(() => {
-        getUserData()
+        getStoryGetFile()
     }, [])
 
 
-    const getUserData = useCallback(async () => {
+    const getStoryGetFile = useCallback(async () => {
 
         const token = localStorage?.getItem("token")
 
         try {
 
-            const response = await axios.get(apiUrl + '/api/getUserData', {
+            const response = await axios.get(apiUrl + '/api/story/get', {
             headers: {
                 'authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             }
             })
 
-            //console.log('Response:', response.data);
+            console.log('Response:', response.data);
 
-            dispatch(setUserData(response.data))
-            dispatch(setAuth())
+            setUserFileStory(response.data)
 
         } catch (error) {
             console.log(error);
@@ -128,8 +136,6 @@ export default function getFileStory() {
 
 
 
-
-
     const deleteAllFilesStory = async () => {
 
         closeMessageDeletePopUpFun()
@@ -137,7 +143,6 @@ export default function getFileStory() {
         const token = localStorage?.getItem("token")
 
         //console.log(token);
-        
 
         try {
 
@@ -149,7 +154,7 @@ export default function getFileStory() {
             })
 
             //console.log('Response:', response.data);
-            getUserData()
+            getStoryGetFile()
 
         } catch (error) {
             console.log(error);
@@ -187,7 +192,7 @@ export default function getFileStory() {
             })
 
             //console.log('Response:', response.data);
-            getUserData()
+            getStoryGetFile()
 
         } catch (error) {
             console.log(error);

@@ -11,12 +11,26 @@ import axios from "axios";
 import { io, Socket } from "socket.io-client";
 import { IMaskInput } from 'react-imask';
 
+interface FileItem {
+    userWillReceiveId: string;
+    filename: string;
+    sentFromDevice: string;
+    sentToUser: string;
+    userWillReceive: string;
+    text: string;
+    data: string;
+    status: string;
+    id: string;
+}
+
 
 export default function sendFileStory() {
 
     const [showSettingsPopUp, setShowSettingsPopUp] = useState(false)
     const [showFiltersPopUp, setShowFiltersPopUp] = useState(false)
     const [showMessageSettingsPopUp, setShowMessageSettingsPopUp] = useState(false)
+    const [userFileStory, setUserFileStory] = useState<FileItem[]>([])
+
     const { isAuth, userData } = useAppSelector(state => state.authReducer)
 
     const [filters, setFilters] = useState({
@@ -32,8 +46,7 @@ export default function sendFileStory() {
     }, [filters])
 
 
-    const userFileStory = userData?.filseStorySend
-
+    
 
     // const socket = io('http://localhost:7001/');
 
@@ -58,7 +71,43 @@ export default function sendFileStory() {
     const router = useRouter()
 
     useEffect(() => {
-        getUserData()
+        getStorySendFile()
+    }, [])
+
+    const getStorySendFile = useCallback(async () => {
+
+        const token = localStorage?.getItem("token")
+
+        try {
+
+            const response = await axios.get(apiUrl + '/api/story/send', {
+            headers: {
+                'authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+            })
+
+            console.log('Response:', response.data);
+
+            setUserFileStory(response.data)
+
+        } catch (error) {
+            console.log(error);
+            if (axios.isAxiosError(error)) {
+                const serverMessage = error
+                //console.log(serverMessage);
+                
+                if (serverMessage.response?.data?.msg != undefined) {
+                    console.log(serverMessage.response?.data?.msg);   
+                    
+                    if (serverMessage.response?.data?.msg == "invalid token") {
+                    router.push('/login')
+                    }
+                } else {
+                    console.log(serverMessage.message)
+                }
+            }
+        }
     }, [])
 
     const filteredFileStory = userFileStory?.filter((file) => {
@@ -105,43 +154,6 @@ export default function sendFileStory() {
     }
 
 
-    const getUserData = useCallback(async () => {
-
-        const token = localStorage?.getItem("token")
-
-        try {
-
-            const response = await axios.get(apiUrl + '/api/getUserData', {
-            headers: {
-                'authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-            })
-
-            //console.log('Response:', response.data);
-
-            dispatch(setUserData(response.data))
-            dispatch(setAuth())
-
-        } catch (error) {
-            console.log(error);
-            if (axios.isAxiosError(error)) {
-                const serverMessage = error
-                //console.log(serverMessage);
-                
-                if (serverMessage.response?.data?.msg != undefined) {
-                    console.log(serverMessage.response?.data?.msg);   
-                    
-                    if (serverMessage.response?.data?.msg == "invalid token") {
-                    router.push('/login')
-                    }
-                } else {
-                    console.log(serverMessage.message)
-                }
-            }
-        }
-    }, [])
-
     const deleteAllFilesStory = async () => {
 
         closeMessageDeletePopUpFun()
@@ -158,7 +170,7 @@ export default function sendFileStory() {
             })
 
             //console.log('Response:', response.data);
-            getUserData()
+            getStorySendFile()
 
         } catch (error) {
             console.log(error);
@@ -199,7 +211,7 @@ export default function sendFileStory() {
             })
 
             //console.log('Response:', response.data);
-            getUserData()
+            getStorySendFile()
 
         } catch (error) {
             console.log(error);
@@ -221,7 +233,7 @@ export default function sendFileStory() {
     }
 
 
-    const deleteSentFile = async (id: string, userWillReceive: string) => {
+    const deleteSentFile = async (id: string, userWillReceiveId: string) => {
 
         closeMessageDeletePopUpFun()
         closeSettingsPopUpFun()
@@ -235,7 +247,7 @@ export default function sendFileStory() {
 
             const response = await axios.post(fileApiUrl + '/api/files/send/delete/' + id, 
                 {
-                    userWillReceiveName: userWillReceive
+                    userWillReceiveId: userWillReceiveId
                 }, 
                 {
                     headers: {
@@ -246,8 +258,8 @@ export default function sendFileStory() {
             )
 
             //console.log('Response:', response.data);
-            socketRef.current.emit('pingfilesUserName', userWillReceive);
-            getUserData()
+            socketRef.current.emit('pingfilesUserId', userWillReceiveId);
+            getStorySendFile()
 
         } catch (error) {
             console.log(error);
@@ -588,7 +600,7 @@ export default function sendFileStory() {
 
                                                 {
                                                     file.status == 'sent' ? (
-                                                        <button type="button" onClick={() => deleteSentFile(file.id, file.userWillReceive)} className={` ${style.buttonFileCancelSend} `}>Отменить отправку</button>
+                                                        <button type="button" onClick={() => deleteSentFile(file.id, file.userWillReceiveId)} className={` ${style.buttonFileCancelSend} `}>Отменить отправку</button>
                                                     ) : (
                                                         <div></div>
                                                     )
