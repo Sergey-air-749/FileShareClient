@@ -27,6 +27,7 @@ export default function getFileStory() {
     const [showFiltersPopUp, setShowFiltersPopUp] = useState(false)
     const [showMessageSettingsPopUp, setShowMessageSettingsPopUp] = useState(false)
     const [userFileStory, setUserFileStory] = useState<FileItem[]>([])
+    const [error, setError] = useState("")
 
     const { isAuth, userData } = useAppSelector(state => state.authReducer)
 
@@ -76,12 +77,14 @@ export default function getFileStory() {
                 
                 if (serverMessage.response?.data?.msg != undefined) {
                     console.log(serverMessage.response?.data?.msg);   
+                    setError(serverMessage.response?.data?.msg)
                     
                     if (serverMessage.response?.data?.msg == "invalid token") {
                     router.push('/login')
                     }
                 } else {
                     console.log(serverMessage.message)
+                    setError(serverMessage.message)
                 }
             }
         }
@@ -163,13 +166,15 @@ export default function getFileStory() {
                 //console.log(serverMessage);
                 
                 if (serverMessage.response?.data?.msg != undefined) {
-                    console.log(serverMessage.response?.data?.msg);   
+                    console.log(serverMessage.response?.data?.msg);  
+                    setError(serverMessage.response?.data?.msg) 
                     
                     if (serverMessage.response?.data?.msg == "invalid token") {
                         router.push('/login')
                     }
                 } else {
                     console.log(serverMessage.message)
+                    setError(serverMessage.message)
                 }
             }
         }
@@ -202,12 +207,14 @@ export default function getFileStory() {
                 
                 if (serverMessage.response?.data?.msg != undefined) {
                     console.log(serverMessage.response?.data?.msg);   
+                    setError(serverMessage.response?.data?.msg)
                     
                     if (serverMessage.response?.data?.msg == "invalid token") {
                         router.push('/login')
                     }
                 } else {
                     console.log(serverMessage.message)
+                    setError(serverMessage.message)
                 }
             }
         }
@@ -453,6 +460,16 @@ export default function getFileStory() {
                             </div>
 
                         </div>
+
+                        {
+                            error != '' ? (
+                                <div className={style.errorBlock}>
+                                    <span className={style.error}>{error}</span>
+                                </div>
+                            ) : (
+                                <div></div>
+                            )
+                        }
 
                         <div className={style.inputShareBlock}>
                             <input className={style.inputFilters} type="text" placeholder="Поиск" value={filters.search} onChange={(e) => setFilters({ ...filters, search: e.target.value }) }/>

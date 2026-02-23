@@ -284,6 +284,7 @@ function Sendfile() {
       }
 
       let sentToUserId = userData?._id // Для коректной работы статуса файла
+      
       // let sentToUserId = userData?.shareId // Для коректной работы статуса файла
       //console.log(sentToUserId);
       

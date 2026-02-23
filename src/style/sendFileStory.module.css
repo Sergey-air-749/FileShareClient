@@ -61,37 +61,42 @@
     color: #ffffff;
 }
 
-.inputShareBlock {
-    padding: 10px 20px 20px 20px;
-}
+
 
 .formFileStoryButtons {
     display: flex;
     gap: 10px;
 }
 
-.formFileStorySettings {
+.formFileStorySettings, .formFileStoryFilrets {
     display: flex;
     align-items: center;
     background: none;
     border: none;
 }
 
-.formFileStoryFilrets {
-    display: flex;
-    align-items: center;
-    background: none;
-    border: none;
-}
-
-
-
+/* 
 .formFileStoryFiltersBlock {
     display: flex;
     gap: 20px;
     padding: 20px;
+} */
+
+
+
+
+.errorBlock {
+    padding: 10px 20px 20px 20px;
 }
 
+.error {
+    color: rgb(255, 137, 137);
+}
+
+
+.inputShareBlock {
+    padding: 10px 20px 20px 20px;
+}
 
 .inputFilters {
     background-color: var(--dark-gray-input);
