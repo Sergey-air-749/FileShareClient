@@ -27,7 +27,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   const dispatch = useAppDispatch()
   const router = useRouter();
 
-
   // const searchParams = useSearchParams();
 
   //useSearchParams Error
@@ -44,16 +43,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     localStorage.removeItem('token')
     window.location.reload()
   }
-
-  // //console.log(searchParams.get('locale'));
-
-  // const changeLanguageFun = async (lang: "en" | "ru") => {
-  //   await i18nextCF.changeLanguage(lang);
-  // };
-
-  // useEffect(() => {
-  //   changeLanguageFun("ru")
-  // }, [])
 
   useEffect(() => {
     const token = localStorage?.getItem("token")
@@ -100,11 +89,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       }
     }
 
-    if (token != null) {
-      getUserData()
-    } else {
-      router.push('/login')
-    }
+    getUserData()
   }, [])
 
   return (
@@ -114,7 +99,17 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <header className={style.header}>
 
         <div className={style.headerTitle}>
+
+          <svg width="50" height="50" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fillRule="evenodd" clipRule="evenodd" d="M19.6577 21.1413L19.0711 21.7279C18.29 22.509 18.29 23.7753 19.0711 24.5563L19.656 25.1413H54.9996C56.1042 25.1413 56.9996 24.2459 56.9996 23.1413C56.9996 22.0367 56.1042 21.1413 54.9996 21.1413H19.6577Z" fill="#008CFF"/>
+            <path fillRule="evenodd" clipRule="evenodd" d="M19.0711 24.5563C18.29 23.7753 18.29 22.509 19.0711 21.7279L19.6577 21.1413L27.5563 13.2426C28.3374 12.4616 28.3374 11.1953 27.5564 10.4142C26.7753 9.63317 25.509 9.63316 24.7279 10.4142L14.8284 20.3137L13.4142 21.7279C12.6332 22.509 12.6332 23.7753 13.4142 24.5563L14.8284 25.9706L24.7279 35.8701C25.509 36.6511 26.7753 36.6511 27.5564 35.8701C28.3374 35.089 28.3374 33.8227 27.5564 33.0416L19.656 25.1413L19.0711 24.5563Z" fill="#008CFF"/>
+            <path fillRule="evenodd" clipRule="evenodd" d="M49.3429 48.142L49.9295 47.5554C50.7106 46.7743 50.7106 45.508 49.9295 44.7269L49.3446 44.142H14.001C12.8964 44.142 12.001 45.0374 12.001 46.142C12.001 47.2466 12.8964 48.142 14.001 48.142H49.3429Z" fill="#96C3FF"/>
+            <path d="M49.9295 44.7269C50.7106 45.508 50.7106 46.7743 49.9295 47.5554L49.3429 48.142L41.4443 56.0407C40.6632 56.8217 40.6632 58.088 41.4443 58.8691C42.2253 59.6501 43.4916 59.6501 44.2727 58.8691L54.1722 48.9696L55.5864 47.5554C56.3675 46.7743 56.3675 45.508 55.5864 44.7269L54.1722 43.3127L44.2727 33.4132C43.4916 32.6322 42.2253 32.6322 41.4443 33.4132C40.6632 34.1943 40.6632 35.4606 41.4443 36.2417L49.3446 44.142L49.9295 44.7269Z" fill="#96C3FF"/>
+          </svg>
+
+
           <h2>Обмен файлами</h2>
+
         </div>
 
 

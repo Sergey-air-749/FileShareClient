@@ -54,7 +54,7 @@
 .formFileStoryHead {
     display: flex;
     justify-content: space-between;
-    padding: 10px 20px 20px 20px;
+    padding: 10px 10px 20px 10px;
 }
 
 .formFileStoryHead h2 {
@@ -86,7 +86,7 @@
 
 
 .errorBlock {
-    padding: 10px 20px 20px 20px;
+    padding: 10px 10px 20px 10px;
 }
 
 .error {
@@ -95,7 +95,7 @@
 
 
 .inputShareBlock {
-    padding: 10px 20px 20px 20px;
+    padding: 10px 10px 20px 10px;
 }
 
 .inputFilters {
@@ -172,6 +172,7 @@
 .fileStoryViewBlock {
     display: flex;
     flex-direction: column;
+    gap: 15px;
     color: var(--width);
 }
 
@@ -181,7 +182,9 @@
     align-items: center;
     justify-content: space-between;
     padding: 20px;
-    border-top: 1px solid rgb(125, 125, 125);
+    /* border-top: 1px solid rgb(125, 125, 125); */
+    background-color: #1f1f1f;
+    border-radius: 15px;
     gap: 10px;
 }
 
@@ -743,6 +746,16 @@
 }
 
 @media (max-width: 380px) {
+
+    .settingsStoryPopUpBackground {
+        padding-top: 0px;
+        align-items: start;
+    }
+
+    .filtersStoryPopUpBackground {
+        padding-top: 0px;
+        align-items: start;
+    }
 
     .navStoryOptions {
        width: 300px;

@@ -24,6 +24,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     <html lang='ru'>
       <head>
         <meta name="google" content="notranslate" />
+        <meta name="apple-mobile-web-app-title" content="Обмен файлами" />
       </head>
       <body className={robotoSans.className}>
 

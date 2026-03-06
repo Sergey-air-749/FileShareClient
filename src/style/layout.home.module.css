@@ -12,10 +12,13 @@
     justify-content: space-between;
     width: 100%;
     background-color: black;
-    padding: 15px 20px 15px 20px;
+    padding: 10px 20px 10px 20px;
 }
 
 .headerTitle {
+    display: flex;
+    align-items: center;
+    gap: 20px;
     color: #ffffff;
 }
 
@@ -137,6 +140,12 @@
     color: #8b8b8b;
     word-break: break-all;
 }
+
+
+.accountSettingBlock {
+    flex-shrink: 0;
+}
+
 
 .accountSettingLink {
     text-decoration: none;
@@ -297,9 +306,12 @@
 
 
 
-
-
 @media (max-width: 500px) {
+
+    .header {
+        padding: 15px 20px 15px 20px;
+    }
+
     .desktopMenu {
         display: none;
     }
@@ -308,3 +320,20 @@
         display: flex;
     }
 }
+
+
+@media (max-width: 320px) {
+
+    .header {
+        padding: 10px 10px 10px 10px;
+    }
+
+    .headerTitle {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #ffffff;
+    }
+
+}
+

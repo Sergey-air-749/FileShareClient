@@ -91,6 +91,7 @@
 
 .userEmail {
     color: #8b8b8b;
+    word-break: break-all;
 }
 
 

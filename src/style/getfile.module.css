@@ -51,8 +51,8 @@
     flex-direction: column;
 }
 
-.fileList {
-
+.getFilePopUpFilesList {
+    border-radius: 15px;
 }
 
 
@@ -86,7 +86,7 @@
     flex-direction: column;
     justify-content: space-between;
     width: 500px;
-    height: 550px;
+    height: 600px;
     padding: 10px;
     background-color: rgb(36, 36, 36);;
     border: 1px solid rgb(31, 31, 31);;
@@ -96,8 +96,8 @@
 .getFilePopUpHeader {
     display: flex;
     justify-content: space-between;
-    padding: 10px 10px 20px 10px;
-    border-bottom: 1px solid rgb(125, 125, 125);
+    padding: 10px 10px 15px 10px;
+    /* border-bottom: 1px solid rgb(125, 125, 125); */
     flex-shrink: 0;
 }
 
@@ -137,7 +137,9 @@
 .getFilePopUpItems {
     display: flex;
     flex-direction: column;
-    /* padding: 10px; */
+    /* padding-top: 15px; */
+    padding-right: 10px;
+    gap: 15px;
     color: var(--width);
 }
 
@@ -147,7 +149,10 @@
     align-items: center;
     justify-content: space-between;
     padding: 20px;
-    border-top: 1px solid rgb(125, 125, 125);
+    /* border: 1px solid rgb(125, 125, 125); */
+    /* border-radius: 10px; */
+    background-color: #00000070;
+    border-radius: 15px;
     gap: 10px;
 }
 
@@ -436,29 +441,11 @@
     color: var(--width);
 }
 
-
-.filePreview {
-    display: flex;
-    flex-direction: column;
-
-    border: 1px solid #2e2e2e;
-    border-radius: 15px;
-    padding: 20px;
-    color: var(--width);
-    gap: 20px;
-}
-
-.filePreviewFiles {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.fileItem {
+/* .fileItem {
     display: flex;
     align-items: center;
     gap: 10px;
-}
+} */
 
 
 
@@ -558,6 +545,11 @@
 }
 
 @media (max-width: 380px) {
+
+    .getFilePopUpBackground {
+        padding-top: 0px;
+        align-items: start;
+    }
 
     .blockForm {
         width: 350px;
