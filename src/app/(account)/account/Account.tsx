@@ -1,6 +1,8 @@
 "use client"
 import { useState, useEffect, ChangeEvent, useRef, FormEvent } from "react"
+
 import style from "@/style/account.module.css";
+
 import { useAppSelector, useAppDispatch, useAppStore } from '@/components/hooks'
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -210,7 +212,13 @@ export default function Account() {
     
 
     const logOutFun = () => {
-        localStorage.removeItem('token')
+        
+        const token = localStorage.getItem("recoveringGuestToken")
+    
+        if (token != null) {
+            localStorage.setItem("token", token)
+        }
+
         window.location.reload()
     }
 

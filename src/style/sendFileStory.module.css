@@ -54,7 +54,7 @@
 .formFileStoryHead {
     display: flex;
     justify-content: space-between;
-    padding: 10px 10px 20px 10px;
+    padding: 10px 15px 20px 15px;
 }
 
 .formFileStoryHead h2 {
@@ -247,7 +247,7 @@
 
 
 
-/* .textItem {
+.textItem {
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -278,7 +278,15 @@
     flex-shrink: 5;
     width: 100%;
     gap: 10px;
-} */
+}
+
+
+
+
+
+
+
+
 
 .buttonFileDeleteStory {
     display: flex;
@@ -309,7 +317,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color:  var(--colorCancel);
+    background-color:#2f2f2f;
     border: none;
     color: var(--width);
     font-size: 16px;
@@ -322,11 +330,11 @@
 }
 
 .buttonFileCancelSend:hover {
-    background-color:  var(--colorCancelHover);
+    background-color: #3e3e3e;
 }
 
 .buttonFileCancelSend:active {
-    background-color:  var(--colorCancel);
+    background-color: #3b3b3b;
 }
 
 

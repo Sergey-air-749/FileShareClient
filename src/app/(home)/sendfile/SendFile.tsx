@@ -41,7 +41,7 @@ interface recipientDetailsData {
 // Переделать кнопки выбора истори ✅
 // Страница удаления аккаунта ✅
 
-// IMaskInput
+// IMaskInput ✅
 
 
 // sendToUserId - для статуса
@@ -331,7 +331,7 @@ function Sendfile() {
       } else if (/Windows/i.test(userAgentString)) {
         device = "Windows"
       } else {
-        device = ""
+        device = "Не опредилён"
       }
     
 
@@ -398,7 +398,7 @@ function Sendfile() {
           //console.log(username);
 
 
-          const response = await axios.post(fileApiUrl + '/api/fileLoadNew/' + shareId, formData, {
+          const response = await axios.post(fileApiUrl + '/api/fileLoad/' + shareId, formData, {
             headers: {
               'authorization': `Bearer ${token}`,
             }

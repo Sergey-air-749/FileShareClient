@@ -47,6 +47,18 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   useEffect(() => {
     const token = localStorage?.getItem("token")
 
+
+    const signupGuest = async () => {
+
+      const response = await axios.post(apiUrl + '/api/signup/guest');
+
+      localStorage.setItem("token", response.data.token)
+      localStorage.setItem("recoveringGuestToken", response.data.token)
+      window.location.reload()
+
+    }
+    
+
     const getUserData = async () => {
       
       try {
@@ -72,9 +84,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               if (serverMessage.response?.data?.msg != undefined) {
                 console.log(serverMessage.response?.data?.msg);   
                 
-                if (serverMessage.response?.data?.msg == "invalid token" || serverMessage.response?.data?.msg == "invalid data") {
-                  router.push('/login')
-                } else if (serverMessage.response?.data?.msg == "Пользователь не верифицировал почту") {
+                if (serverMessage.response?.data?.msg == "invalid token") {  // || serverMessage.response?.data?.msg == "Что-то пошло не так"
+                  signupGuest()
+                } else if (serverMessage.response?.data?.msg == "Почта не верифицирована") {
                   router.push('/signup/email/verification')
                 }
 

@@ -1,4 +1,4 @@
-.changePassword {
+.signup {
     width: 100%;
     height: 100%;
     display: flex;
@@ -7,20 +7,7 @@
     background-color: rgb(26, 26, 26);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-.formChangePassword {
+.formSignup {
     position: relative;
     display: flex;
     width: 500px;
@@ -90,13 +77,67 @@
 }
 
 
+
+
+
+
 .formButtons {
     display: flex;
     flex-direction: column;
-    padding-top: 30px;
-    padding-bottom: 10px;
-    gap: 20px;
+    padding-bottom: 20px;
+    gap: 5px;
 }
+
+.storyLinkStyle {
+    width: 100%;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 10px 10px 10px 10px;
+    border: none;
+    background-color: #242424;
+    font-size: 18px;
+    text-decoration: none;
+    text-align: start;
+    color: #008CFF;
+    transition: 0.2s all ;
+}
+
+.storyLinkStyle:hover {
+    background-color: #1f1f1f;
+}
+
+.storyLinkStyle:active {
+    background-color: #242424;
+}
+
+.linkStyleBorderRadiusTop {
+    border-radius: 30px 30px 5px 5px;
+}
+
+.linkStyleBorderRadiusButton {
+    border-radius: 5px 5px 30px 30px;
+}
+
+.linkInfoStyle {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.linkInfoIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+
+
+
+
+
+
 
 .buttonSubmit {
     background-color: var(--blue);
@@ -120,35 +161,32 @@
 
 
 
-.buttonCancel {
-    background-color: #212121;
-    border: none;
-    color: var(--width);
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 100px;
-    padding: 12px 15px;
-    transition: 0.2s all ;
-    outline: none;
-    width: 100%;
-}
-
-.buttonCancel:hover {
-    background-color: #2c2b2b;
-}
-
-.buttonCancel:active {
-    background-color: #212121;
-}
 
 
-.formLinks {
+
+.formInfo {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding-top: 10px;
-    gap: 15px;
+    padding-top: 20px;
+    gap: 15px
 }
+
+.formInfoText {
+    display: flex;
+    flex-direction: column;
+    gap: 5px
+}
+
+.formInfoText h3 {
+   color: #ffffff;
+}
+
+.formInfoText span {
+   color: #cdcdcd;
+}
+
+
+
 
 
 
@@ -158,36 +196,42 @@
     color: rgb(255, 137, 137);
 }
 
-.loginByButton {
+.buttonLink {
     text-align: start;
     color: #b8b8b8;
     font-size: 16px;
     background: none;
     border: none;
+    cursor: pointer;
+    transition: 0.2s all ;
+}
+
+.buttonLink:hover {
+    color: #eaeaea;
+}
+
+.buttonLink:active {
+    color: #b8b8b8;
 }
 
 
+
+
+
 .Link {
-    font-size: 16px;
     color: #b8b8b8;
+    font-size: 16px;
     text-decoration: none;
     transition: 0.2s all ;
 }
 
 .Link:hover {
-    color: #d4d4d4;
+    color: #eaeaea;
 }
 
 .Link:active {
     color: #b8b8b8;
 }
-
-
-
-
-
-
-
 
 
 
@@ -238,12 +282,11 @@
 
 
 
-
-
-
 @media (max-width: 500px) {
-    .formChangePassword {
+
+    .formSignup {
         width: 100%;
+        height: 100%;
         border: none;
         border-radius: 0px;
         /* padding-top: 50px; */
@@ -253,28 +296,11 @@
     .formLoaderBackground {
         position: fixed;
     }
-
-    .changePassword {
+    
+    .signup {
         align-items: start;
-        background-color: rgb(0, 0, 0);  
+        background-color: rgb(0, 0, 0);
     }
-
 }
 
-/* @media (max-width: 380px) {
 
-    .formChangePassword {
-        padding: 25px;
-        padding-top: 50px;
-    }
-
-}
-
-@media (max-width: 320px) {
-
-    .formChangePassword {
-        padding: 25px;
-        padding-top: 50px;
-    }
-
-} */

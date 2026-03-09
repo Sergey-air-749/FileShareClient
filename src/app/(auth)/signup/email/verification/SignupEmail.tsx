@@ -139,18 +139,18 @@ export default function SignupEmail() {
 
             try {
 
-                showLoaderFun()
+                // showLoaderFun()
             
-                const token = localStorage?.getItem('token')
+                // const token = localStorage?.getItem('token')
 
-                const response = await axios.get(apiUrl + '/api/signup/email/cancel',
-                    {
-                        headers: {
-                            'authorization': `Bearer ${token}`,
-                            'Content-Type': 'application/json'
-                        }, 
-                    }
-                );
+                // const response = await axios.get(apiUrl + '/api/signup/email/cancel',
+                //     {
+                //         headers: {
+                //             'authorization': `Bearer ${token}`,
+                //             'Content-Type': 'application/json'
+                //         }, 
+                //     }
+                // );
                 //console.log('Response:', response);  
                 
                 router.push('/signup')

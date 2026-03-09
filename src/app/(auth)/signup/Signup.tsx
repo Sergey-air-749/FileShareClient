@@ -1,5 +1,5 @@
 "use client"
-import { ChangeEvent, FormEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from "react";
 import style from "@/style/signup.module.css"
 import { useRouter } from "next/navigation";
 import axios from "axios";
@@ -11,7 +11,11 @@ export default function Signup() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [passwordRepeat, setPasswordRepeat] = useState("")
+
+    const [errorValidation, setErrorValidation] = useState("")
     const [error, setError] = useState("")
+
+    const [isGuest, setIsGuest] = useState(false)
 
     const [showLoader, setShowLoader] = useState(false)
 
@@ -19,12 +23,55 @@ export default function Signup() {
     const [showPasswordRepeatStatus, setShowPasswordRepeatStatus] = useState("password")
     
     const emailRegexp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-    const usernameRegexp = /^[a-zA-Zа-яА-Я0-9_!@%&*?\s]{3,}$/
+    const usernameRegexp = /^(?=.*[a-zA-Zа-яА-Я])[\wа-яА-Я.]{3,20}$/  // /^[a-zA-Zа-яА-Я0-9_!@%&*?\s]{3,}$/
     const passwordRegexp = /^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
     const router = useRouter()
 
     const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL
+
+
+    useEffect(() => {
+
+        const token = localStorage?.getItem("token")
+
+        const isGuestFun = async () => {
+
+            try {
+ 
+                const response = await axios.get(apiUrl + '/api/user/isguest', {
+                    headers: {
+                        'authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.data.isGuest == true) {
+                    setIsGuest(true)
+                } else {
+                    setIsGuest(false)
+                }
+
+            } catch (error) {
+                console.log(error);
+                if (axios.isAxiosError(error)) {
+                    const serverMessage = error
+                    //console.log(serverMessage);
+                    
+                    if (serverMessage.response?.data?.msg != undefined) {
+                        console.log(serverMessage.response?.data?.msg);     
+                    } else {
+                        console.log(serverMessage.message)
+                    }
+                }
+            }
+                   
+
+        }   
+        
+        isGuestFun()
+
+    }, [])
 
     
 
@@ -42,9 +89,9 @@ export default function Signup() {
         //console.log(emailRegexp.test(value));  
 
         if (emailRegexp.test(value) == true) {
-            setError("")
+            setErrorValidation("")
         } else {
-            setError("Почта должна состоять от 3 символов, содержать символ @ ")
+            setErrorValidation("Почта должна состоять от 3 символов, содержать символ @ ")
         }
 
         setEmail(value) 
@@ -56,9 +103,9 @@ export default function Signup() {
         //console.log(usernameRegexp.test(value));   
 
         if (usernameRegexp.test(value) == true) {
-            setError("")
+            setErrorValidation("")
         } else {
-            setError("Имя пользователя должна состоять от 3 символов")
+            setErrorValidation("Имя пользователя должна состоять от 3 символов")
         }
 
         setUsername(value)
@@ -70,9 +117,9 @@ export default function Signup() {
         //console.log(passwordRegexp.test(value));  
 
         if (passwordRegexp.test(value) == true) {
-            setError("")
+            setErrorValidation("")
         } else {
-            setError("Пароль должна состоять от 8 символов, включая цифры, заглавные буквы, строчные буквы и спец символов: @, $, !, %, *, ?, &.")
+            setErrorValidation("Пароль должна состоять от 8 символов, включая цифры, заглавные буквы, строчные буквы и спец символов: @, $, !, %, *, ?, &.")
         }
 
         setPassword(value)
@@ -84,9 +131,9 @@ export default function Signup() {
         //console.log(passwordRegexp.test(value));  
 
         if (passwordRegexp.test(value) == true) {
-            setError("")
+            setErrorValidation("")
         } else {
-            setError("Пароль должна состоять от 8 символов, включая цифры, заглавные буквы, строчные буквы и спец символов: @, $, !, %, *, ?, &.")
+            setErrorValidation("Пароль должна состоять от 8 символов, включая цифры, заглавные буквы, строчные буквы и спец символов: @, $, !, %, *, ?, &.")
         }
 
         setPasswordRepeat(value) 
@@ -132,32 +179,33 @@ export default function Signup() {
                     password: password,
                 }
 
-                //console.log(userData);
-
                 let response
-                const token = localStorage?.getItem("token")
 
-                if (token != null) {
-                    response = await axios.post(apiUrl + '/api/signup', userData, {
-                        headers: {
-                            'authorization': `Bearer ${token}`,
-                            'Content-Type': 'application/json'
+                if (errorValidation == '') {
+
+                    if (isGuest == false) {
+
+                        response = await axios.post(apiUrl + '/api/signup', userData);
+
+                        if (response?.data.token != null) {
+                            localStorage.setItem("token", response?.data.token)
                         }
-                    });
+
+                        router.push('/signup/email/verification')
+                        
+                    } else {
+
+                        localStorage?.setItem("signUpUserData", JSON.stringify(userData))
+                        router.push('/signup/whatyouwanttochoose')
+
+                    }
+
+                    // console.log('Response:', response);
+                    // console.log('token:', response?.data.token);
+
                 } else {
-                    response = await axios.post(apiUrl + '/api/signup', userData);
+                    closeLoaderFun()
                 }
-
-                if (response?.data.token != null) {
-                    localStorage.setItem("token", response?.data.token)
-                }
-
-                router.push('/signup/email/verification')
-
-                //console.log('Response:', response);
-                //console.log('Token:', response.data.token);
-
-                
 
 
             } catch (error) {
@@ -275,7 +323,11 @@ export default function Signup() {
                             
                         </button>
                     </div>
-                    <span className={style.error}>{error}</span>
+
+                    <div>
+                        <span className={style.error}>{error}</span>
+                        <span className={style.error}>{errorValidation}</span>
+                    </div>
                 </div>
 
                 <div className={style.formButtons}>
@@ -283,7 +335,7 @@ export default function Signup() {
 
                     <div className={style.formLinks}>
                         <Link className={`${style.Link}`} href={'/login'}>Есть аккаунт вход</Link>
-                        <button type="button" onClick={(e) => сontinueAsGuestFun(e)} className={`${style.Link} ${style.buttonLink}`}>Продолжить как гость</button>
+                        {/* <button type="button" onClick={(e) => сontinueAsGuestFun(e)} className={`${style.Link} ${style.buttonLink}`}>Продолжить как гость</button> */}
                     </div>
 
                 </div>

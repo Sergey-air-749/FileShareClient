@@ -51,13 +51,13 @@
 
 /* StoryView */
 
-.formFileStoryTitleBlock {
+.formFileStoryHead {
     display: flex;
     justify-content: space-between;
-    padding: 10px 10px 20px 10px;
+    padding: 10px 15px 20px 15px;
 }
 
-.formFileStoryTitleBlock h2 {
+.formFileStoryHead h2 {
     color: #ffffff;
 }
 
@@ -241,7 +241,7 @@
 
 
 
-/* 
+
 
 .textItem {
     display: flex;
@@ -274,7 +274,7 @@
     flex-shrink: 5;
     width: 100%;
     gap: 10px;
-} */
+}
 
 
 

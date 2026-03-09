@@ -71,7 +71,17 @@
     font-size: 18px;
     text-decoration: none;
     color: #008CFF;
+    transition: 0.2s all ;
 }
+
+.storyLinkStyle:hover {
+    background-color: #1f1f1f;
+}
+
+.storyLinkStyle:active {
+    background-color: #242424;
+}
+
 
 .linkStyleBorderRadiusTop {
     border-radius: 30px 30px 5px 5px;

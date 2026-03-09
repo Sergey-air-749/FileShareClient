@@ -1,7 +1,9 @@
 "use client"
-import { ChangeEvent, FormEvent,     MouseEvent,     useState } from "react";
+import { ChangeEvent, FormEvent,     MouseEvent,     useEffect,     useState } from "react";
 import Link from "next/link";
-import style from "@/style/login.module.css"
+
+import style from "@/style/login.module.css"  
+
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
@@ -236,7 +238,7 @@ export default function Login() {
                         </button>
 
                         <Link className={`${style.Link}`} href={'/signup'}>Нет акаунта регистрация</Link>
-                        <button type="button" onClick={(e) => сontinueAsGuestFun(e)} className={`${style.Link} ${style.buttonLink}`}>Продолжить как гость</button>
+                        {/* <button type="button" onClick={(e) => сontinueAsGuestFun(e)} className={`${style.Link} ${style.buttonLink}`}>Продолжить как гость</button> */}
                         <Link className={`${style.Link}`} href={'/login/resetpassword'}>Забыли пароль?</Link>
                         
                     </div>
