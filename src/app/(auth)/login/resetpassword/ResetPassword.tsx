@@ -12,7 +12,7 @@ export default function ResetPassword() {
 
     const [showLoader, setShowLoader] = useState(false)
     
-    const emailRegexp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    // const emailRegexp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
     const router = useRouter()
 

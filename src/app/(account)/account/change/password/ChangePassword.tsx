@@ -122,7 +122,7 @@ export default function ChangePassword() {
 
                 //console.log(userUpData);
 
-                const response = await axios.put(apiUrl + '/api/change/password', 
+                await axios.put(apiUrl + '/api/change/password', 
                     userUpData,
                     {
                         headers: {

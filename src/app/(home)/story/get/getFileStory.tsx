@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 
 import Link from "next/link";
 import axios from "axios";
-import { IMaskInput } from "react-imask";
 
 interface FileItem {
   filename: string;
@@ -21,7 +20,7 @@ interface FileItem {
   id: string;
 }
 
-export default function getFileStory() {
+export default function GetFileStory() {
 
     const [showSettingsPopUp, setShowSettingsPopUp] = useState(false)
     const [showFiltersPopUp, setShowFiltersPopUp] = useState(false)
@@ -48,48 +47,90 @@ export default function getFileStory() {
     const fileApiUrl = process.env.NEXT_PUBLIC_SERVER_FILE_API_URL
     const soketUrl = process.env.NEXT_PUBLIC_SERVER_SOCET_URL
 
-    useEffect(() => {
-        getStoryGetFile()
-    }, [])
-
-
-    const getStoryGetFile = useCallback(async () => {
-
-        const token = localStorage?.getItem("token")
-
-        try {
-
-            const response = await axios.get(apiUrl + '/api/story/get', {
-            headers: {
-                'authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-            })
-
-            console.log('Response:', response.data);
-
-            setUserFileStory(response.data)
-
-        } catch (error) {
-            console.log(error);
-            if (axios.isAxiosError(error)) {
-                const serverMessage = error
-                //console.log(serverMessage);
-                
-                if (serverMessage.response?.data?.msg != undefined) {
-                    console.log(serverMessage.response?.data?.msg);   
-                    setError(serverMessage.response?.data?.msg)
+    const getStoryGetFile = async () => {
+    
+            const token = localStorage?.getItem("token")
+    
+            try {
+    
+                const response = await axios.get(apiUrl + '/api/story/get', {
+                headers: {
+                    'authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+                })
+    
+                console.log('Response:', response.data);
+    
+                setUserFileStory(response.data)
+    
+            } catch (error) {
+                console.log(error);
+                if (axios.isAxiosError(error)) {
+                    const serverMessage = error
+                    //console.log(serverMessage);
                     
-                    if (serverMessage.response?.data?.msg == "invalid token") {
-                    router.push('/login')
+                    if (serverMessage.response?.data?.msg != undefined) {
+                        console.log(serverMessage.response?.data?.msg);   
+                        setError(serverMessage.response?.data?.msg)
+                        
+                        if (serverMessage.response?.data?.msg == "invalid token") {
+                        router.push('/login')
+                        }
+                    } else {
+                        console.log(serverMessage.message)
+                        setError(serverMessage.message)
                     }
-                } else {
-                    console.log(serverMessage.message)
-                    setError(serverMessage.message)
                 }
             }
         }
-    }, [])
+
+
+        useEffect(() => {
+            
+            const getStoryGetFile = async () => {
+        
+                const token = localStorage?.getItem("token")
+        
+                try {
+        
+                    const response = await axios.get(apiUrl + '/api/story/get', {
+                    headers: {
+                        'authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                    })
+        
+                    console.log('Response:', response.data);
+        
+                    setUserFileStory(response.data)
+        
+                } catch (error) {
+                    console.log(error);
+                    if (axios.isAxiosError(error)) {
+                        const serverMessage = error
+                        //console.log(serverMessage);
+                        
+                        if (serverMessage.response?.data?.msg != undefined) {
+                            console.log(serverMessage.response?.data?.msg);   
+                            setError(serverMessage.response?.data?.msg)
+                            
+                            if (serverMessage.response?.data?.msg == "invalid token") {
+                            router.push('/login')
+                            }
+                        } else {
+                            console.log(serverMessage.message)
+                            setError(serverMessage.message)
+                        }
+                    }
+                }
+            }
+
+            getStoryGetFile()
+
+        }, [])
+
+
 
 
 

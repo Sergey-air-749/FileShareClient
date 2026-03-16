@@ -1,4 +1,5 @@
 import styleAccountAccessDenied from "@/style/access.denied.account.module.css";
+import Link from "next/link";
 
 function AccountAccessDeniedPage() {
 
@@ -47,7 +48,7 @@ function AccountAccessDeniedPage() {
 
                         <div className={styleAccountAccessDenied.accountSettingAccessdDniedButtons}>
 
-                          <a href="/" className={styleAccountAccessDenied.styleButtonBackHome}>Вернуться на главную</a>
+                          <Link href="/" className={styleAccountAccessDenied.styleButtonBackHome}>Вернуться на главную</Link>
                         
                         </div>
 

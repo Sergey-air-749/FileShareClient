@@ -15,20 +15,20 @@ interface FileItem {
 
 interface AuthState {
     isAuth: boolean,
-    token: String | null,
+    token: string | null,
     userData: {
-        _id: String,
+        _id: string,
         avatar: {
-            "400": String,
-            "1000": String
+            "400": string,
+            "1000": string
         },
-        username: String,
-        email: String,
-        shareId: String,
-        emailNew: String,
+        username: string,
+        email: string,
+        shareId: string,
+        emailNew: string,
         filseStorySend: FileItem[],
         filseStoryGet: FileItem[],
-        isGuest: Boolean
+        isGuest: boolean
     } | null,
 }
 

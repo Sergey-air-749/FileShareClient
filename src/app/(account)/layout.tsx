@@ -72,6 +72,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                     signupGuest()
                   } else if (serverMessage.response?.data?.msg == "Почта не верифицирована") {
                     router.push('/signup/email/verification')
+                  } else if (serverMessage.response?.data?.msg == "Что-то пошло не так") {  
+                    signupGuest()
                   }
 
                 }

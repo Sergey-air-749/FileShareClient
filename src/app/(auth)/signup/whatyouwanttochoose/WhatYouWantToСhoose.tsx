@@ -8,7 +8,7 @@ import Link from "next/link";
 export default function WhatYouWantToСhoose() {
 
     
-    const [signUpUserDataParse, setSignUpUserDataParse] = useState("")
+    const [signUpUserDataParse, setSignUpUserDataParse] = useState<string | null>("")
     const [error, setError] = useState("")
 
     const [showLoader, setShowLoader] = useState(false)
@@ -20,12 +20,10 @@ export default function WhatYouWantToСhoose() {
 
     useEffect(() => {
         
-        let signUpUserData = localStorage?.getItem("signUpUserData")
+        const signUpUserData = localStorage?.getItem("signUpUserData")
 
-        if (signUpUserData != null && signUpUserData != undefined) {
-
+        if (signUpUserData != null || signUpUserData != undefined) {
             setSignUpUserDataParse(JSON.parse(signUpUserData))
-
         }
 
     }, [])

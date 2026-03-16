@@ -8,7 +8,7 @@ import { useAppSelector } from "@/components/hooks";
 
 export default function ChangeEmail() {
 
-    const { isAuth, userData } = useAppSelector(state => state.authReducer)
+    const { userData } = useAppSelector(state => state.authReducer)
     const [code, setCode] = useState("")
     const [message, setMessage] = useState("")
     const [error, setError] = useState("")
@@ -63,7 +63,7 @@ export default function ChangeEmail() {
 
                 //console.log(codeObj);
 
-                const response = await axios.post(apiUrl + '/api/change/email/verify',
+                await axios.post(apiUrl + '/api/change/email/verify',
                     codeObj,
 
                     {
@@ -104,7 +104,7 @@ export default function ChangeEmail() {
 
                 const token = localStorage?.getItem('token')
 
-                const response = await axios.get(apiUrl + '/api/change/email/new',
+                await axios.get(apiUrl + '/api/change/email/new',
                     {
                         headers: {
                             'authorization': `Bearer ${token}`,
@@ -141,7 +141,7 @@ export default function ChangeEmail() {
             
                 const token = localStorage?.getItem('token')
 
-                const response = await axios.get(apiUrl + '/api/change/email/cancel',
+                await axios.get(apiUrl + '/api/change/email/cancel',
                     {
                         headers: {
                             'authorization': `Bearer ${token}`,

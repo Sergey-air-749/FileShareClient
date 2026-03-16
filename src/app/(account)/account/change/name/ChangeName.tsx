@@ -8,7 +8,7 @@ import { useAppSelector } from "@/components/hooks";
 
 export default function ChangeName() {
 
-    const { isAuth, userData } = useAppSelector(state => state.authReducer)
+    const { userData } = useAppSelector(state => state.authReducer)
     const [username, setUsername] = useState("")
     const [error, setError] = useState("")
 
@@ -64,7 +64,7 @@ export default function ChangeName() {
 
                 //console.log(userUpData);
 
-                const response = await axios.put(apiUrl + '/api/change/username',
+                await axios.put(apiUrl + '/api/change/username',
                     userUpData,
                     {
                         headers: {

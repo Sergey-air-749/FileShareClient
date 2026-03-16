@@ -12,7 +12,6 @@ export default function Account() {
 
     const [fileAvatar, setFileAvatar] = useState<File[]>([])
     const [showAvatarPreviwePopUp, setAvatarPreviweShowPopUp] = useState(false)
-    const [deleteAccountPopUp, setDeleteAccountPopUp] = useState(false)
     const [filePreviwe, setFilePreviwe] = useState<string | ArrayBuffer | null>(null)
 
     const [submitLoader, setSubmitLoader] = useState(false);
@@ -57,7 +56,7 @@ export default function Account() {
         if (e.target.files != null) {
             const files = e.target.files;
             //console.log(files);
-            let fileFilter = []
+            const fileFilter = []
 
             if (files[0].size != 0 || files[0].size != undefined) {
                 fileFilter.push(files[0])
@@ -112,7 +111,7 @@ export default function Account() {
                 // });
 
 
-                const response = await axios.post(apiUrl + '/api/change/avatar', 
+                await axios.post(apiUrl + '/api/change/avatar', 
 
 
                     formData, 
@@ -159,7 +158,7 @@ export default function Account() {
 
             showSubmitLoaderFun()
 
-            const response = await axios.post(apiUrl + '/api/change/avatar/default', 
+            await axios.post(apiUrl + '/api/change/avatar/default', 
                 {},
                 {
                     headers: {
@@ -200,16 +199,6 @@ export default function Account() {
         setAvatarPreviweShowPopUp(false)
         setFilePreviwe(null) 
     }
-
-
-    const showDeleteAccountPopUpFun = () => {
-        setDeleteAccountPopUp(true)
-    }
-
-    const closeDeleteAccountPopUpFun = () => {
-        setDeleteAccountPopUp(false)
-    }
-    
 
     const logOutFun = () => {
         

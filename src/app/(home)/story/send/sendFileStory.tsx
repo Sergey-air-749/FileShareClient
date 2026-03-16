@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect, useRef, useCallback, ChangeEvent } from "react";
+import { useState, useEffect, useRef, ChangeEvent } from "react";
 import style from "@/style/sendFileStory.module.css";
 
 import { useAppSelector, useAppDispatch, useAppStore } from '@/components/hooks'
@@ -9,7 +9,6 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
 import { io, Socket } from "socket.io-client";
-import { IMaskInput } from 'react-imask';
 
 interface FileItem {
     userWillReceiveId: string;
@@ -23,9 +22,7 @@ interface FileItem {
     id: string;
 }
 
-
-export default function sendFileStory() {
-
+export default function SendFileStory() {
     const [showSettingsPopUp, setShowSettingsPopUp] = useState(false)
     const [showFiltersPopUp, setShowFiltersPopUp] = useState(false)
     const [showMessageSettingsPopUp, setShowMessageSettingsPopUp] = useState(false)
@@ -47,12 +44,7 @@ export default function sendFileStory() {
         console.log(filters);
     }, [filters])
 
-
-    
-
-    // const socket = io('http://localhost:7001/');
-
-    const socketRef = useRef<Socket | any>(null);
+    const socketRef = useRef<Socket>(null);
 
     const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL
     const fileApiUrl = process.env.NEXT_PUBLIC_SERVER_FILE_API_URL
@@ -64,7 +56,9 @@ export default function sendFileStory() {
         }
 
         return () => {
-            socketRef.current.disconnect();
+            if (socketRef.current != null) {
+                socketRef.current.disconnect();
+            }
         };
     }, []);
 
@@ -72,12 +66,8 @@ export default function sendFileStory() {
 
     const router = useRouter()
 
-    useEffect(() => {
-        getStorySendFile()
-    }, [])
-
-    const getStorySendFile = useCallback(async () => {
-
+    const upDateStorySendFile = async () => {
+    
         const token = localStorage?.getItem("token")
 
         try {
@@ -112,7 +102,51 @@ export default function sendFileStory() {
                 }
             }
         }
+    }
+
+    useEffect(() => {
+
+        const getStorySendFile = async () => {
+    
+        const token = localStorage?.getItem("token")
+
+        try {
+
+            const response = await axios.get(apiUrl + '/api/story/send', {
+            headers: {
+                'authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+            })
+
+            console.log('Response:', response.data);
+
+            setUserFileStory(response.data)
+
+        } catch (error) {
+            console.log(error);
+            if (axios.isAxiosError(error)) {
+                const serverMessage = error
+                //console.log(serverMessage);
+                
+                if (serverMessage.response?.data?.msg != undefined) {
+                    console.log(serverMessage.response?.data?.msg);   
+                    setError(serverMessage.response?.data?.msg)
+
+                    if (serverMessage.response?.data?.msg == "invalid token") {
+                        router.push('/login')
+                    }
+                } else {
+                    console.log(serverMessage.message)
+                    setError(serverMessage.message)
+                }
+            }
+        }
+    }
+
+        getStorySendFile()
     }, [])
+
 
     const filteredFileStory = userFileStory?.filter((file) => {
 
@@ -193,7 +227,7 @@ export default function sendFileStory() {
 
         try {
 
-            const response = await axios.post(fileApiUrl + '/api/story/send/deleteAll/', {}, {
+            await axios.post(fileApiUrl + '/api/story/send/deleteAll/', {}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
@@ -201,7 +235,7 @@ export default function sendFileStory() {
             })
 
             //console.log('Response:', response.data);
-            getStorySendFile()
+            upDateStorySendFile()
 
         } catch (error) {
             console.log(error);
@@ -236,7 +270,7 @@ export default function sendFileStory() {
 
         try {
 
-            const response = await axios.post(fileApiUrl + '/api/story/send/delete/' + id, {}, {
+            await axios.post(fileApiUrl + '/api/story/send/delete/' + id, {}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
@@ -244,7 +278,7 @@ export default function sendFileStory() {
             })
 
             //console.log('Response:', response.data);
-            getStorySendFile()
+            upDateStorySendFile()
 
         } catch (error) {
             console.log(error);
@@ -280,7 +314,7 @@ export default function sendFileStory() {
 
         try {
 
-            const response = await axios.post(fileApiUrl + '/api/files/send/delete/' + id, 
+            await axios.post(fileApiUrl + '/api/files/send/delete/' + id, 
                 {
                     userWillReceiveId: userWillReceiveId
                 }, 
@@ -293,8 +327,11 @@ export default function sendFileStory() {
             )
 
             //console.log('Response:', response.data);
-            socketRef.current.emit('pingfilesUserId', userWillReceiveId);
-            getStorySendFile()
+            if (socketRef.current != null) {
+                socketRef.current.emit('pingfilesUserId', userWillReceiveId);
+            }
+
+            upDateStorySendFile()
 
         } catch (error) {
             console.log(error);

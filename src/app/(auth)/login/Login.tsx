@@ -1,5 +1,5 @@
 "use client"
-import { ChangeEvent, FormEvent,     MouseEvent,     useEffect,     useState } from "react";
+import { ChangeEvent, FormEvent, MouseEvent, useState } from "react";
 import Link from "next/link";
 
 import style from "@/style/login.module.css"  
@@ -19,9 +19,9 @@ export default function Login() {
     const [showPasswordStatus, setShowPasswordStatus] = useState("password")
     const [loginBy, setLoginBy] = useState("username")
     
-    const emailRegexp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-    const usernameRegexp = /^[a-zA-Zа-яА-Я0-9_]{3,20}$/
-    const passwordRegexp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    // const emailRegexp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    // const usernameRegexp = /^[a-zA-Zа-яА-Я0-9_]{3,20}$/
+    // const passwordRegexp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
     const router = useRouter()
 

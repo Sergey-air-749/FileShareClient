@@ -95,7 +95,7 @@ export default function DeleteAccount() {
             
                 const token = localStorage?.getItem('token')
 
-                const response = await axios.delete(apiUrl + '/api/account/delete',
+                await axios.delete(apiUrl + '/api/account/delete',
 
                     {
                         headers: {
@@ -112,7 +112,7 @@ export default function DeleteAccount() {
                 
 
             } catch (error) {
-                closeLoaderFun
+                closeLoaderFun()
                 console.log(error);
                 if (axios.isAxiosError(error)) {
                     const serverMessage = error

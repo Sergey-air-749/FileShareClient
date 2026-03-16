@@ -1,5 +1,4 @@
 'use client'
-import { Roboto } from "next/font/google";
 import Link from "next/link";
 
 import "@/style/global.css";
@@ -15,12 +14,6 @@ import axios from "axios";
 
 import { useRouter } from "next/navigation";
 
-const robotoSans = Roboto({
-  weight: ["400"],
-  variable: "--font-roboto",
-  subsets: ["latin"],
-});
-
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const [showBurgerMenu, setShowBurgerMenu] = useState(false)
   const { isAuth, userData } = useAppSelector(state => state.authReducer)
@@ -28,22 +21,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   const router = useRouter();
 
   // const searchParams = useSearchParams();
-
   //useSearchParams Error
 
   const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL
-
-  useEffect(() => {
-    //console.log(isAuth);
-  }, [isAuth])
-
-  //console.log(router);
   
-  const logOutFun = () => {
-    localStorage.removeItem('token')
-    window.location.reload()
-  }
-
   useEffect(() => {
     const token = localStorage?.getItem("token")
 
@@ -88,6 +69,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                   signupGuest()
                 } else if (serverMessage.response?.data?.msg == "Почта не верифицирована") {
                   router.push('/signup/email/verification')
+                } else if (serverMessage.response?.data?.msg == "Что-то пошло не так") {  // || serverMessage.response?.data?.msg == "Что-то пошло не так"
+                  signupGuest()
                 }
 
               } else {
@@ -141,7 +124,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               <nav className={style.nav}>
 
                 <Link className={style.Link} href="/sendfile">Отправить</Link>
-                <Link className={style.Link} href="/getfile">Получить</Link>
+                <a className={style.Link} href="/getfile">Получить</a>
                 <Link className={style.Link} href="/story">История</Link>
 
                 <Link className={style.accountSettingLink} href={'/account'}>
@@ -159,7 +142,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             ) : (
               <nav className={style.nav}>
                 <Link className={style.Link} href="/sendfile">Отправить</Link>
-                <Link className={style.Link} href="/getfile">Получить</Link>
+                <a className={style.Link} href="/getfile">Получить</a>
                 <Link className={style.Link} href="/story">История</Link>
                 <Link className={style.Link} href="/signup">Регистрация</Link>
                 <Link className={style.Link} href="/login">Вход</Link>
@@ -243,13 +226,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                         </Link>
 
                         <nav className={style.navBurgerMenuLinks}>
-                          <a className={style.LinkBurgerMenu} href="/sendfile">Отправить</a>
-                          <a className={style.LinkBurgerMenu} href="/getfile">Получить</a>
-                          <a className={style.LinkBurgerMenu} href="/story">История</a>
-                          {/* <button className={style.buttonLogOutBurgerMenu} onClick={() => logOutFun()}>Выход</button> */}
 
-                          {/* <button onClick={() => changeLanguageFun("en")}>EN</button>
-                          <button onClick={() => changeLanguageFun("ru")}>RU</button> */}
+                          <Link className={style.LinkBurgerMenu} href="/sendfile">Отправить</Link>
+                          <a className={style.LinkBurgerMenu} href="/getfile">Получить</a>
+                          <Link className={style.LinkBurgerMenu} href="/story">История</Link>
+                          
                         </nav>
 
                       </nav>
@@ -259,12 +240,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
 
                         <nav className={style.navBurgerMenuLinks}>
-                          <a className={style.LinkBurgerMenu} href="/sendfile">Отправить</a>
+                          <Link className={style.LinkBurgerMenu} href="/sendfile">Отправить</Link>
                           <a className={style.LinkBurgerMenu} href="/getfile">Получить</a>
-                          <a className={style.LinkBurgerMenu} href="/story">История</a>
+                          <Link className={style.LinkBurgerMenu} href="/story">История</Link>
 
-                          <a className={style.LinkBurgerMenu} href="/signup">Регистрация</a>
-                          <a className={style.LinkBurgerMenu} href="/login">Вход</a>
+                          <Link className={style.LinkBurgerMenu} href="/signup">Регистрация</Link>
+                          <Link className={style.LinkBurgerMenu} href="/login">Вход</Link>
 
 
                           {/* <button onClick={() => changeLanguageFun("en")}>EN</button>

@@ -5,7 +5,6 @@ import Link from "next/link";
 
 import { useAppSelector, useAppDispatch, useAppStore } from '@/components/hooks'
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import { io, Socket } from 'socket.io-client'
 // import { useTranslations } from "next-intl";
 
@@ -63,9 +62,7 @@ function Sendfile() {
   
   const [submitFileLoader, setSubmitFileLoader] = useState(false);
 
-  const { isAuth, userData } = useAppSelector(state => state.authReducer)
-  const route = useRouter()
-
+  const { userData } = useAppSelector(state => state.authReducer)
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const fileAddInputRef = useRef<HTMLInputElement | null>(null);
@@ -73,7 +70,8 @@ function Sendfile() {
 
   // const socket = io('http://localhost:7001/');
 
-  const socketRef = useRef<Socket | any>(null);
+
+  const socketRef = useRef<Socket>(null);
 
   const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL
   const fileApiUrl = process.env.NEXT_PUBLIC_SERVER_FILE_API_URL
@@ -85,7 +83,9 @@ function Sendfile() {
     }
 
     return () => {
-      socketRef.current.disconnect();
+      if (socketRef.current != null) {
+        socketRef.current.disconnect();
+      }
     };
   }, []);
 
@@ -118,7 +118,7 @@ function Sendfile() {
 
 
   const authReducer = useAppSelector(state => state.authReducer)
-  const dispatch = useAppDispatch()
+  // const dispatch = useAppDispatch()
 
   useEffect(() => {
     //console.log(option);
@@ -149,7 +149,7 @@ function Sendfile() {
     if (e.target.files != null) {
       const files = e.target.files;
       //console.log(files);
-      let fileFilter = []
+      const fileFilter = []
 
       for (let i = 0; i < files.length; i++) {
         if (files[i].size != 0) {
@@ -168,7 +168,7 @@ function Sendfile() {
 
     if (files != null) {
 
-      let fileFilter = []
+      const fileFilter = []
 
       for (let i = 0; i < files.length; i++) {
         
@@ -195,7 +195,7 @@ function Sendfile() {
     if (e.target.files != null) {
       const filesValue = e.target.files;
       //console.log(filesValue);
-      let fileFilter = files
+      const fileFilter = files
 
       for (let i = 0; i < filesValue.length; i++) {
         if (filesValue[i].size != 0) {
@@ -276,7 +276,7 @@ function Sendfile() {
 
       showSubmitFileLoaderFun()
 
-      let username:String = ''
+      let username:string = ''
 
       if (userData?.username != undefined) {
         username = userData?.username
@@ -284,7 +284,7 @@ function Sendfile() {
         username = 'Гость'
       }
 
-      let sentToUserId = userData?._id // Для коректной работы статуса файла
+      const sentToUserId = userData?._id // Для коректной работы статуса файла
       
       // let sentToUserId = userData?.shareId // Для коректной работы статуса файла
       //console.log(sentToUserId);
@@ -314,7 +314,7 @@ function Sendfile() {
         minutes = '0' + minutes;
       }
 
-      let dateParse = `${day}.${month}.${date.getFullYear()}, ${hours}:${minutes}`
+      const dateParse = `${day}.${month}.${date.getFullYear()}, ${hours}:${minutes}`
 
       const userAgentString = navigator.userAgent;
 
@@ -323,7 +323,7 @@ function Sendfile() {
       } else if (/iPad/i.test(userAgentString)) {
         device = "iPad"
       } else if (/Macintosh/i.test(userAgentString)) {
-        device = "Macintosh"
+        device = "MacOS"
       } else if (/Linux/i.test(userAgentString)) {
         device = "Linux"
       } else if (/Android/i.test(userAgentString)) {
@@ -353,7 +353,7 @@ function Sendfile() {
 
           //console.log(obj);
 
-          const response = await axios.post(fileApiUrl + '/api/textLoad/' + shareId, obj, {
+          await axios.post(fileApiUrl + '/api/textLoad/' + shareId, obj, {
             headers: {
               'Content-Type': 'application/json',
               'authorization': `Bearer ${token}`,
@@ -364,11 +364,13 @@ function Sendfile() {
 
           setShareId("")
           setText("")
-          socketRef.current.emit('pingfilesShareId', shareId);
+
+          if (socketRef.current != null) {
+            socketRef.current.emit('pingfilesShareId', shareId);
+          }
+
           setMessage("Текст отправлены")
-
           closeSubmitFileLoaderFun()
-
           setRecipientDetailsDataShow(false)
 
         }
@@ -388,32 +390,27 @@ function Sendfile() {
           formData.append('data', dateParse);
           formData.append('username', username as string);
           formData.append('sentToUserId', sentToUserId as string);
-         
 
-          formData.forEach((value, key) => {
-            //console.log(`${key}:`, value);
-          });
-
-          //console.log(device);
-          //console.log(username);
-
-
-          const response = await axios.post(fileApiUrl + '/api/fileLoad/' + shareId, formData, {
+          await axios.post(fileApiUrl + '/api/fileLoad/' + shareId, formData, {
             headers: {
               'authorization': `Bearer ${token}`,
             }
           });
 
-          //console.log('Response:', response);
+          // console.log('Response:', response);
 
           setShareId("")
           setText("")
           setFiles([])
+
           if (fileInputRef.current && fileAddInputRef.current) {
             fileInputRef.current.value = ""; // Очищаем сам инпут
             fileAddInputRef.current.value = ""; // Очищаем сам инпут
           }
-          socketRef.current.emit('pingfilesShareId', shareId);
+
+          if (socketRef.current != null) {
+            socketRef.current.emit('pingfilesShareId', shareId);
+          }
           setMessage("Файлы отправлены")
 
           closeSubmitFileLoaderFun()
@@ -696,7 +693,7 @@ function Sendfile() {
             <div className={style.navExchange}>
 
               <a className={`${style.LinkExchange}`} href={'/getfile'}>Получить</a>
-              <a className={`${style.LinkExchange} ${style.select}`} href={'/sendfile'}>Отправить</a>
+              <Link className={`${style.LinkExchange} ${style.select}`} href={'/sendfile'}>Отправить</Link>
 
             </div>
 

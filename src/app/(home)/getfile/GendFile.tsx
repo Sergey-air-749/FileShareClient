@@ -1,8 +1,7 @@
 "use client"
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import style from "@/style/getfile.module.css";
 
-import { setAuth, setUserData } from '@/festures/authSlice'
 import { useAppSelector, useAppDispatch, useAppStore } from '@/components/hooks'
 import { io, Socket } from 'socket.io-client'
 
@@ -22,12 +21,11 @@ interface FileItem {
 export default function Getfile() {
   const [showPopUp, setShowPopUp] = useState(false)
   const [files, setFiles] = useState<FileItem[]>([])
-  const [shareId, setShareId] = useState<String>('')
-  const { isAuth, userData } = useAppSelector(state => state.authReducer)
+  const { userData } = useAppSelector(state => state.authReducer)
   
   // const socket = io('http://localhost:7001/');
 
-  const socketRef = useRef<Socket | any>(null);
+  const socketRef = useRef<Socket>(null);
 
   const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL
   const fileApiUrl = process.env.NEXT_PUBLIC_SERVER_FILE_API_URL
@@ -39,24 +37,17 @@ export default function Getfile() {
     }
 
     return () => {
-      socketRef.current.disconnect();
+      if (socketRef.current != null) {
+        socketRef.current.disconnect();
+      }
     };
   }, []);
-
-  useEffect(() => {
-    //console.log(files);
-  }, [files])
-
-  useEffect(() => {
-    //console.log('New Share ID is:', shareId);
-  }, [shareId])
-  
-
   
   useEffect(() => {
-    if (userData?.shareId != undefined) {
 
-      socketRef.current.on('files', async (files: any[]) => {
+    if (userData?.shareId != undefined && socketRef.current != null) {
+
+      socketRef.current.on('files', async (files: []) => {
         //console.log(files);
         setFiles(files)
         showPopUpFun()
@@ -64,10 +55,8 @@ export default function Getfile() {
 
       socketRef.current.emit('pingfilesShareId', userData?.shareId);
 
-    } else {
-      //console.log(2);
     }
-    //console.log(userData?.shareId);
+
   }, [userData?.shareId])
 
 
@@ -85,7 +74,7 @@ export default function Getfile() {
 
 
 
-  const fileAcceptFun = async (filename: String, id: String) => {
+  const fileAcceptFun = async (filename: string, id: string) => {
 
 
     try {
@@ -95,7 +84,7 @@ export default function Getfile() {
       const response = await axios.get(fileApiUrl + `/api/getDownloadNew/file/${userData?.shareId}/${id}`)
       //console.log(response.data);
 
-      let link = document.createElement('a');
+      const link = document.createElement('a');
       link.download = String(filename);
 
       link.href = response.data.url
@@ -134,10 +123,10 @@ export default function Getfile() {
 
   
 
-  const textCopyFun = async (text: String, id: String) => {
+  const textCopyFun = async (text: string, id: string) => {
     //console.log(text);
     navigator.clipboard.writeText(String(text))
-    const response = await axios.get(fileApiUrl + `/api/getDownloadNew/text/${userData?.shareId}/${id}`)
+    await axios.get(fileApiUrl + `/api/getDownloadNew/text/${userData?.shareId}/${id}`)
     //console.log(response.data);
 
     const newFiles = files.filter((item) => item.id != id)
@@ -165,7 +154,7 @@ export default function Getfile() {
 
           navigator.clipboard.writeText(String(files[i].text))
 
-          const response = await axios.get(fileApiUrl + `/api/getDownloadNew/text/${userData?.shareId}/${files[i].id}`)
+          await axios.get(fileApiUrl + `/api/getDownloadNew/text/${userData?.shareId}/${files[i].id}`)
           //console.log(response.data);
 
           const newFiles = files.filter((item) => item.id != files[i].id)
@@ -182,7 +171,7 @@ export default function Getfile() {
           const response = await axios.get(fileApiUrl + `/api/getDownloadNew/file/${userData?.shareId}/${files[i].id}`)
           //console.log(response.data);
 
-          let link = document.createElement('a');
+          const link = document.createElement('a');
           link.download = String(files[i].filename);
 
           link.href = response.data.url
@@ -230,7 +219,7 @@ export default function Getfile() {
       const token = localStorage?.getItem("token")
 
       setFiles([])
-      const response = await axios.post(fileApiUrl + '/api/files/cancel/' + userData?.shareId,
+      await axios.post(fileApiUrl + '/api/files/cancel/' + userData?.shareId,
         {}, 
         {
           headers: {
@@ -490,7 +479,7 @@ export default function Getfile() {
             <div className={style.navExchange}>
 
               <a className={`${style.LinkExchange} ${style.select}`} href={'/getfile'}>Получить</a>
-              <a className={`${style.LinkExchange}`} href={'/sendfile'}>Отправить</a>
+              <Link className={`${style.LinkExchange}`} href={'/sendfile'}>Отправить</Link>
 
             </div>
 

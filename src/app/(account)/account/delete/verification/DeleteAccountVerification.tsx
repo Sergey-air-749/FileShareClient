@@ -16,7 +16,7 @@ export default function DeleteAccountVerification() {
 
     const [showLoader, setShowLoader] = useState(false)
 
-    const passwordRegexp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    // const passwordRegexp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     
     const router = useRouter()
 

@@ -63,7 +63,7 @@ export default function SignupEmail() {
 
                 //console.log(codeObj);
 
-                const response = await axios.post(apiUrl + '/api/signup/email/verify',
+                await axios.post(apiUrl + '/api/signup/email/verify',
                     codeObj,
 
                     {
@@ -104,7 +104,7 @@ export default function SignupEmail() {
             
                 const token = localStorage?.getItem('token')
 
-                const response = await axios.get(apiUrl + '/api/signup/email/new',
+                await axios.get(apiUrl + '/api/signup/email/new',
                     {
                         headers: {
                             'authorization': `Bearer ${token}`,

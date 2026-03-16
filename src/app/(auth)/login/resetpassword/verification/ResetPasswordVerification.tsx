@@ -165,7 +165,7 @@ export default function ResetPasswordVerification() {
 
                 showNewEmailCodLoaderFun()
 
-                const response = await axios.post(apiUrl + '/api/login/resetpassword',
+                await axios.post(apiUrl + '/api/login/resetpassword',
                     {
                         email: email
                     },
@@ -202,7 +202,7 @@ export default function ResetPasswordVerification() {
 
             try {
 
-                const response = await axios.post(apiUrl + '/api/login/resetpassword/cancel',
+                await axios.post(apiUrl + '/api/login/resetpassword/cancel',
                     {
                         email: email
                     },
