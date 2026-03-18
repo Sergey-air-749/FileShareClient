@@ -1,20 +1,20 @@
-"use client"
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
-import style from "@/style/sendfile.module.css";
-import Link from "next/link";
+'use client';
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import style from '@/style/sendfile.module.css';
+import Link from 'next/link';
 
-import { useAppSelector, useAppDispatch, useAppStore } from '@/components/hooks'
-import axios from "axios";
-import { io, Socket } from 'socket.io-client'
+import { useAppSelector } from '@/components/hooks';
+import axios from 'axios';
+import { io, Socket } from 'socket.io-client';
 // import { useTranslations } from "next-intl";
 
 interface recipientDetailsData {
-  avatar: {
-    "400": string,
-    "1000": string
-  }, 
-  username: string,
-  isGuest: boolean
+    avatar: {
+        '400': string;
+        '1000': string;
+    };
+    username: string;
+    isGuest: boolean;
 }
 
 // fix recovering account ✅
@@ -25,7 +25,6 @@ interface recipientDetailsData {
 // При создани страницы /recovering задумывалась что страница будет доступна даже тогда когда у пользователя нет токена в локал сторедж
 
 // Обновление данных гостевого аккаунта при регистраци ✅
-
 
 // Фильтры в истории ✅
 
@@ -42,669 +41,613 @@ interface recipientDetailsData {
 
 // IMaskInput ✅
 
-
 // sendToUserId - для статуса
 // userWillReceive - для отмены отправки
 
-
-
 function Sendfile() {
-  const [files, setFiles] = useState<File[]>([])
-  const [text, setText] = useState("")
-  const [shareId, setShareId] = useState("")
+    const [files, setFiles] = useState<File[]>([]);
+    const [text, setText] = useState('');
+    const [shareId, setShareId] = useState('');
 
-  const [option, setOption] = useState("File")
-  const [error, setError] = useState("")
-  const [message, setMessage] = useState("")
+    const [option, setOption] = useState('File');
+    const [error, setError] = useState('');
+    const [message, setMessage] = useState('');
 
-  const [recipientDetailsDataShow, setRecipientDetailsDataShow] = useState<boolean>(false)
-  const [recipientDetailsData, setRecipientDetails] = useState<null | recipientDetailsData>(null)
-  
-  const [submitFileLoader, setSubmitFileLoader] = useState(false);
+    const [recipientDetailsDataShow, setRecipientDetailsDataShow] = useState<boolean>(false);
+    const [recipientDetailsData, setRecipientDetails] = useState<null | recipientDetailsData>(null);
 
-  const { userData } = useAppSelector(state => state.authReducer)
+    const [submitFileLoader, setSubmitFileLoader] = useState(false);
 
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const fileAddInputRef = useRef<HTMLInputElement | null>(null);
-  const textareaInputRef = useRef<HTMLTextAreaElement | null>(null);
+    const { userData } = useAppSelector((state) => state.authReducer);
 
-  // const socket = io('http://localhost:7001/');
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const fileAddInputRef = useRef<HTMLInputElement | null>(null);
+    const textareaInputRef = useRef<HTMLTextAreaElement | null>(null);
 
+    const socketRef = useRef<Socket>(null);
 
-  const socketRef = useRef<Socket>(null);
+    const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL;
+    const fileApiUrl = process.env.NEXT_PUBLIC_SERVER_FILE_API_URL;
+    const soketUrl = process.env.NEXT_PUBLIC_SERVER_SOCET_URL;
 
-  const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL
-  const fileApiUrl = process.env.NEXT_PUBLIC_SERVER_FILE_API_URL
-  const soketUrl = process.env.NEXT_PUBLIC_SERVER_SOCET_URL
-  
-  useEffect(() => {
-    if (!socketRef.current) {
-      socketRef.current = io(`${soketUrl}/`);
-    }
+    useEffect(() => {
+        if (!socketRef.current) {
+            socketRef.current = io(`${soketUrl}/`);
+        }
 
-    return () => {
-      if (socketRef.current != null) {
-        socketRef.current.disconnect();
-      }
+        return () => {
+            if (socketRef.current != null) {
+                socketRef.current.disconnect();
+            }
+        };
+    }, []);
+
+    const showSubmitFileLoaderFun = () => {
+        setSubmitFileLoader(true);
     };
-  }, []);
 
-
-
-
-  const showSubmitFileLoaderFun = () => {
-    setSubmitFileLoader(true)
-  }
-
-  const closeSubmitFileLoaderFun = () => {
-    setSubmitFileLoader(false)
-  }
-
-
-
-
-  const fileInputChange = () => {
-    fileInputRef.current?.click(); 
-  }
-
-  const fileInputAddChange = () => {
-    fileAddInputRef.current?.click(); 
-  }
-
-  const selectFunChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    //console.log(e.target.value);
-    setOption(e.target.value)
-  }
-
-
-  const authReducer = useAppSelector(state => state.authReducer)
-  // const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    //console.log(option);
-  }, [option])
-
-  useEffect(() => {
-    //console.log(authReducer);
-  }, [authReducer])
-
-  useEffect(() => {
-    // console.log(files);
-  }, [files])
-
-  useEffect(() => {
-    //console.log(recipientDetailsData);
-  }, [recipientDetailsData])
-
-
-
-
-
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    //console.log(1);
-    //console.log(e.target.files);
-    
-    
-
-    if (e.target.files != null) {
-      const files = e.target.files;
-      //console.log(files);
-      const fileFilter = []
-
-      for (let i = 0; i < files.length; i++) {
-        if (files[i].size != 0) {
-          fileFilter.push(files[i])
-        }
-
-        //console.log(fileFilter);
-      }
-
-      setFiles(fileFilter)  
-    }
-  };
-
-
-  const CloseFileFun = (index: number) => {
-
-    if (files != null) {
-
-      const fileFilter = []
-
-      for (let i = 0; i < files.length; i++) {
-        
-        if (i != index) {
-          fileFilter.push(files[i])
-        }
-
-        //console.log(fileFilter);
-      } 
-
-      
-      if (JSON.stringify(fileFilter) == JSON.stringify([])) {
-        setFiles([])
-      } else {
-        setFiles(fileFilter)
-      }
-    }
-
-  }
-
-
-  const AddFileFun = (e: ChangeEvent<HTMLInputElement>) => {
-
-    if (e.target.files != null) {
-      const filesValue = e.target.files;
-      //console.log(filesValue);
-      const fileFilter = files
-
-      for (let i = 0; i < filesValue.length; i++) {
-        if (filesValue[i].size != 0) {
-          fileFilter.push(filesValue[i])
-        }
-
-        //console.log(fileFilter);
-      }
-
-      setFiles([...fileFilter]) 
-    }
-
-  }
-
-
-
-
-
-
-  const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    if (textareaInputRef.current != null) {
-      textareaInputRef.current.style.height = 'auto';
-      textareaInputRef.current.style.height = `${textareaInputRef.current.scrollHeight + 2}px`;
-    }
-
-    setText(e.target.value)
-  }
-    
-  const valueShareId = async (e: ChangeEvent<HTMLInputElement>) => {
-
-    const value = e.target.value
-    
-    setShareId(value)
-
-    try {
-
-      if (value != '') {
-        
-        setRecipientDetailsDataShow(true)
-
-        const response = await axios.get(fileApiUrl + '/api/getUserDataById/' + value);
-  
-        //console.log('Response:', response);
-  
-        setRecipientDetails(response.data)
-        
-      } else {
-        setRecipientDetails(null)
-        setRecipientDetailsDataShow(false)
-      }
-
-
-    } catch (error) {
-      console.log(error);
-      if (axios.isAxiosError(error)) {
-        const serverMessage = error
-        //console.log(serverMessage);
-        
-        if (serverMessage.response?.data?.msg != undefined) {
-          console.log(serverMessage.response?.data?.msg);     
-          if (serverMessage.response?.data?.msg == 'Пользователь не найден') {
-            setRecipientDetails(null)
-          }
-        } else {
-          console.log(serverMessage.message)
-        }
-      }
-    }
-
-  }
-
-
-  const upLoadFiles = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-
-    try {
-
-      showSubmitFileLoaderFun()
-
-      let username:string = ''
-
-      if (userData?.username != undefined) {
-        username = userData?.username
-      } else {
-        username = 'Гость'
-      }
-
-      const sentToUserId = userData?._id // Для коректной работы статуса файла
-      
-      // let sentToUserId = userData?.shareId // Для коректной работы статуса файла
-      //console.log(sentToUserId);
-      
-      const token = localStorage?.getItem("token")
-      const date = new Date()
-      let device = ""
-
-      let hours: number | string = date.getHours()
-      let minutes: string | number = date.getMinutes();
-      let month: number | string = date.getMonth() + 1
-      let day: number | string = date.getDate()
-
-      if (hours < 10) {
-        hours = '0' + hours
-      }
-
-      if (day < 10) {
-        day = '0' + day
-      }
-
-      if (month < 10) {
-        month = '0' + month
-      }
-
-      if (minutes < 10) {
-        minutes = '0' + minutes;
-      }
-
-      const dateParse = `${day}.${month}.${date.getFullYear()}, ${hours}:${minutes}`
-
-      const userAgentString = navigator.userAgent;
-
-      if (/iPhone/i.test(userAgentString)) {
-        device = "iPhone"
-      } else if (/iPad/i.test(userAgentString)) {
-        device = "iPad"
-      } else if (/Macintosh/i.test(userAgentString)) {
-        device = "MacOS"
-      } else if (/Linux/i.test(userAgentString)) {
-        device = "Linux"
-      } else if (/Android/i.test(userAgentString)) {
-        device = "Android"
-      } else if (/Windows/i.test(userAgentString)) {
-        device = "Windows"
-      } else {
-        device = "Не опредилён"
-      }
-    
-
-      if (option == 'Text') {
-
-        if (text != null) {
-
-          //console.log(device);
-          //console.log(username);
-
-
-          const obj = {
-            textValue: text,
-            device: device,
-            data: dateParse,
-            username: username,
-            sentToUserId: sentToUserId
-          }
-
-          //console.log(obj);
-
-          await axios.post(fileApiUrl + '/api/textLoad/' + shareId, obj, {
-            headers: {
-              'Content-Type': 'application/json',
-              'authorization': `Bearer ${token}`,
+    const closeSubmitFileLoaderFun = () => {
+        setSubmitFileLoader(false);
+    };
+
+    const fileInputChange = () => {
+        fileInputRef.current?.click();
+    };
+
+    const fileInputAddChange = () => {
+        fileAddInputRef.current?.click();
+    };
+
+    const selectFunChange = (e: ChangeEvent<HTMLSelectElement>) => {
+        //console.log(e.target.value);
+        setOption(e.target.value);
+    };
+
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+        //console.log(1);
+        //console.log(e.target.files);
+
+        if (e.target.files != null) {
+            const files = e.target.files;
+            //console.log(files);
+            const fileFilter = [];
+
+            for (let i = 0; i < files.length; i++) {
+                if (files[i].size != 0) {
+                    fileFilter.push(files[i]);
+                }
+
+                //console.log(fileFilter);
             }
-          });
 
-          //console.log('Response:', response);
-
-          setShareId("")
-          setText("")
-
-          if (socketRef.current != null) {
-            socketRef.current.emit('pingfilesShareId', shareId);
-          }
-
-          setMessage("Текст отправлены")
-          closeSubmitFileLoaderFun()
-          setRecipientDetailsDataShow(false)
-
+            setFiles(fileFilter);
         }
-        
-      } else if (option == 'File') {
-  
+    };
+
+    const CloseFileFun = (index: number) => {
         if (files != null) {
+            const fileFilter = [];
 
-          const formData = new FormData();
+            for (let i = 0; i < files.length; i++) {
+                if (i != index) {
+                    fileFilter.push(files[i]);
+                }
 
-          for (let i = 0; i < files.length; i++) {
-            //console.log(files[i]);
-            formData.append('files', files[i]); // "files" ключ по которому будут переданы файлы 
-          }
-
-          formData.append('device', device);
-          formData.append('data', dateParse);
-          formData.append('username', username as string);
-          formData.append('sentToUserId', sentToUserId as string);
-
-          await axios.post(fileApiUrl + '/api/fileLoad/' + shareId, formData, {
-            headers: {
-              'authorization': `Bearer ${token}`,
+                //console.log(fileFilter);
             }
-          });
 
-          // console.log('Response:', response);
-
-          setShareId("")
-          setText("")
-          setFiles([])
-
-          if (fileInputRef.current && fileAddInputRef.current) {
-            fileInputRef.current.value = ""; // Очищаем сам инпут
-            fileAddInputRef.current.value = ""; // Очищаем сам инпут
-          }
-
-          if (socketRef.current != null) {
-            socketRef.current.emit('pingfilesShareId', shareId);
-          }
-          setMessage("Файлы отправлены")
-
-          closeSubmitFileLoaderFun()
-
-          setRecipientDetailsDataShow(false)
-
-        }
-          
-      }
-        
-
-
-    } catch (error) {
-        closeSubmitFileLoaderFun()
-        console.log(error);
-        if (axios.isAxiosError(error)) {
-            const serverMessage = error
-            //console.log(serverMessage);
-            
-            if (serverMessage.response?.data?.msg != undefined) {
-              console.log(serverMessage.response?.data?.msg);     
-              setError(serverMessage.response?.data?.msg)
+            if (JSON.stringify(fileFilter) == JSON.stringify([])) {
+                setFiles([]);
             } else {
-              console.log(serverMessage.message)
-              setError(serverMessage.message)
+                setFiles(fileFilter);
             }
         }
-    }
-  }
+    };
 
-  
+    const AddFileFun = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files != null) {
+            const filesValue = e.target.files;
+            //console.log(filesValue);
+            const fileFilter = files;
 
+            for (let i = 0; i < filesValue.length; i++) {
+                if (filesValue[i].size != 0) {
+                    fileFilter.push(filesValue[i]);
+                }
 
-  return (
-    <div className={style.sendfile}>
-
-      <div className={style.blockForm}>
-        <form className={style.formSendFile} onSubmit={(e) => upLoadFiles(e)}>
-
-          <div className={style.formHead}>
-
-            <div className={style.formIcon}>
-
-              {/* <button type="button" onClick={() => changeLanguage("en")}>EN</button>
-              <button type="button" onClick={() => changeLanguage("ru")}>RU</button> */}
-
-              <svg width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="10" y="55" width="50" height="4" rx="2" fill="#96C3FF"/>
-                <rect x="33" y="48" width="35" height="4" rx="2" transform="rotate(-90 33 48)" fill="#008CFF"/>
-                <rect width="14.3294" height="3.82117" rx="1.91059" transform="matrix(0.697868 -0.716226 0.697868 0.716226 25 21.2632)" fill="#008CFF"/>
-                <rect width="14.3294" height="3.82117" rx="1.91059" transform="matrix(0.697868 0.716226 -0.697868 0.716226 35 11)" fill="#008CFF"/>
-              </svg>
-
-
-
-            </div>
-
-            <div className={style.formTitle}>
-              <h2>Отправить файл</h2>
-              <p>Здесь вы можете отправить файл на другое устройства</p>
-            </div>
-
-            <div className={style.selectBlock}>
-              <select className={style.selectOptionStyle} onChange={(e) => selectFunChange(e)}>
-                <option value="File" defaultValue="">Отправить файл</option>
-                <option value="Text">Отправить текст</option>
-              </select>
-            </div>
-
-          </div>
-
-          {
-            JSON.stringify(files) != JSON.stringify([]) && option != "Text" ? (
-              <div className={style.filePreview}>
-
-                <div className={style.filePreviewTitle}>
-
-                  <h3 className={style.setFilePopUpTitleInfo}>Файлы</h3>
-
-                  <span className={style.setFilePopUpFilesLength}>Количество файлов: {files.length}</span>
-
-                </div>
-
-                <div className={style.filePreviewFiles}>
-                  {files.map((file, index) => (
-                    <div key={index} className={style.fileItem}>
-
-                      <div className={style.fileInfo}>
-
-                        <div className={style.fileIcon}>
-
-                          <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clipPath="url(#clip0_103_46)">
-                              <path d="M100 100V0H50H37.5L0 37.5V50V100H100Z" fill="white"/>
-                              <path d="M50 0H37.5L0 37.5V50H50V0Z" fill="white"/>
-                              <path d="M8.53554 28.9645L28.9645 8.53553C32.1143 5.38571 37.5 7.61654 37.5 12.0711V32.5C37.5 35.2614 35.2614 37.5 32.5 37.5H12.0711C7.61654 37.5 5.38572 32.1143 8.53554 28.9645Z" fill="#E4E4E4"/>
-                              <path d="M0 37.5L37.5 0V18.75L18.75 37.5H0Z" fill="#E4E4E4"/>
-                            </g>
-
-                            <defs>
-                              <clipPath id="clip0_103_46">
-                              <rect width="100" height="100" rx="5" fill="white"/>
-                              </clipPath>
-                            </defs>
-
-                          </svg>
-
-                        </div>
-
-                        <div className={style.fileName}>
-
-                          <span>{file.name}</span>
-
-                        </div>
-
-
-                      </div>
-
-
-                      <div className={style.fileClose}>
-                        <button type="button" onClick={() => CloseFileFun(index)} className={style.buttonFileClose}>
-                          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-                        </button>
-                      </div>
-
-
-                    </div>
-                    
-                  ))}
-
-                  <div className={style.Fileblock}>
-                    <button type="button" className={style.styleButton} onClick={() => fileInputAddChange()}>Добавить файл</button>
-                  </div>
-                  
-                </div>
-              </div>
-            ) : option == "Text" ? (
-              <div>
-                
-              </div>
-            ) : (
-              <div className={style.notFile}>
-                <span>Файлы не выбраны</span>
-              </div>
-            )
-          }
-
-        
-
-          <div className={style.formInputs}>
-            {
-              option == "Text" ? (
-                <textarea ref={textareaInputRef} value={text} placeholder="Введите текст..." onChange={(e) => handleTextChange(e)} className={style.styleTextareaInput}></textarea>
-              ) : option == "File" ? (
-                <div className={style.Fileblock}>
-                  <input type="file" name="files" ref={fileInputRef} onChange={(e) => handleFileChange(e)} className={style.fileInput} required multiple/>
-                  <input type="file" name="filesAdd" ref={fileAddInputRef} onChange={(e) => AddFileFun(e)} className={style.fileInput} multiple/>
-                  <button className={style.styleButtonFileSelect} type="button" onClick={() => fileInputChange()}>Выбрать файл</button>
-                </div>
-                
-              ) : (
-                null
-              )
+                //console.log(fileFilter);
             }
 
+            setFiles([...fileFilter]);
+        }
+    };
 
-            <input type="tel" value={shareId} name="userId" onChange={(e) => valueShareId(e)} placeholder="ID Устройства" className={` ${style.styleInput} `} required/>
-              
+    const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        if (textareaInputRef.current != null) {
+            textareaInputRef.current.style.height = 'auto';
+            textareaInputRef.current.style.height = `${textareaInputRef.current.scrollHeight + 2}px`;
+        }
 
-            {
-              
-              recipientDetailsDataShow != false ? (
+        setText(e.target.value);
+    };
 
-                recipientDetailsData == null ? (
-                  <div className={style.recipientDetailsNotFound}>
-                    <span>Пользователь не найден</span>
-                  </div>
-                ) : (
+    const valueShareId = async (e: ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
 
-                  <div className={style.recipientDetailsBlock}>
+        setShareId(value);
 
-                    {
-                      recipientDetailsData.isGuest == undefined ? (
+        try {
+            if (value != '') {
+                setRecipientDetailsDataShow(true);
 
-                        <div className={style.recipientDetails}>
+                const response = await axios.get(fileApiUrl + '/api/getUserDataById/' + value);
 
-                          <div className={style.recipientDetailsAvatarBlock}>
-                            <img src={recipientDetailsData.avatar[400]} alt="" className={style.recipientDetailsAvatar}/>
-                          </div>
+                //console.log('Response:', response);
 
-                          <div className={style.recipientDetailsInfo}>
-                            <span>{recipientDetailsData.username}</span>
-                          </div>
+                setRecipientDetails(response.data);
+            } else {
+                setRecipientDetails(null);
+                setRecipientDetailsDataShow(false);
+            }
+        } catch (error) {
+            console.log(error);
+            if (axios.isAxiosError(error)) {
+                const serverMessage = error;
+                //console.log(serverMessage);
 
-                        </div>
+                if (serverMessage.response?.data?.msg != undefined) {
+                    console.log(serverMessage.response?.data?.msg);
+                    if (serverMessage.response?.data?.msg == 'Пользователь не найден') {
+                        setRecipientDetails(null);
+                    }
+                } else {
+                    console.log(serverMessage.message);
+                }
+            }
+        }
+    };
 
-                      ) : (
-                        <div className={style.recipientDetails}>
+    const upLoadFiles = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
 
-                          <div className={style.recipientDetailsAvatarBlock}>
-                            <img src={apiUrl + '/api/images/avatars/default'} alt="" className={style.recipientDetailsAvatar}/>
-                          </div>
+        try {
+            showSubmitFileLoaderFun();
 
-                          <div className={style.recipientDetailsInfo}>
-                            <span>Гость</span>
-                          </div>
+            let username: string = '';
 
-                        </div>
-                      )
+            if (userData?.username != undefined) {
+                username = userData?.username;
+            } else {
+                username = 'Гость';
+            }
 
+            const sentToUserId = userData?._id; // Для коректной работы статуса файла
 
+            // let sentToUserId = userData?.shareId // Для коректной работы статуса файла
+            //console.log(sentToUserId);
+
+            const token = localStorage?.getItem('token');
+            const date = new Date();
+            let device = '';
+
+            let hours: number | string = date.getHours();
+            let minutes: string | number = date.getMinutes();
+            let month: number | string = date.getMonth() + 1;
+            let day: number | string = date.getDate();
+
+            if (hours < 10) {
+                hours = '0' + hours;
+            }
+
+            if (day < 10) {
+                day = '0' + day;
+            }
+
+            if (month < 10) {
+                month = '0' + month;
+            }
+
+            if (minutes < 10) {
+                minutes = '0' + minutes;
+            }
+
+            const dateParse = `${day}.${month}.${date.getFullYear()}, ${hours}:${minutes}`;
+
+            const userAgentString = navigator.userAgent;
+
+            if (/iPhone/i.test(userAgentString)) {
+                device = 'iPhone';
+            } else if (/iPad/i.test(userAgentString)) {
+                device = 'iPad';
+            } else if (/Macintosh/i.test(userAgentString)) {
+                device = 'MacOS';
+            } else if (/Linux/i.test(userAgentString)) {
+                device = 'Linux';
+            } else if (/Android/i.test(userAgentString)) {
+                device = 'Android';
+            } else if (/Windows/i.test(userAgentString)) {
+                device = 'Windows';
+            } else {
+                device = 'Не опредилён';
+            }
+
+            if (option == 'Text') {
+                if (text != null) {
+                    //console.log(device);
+                    //console.log(username);
+
+                    const obj = {
+                        textValue: text,
+                        device: device,
+                        data: dateParse,
+                        username: username,
+                        sentToUserId: sentToUserId,
+                    };
+
+                    //console.log(obj);
+
+                    await axios.post(fileApiUrl + '/api/textLoad/' + shareId, obj, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            authorization: `Bearer ${token}`,
+                        },
+                    });
+
+                    //console.log('Response:', response);
+
+                    setShareId('');
+                    setText('');
+
+                    if (socketRef.current != null) {
+                        socketRef.current.emit('pingfilesShareId', shareId);
                     }
 
-                  </div>
+                    setMessage('Текст отправлены');
+                    closeSubmitFileLoaderFun();
+                    setRecipientDetailsDataShow(false);
+                }
+            } else if (option == 'File') {
+                if (files != null) {
+                    const formData = new FormData();
 
-                )
-              ) : (
-                <div></div>
-              )
+                    for (let i = 0; i < files.length; i++) {
+                        //console.log(files[i]);
+                        formData.append('files', files[i]); // "files" ключ по которому будут переданы файлы
+                    }
 
+                    formData.append('device', device);
+                    formData.append('data', dateParse);
+                    formData.append('username', username as string);
+                    formData.append('sentToUserId', sentToUserId as string);
+
+                    await axios.post(fileApiUrl + '/api/fileLoad/' + shareId, formData, {
+                        headers: {
+                            authorization: `Bearer ${token}`,
+                        },
+                    });
+
+                    // console.log('Response:', response);
+
+                    setShareId('');
+                    setText('');
+                    setFiles([]);
+
+                    if (fileInputRef.current && fileAddInputRef.current) {
+                        fileInputRef.current.value = ''; // Очищаем сам инпут
+                        fileAddInputRef.current.value = ''; // Очищаем сам инпут
+                    }
+
+                    if (socketRef.current != null) {
+                        socketRef.current.emit('pingfilesShareId', shareId);
+                    }
+                    setMessage('Файлы отправлены');
+
+                    closeSubmitFileLoaderFun();
+
+                    setRecipientDetailsDataShow(false);
+                }
             }
+        } catch (error) {
+            closeSubmitFileLoaderFun();
+            console.log(error);
+            if (axios.isAxiosError(error)) {
+                const serverMessage = error;
+                //console.log(serverMessage);
 
-
-          </div>
-
-
-          {
-            submitFileLoader != false ? (
-
-              <div className={style.submitFileLoaderBackground}>
-
-              </div>
-
-            ) : (
-              <div></div>
-            )
-          }
-
-
-
-
-
-
-          <div className={style.formButtons} style={{color: 'white' }}>
-
-            {
-              submitFileLoader != false ? (
-
-                <button className={style.styleButtonSubmitFileLoader} type="button">
-                  
-                  <svg width="25" height="25" className={style.userDataLoaderImg} viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <g clipPath="url(#clip0_223_516)">
-                          <circle cx="25" cy="25" r="22.5" stroke="#132a47" strokeWidth="5"/>
-                          <path d="M34.5524 45.3716C35.1386 46.6217 34.6033 48.1232 33.3009 48.5817C29.1743 50.0343 24.7234 50.3834 20.3948 49.5722C15.2442 48.6069 10.5271 46.0475 6.91016 42.2557C3.29318 38.4638 0.959162 33.6313 0.237921 28.4408C-0.368215 24.0788 0.19048 19.6493 1.83617 15.5958C2.35556 14.3165 3.88066 13.8527 5.10172 14.4972V14.4972C6.32277 15.1417 6.77389 16.6504 6.28665 17.9423C5.1119 21.0571 4.72854 24.4293 5.19034 27.7527C5.76733 31.905 7.63454 35.7711 10.5281 38.8045C13.4217 41.838 17.1954 43.8855 21.3159 44.6578C24.6137 45.2758 28.0003 45.052 31.1671 44.0255C32.4805 43.5997 33.9662 44.1215 34.5524 45.3716V45.3716Z" fill="#C7E6FF"/>
-                      </g>
-
-                      <defs>
-                          <clipPath id="clip0_223_516">
-                              <rect width="50" height="50" fill="white"/>
-                          </clipPath>
-                      </defs>
-                  </svg>
-                  
-                </button>
-
-              ) : (
-
-                <button className={style.styleButtonSubmit} type="submit">Отправить</button>
-
-              )
-
+                if (serverMessage.response?.data?.msg != undefined) {
+                    console.log(serverMessage.response?.data?.msg);
+                    setError(serverMessage.response?.data?.msg);
+                } else {
+                    console.log(serverMessage.message);
+                    setError(serverMessage.message);
+                }
             }
+        }
+    };
 
-            <span className={style.message}>{ message }</span>
-            <span className={style.error}>{ error }</span>
-          </div>
+    return (
+        <div className={style.sendfile}>
+            <div className={style.blockForm}>
+                <form className={style.formSendFile} onSubmit={(e) => upLoadFiles(e)}>
+                    <div className={style.formHead}>
+                        <div className={style.formIcon}>
+                            {/* <button type="button" onClick={() => changeLanguage("en")}>EN</button>
+              <button type="button" onClick={() => changeLanguage("ru")}>RU</button> */}
 
-          <div className={style.navExchangeBlock}>
+                            <svg
+                                width="70"
+                                height="70"
+                                viewBox="0 0 70 70"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <rect x="10" y="55" width="50" height="4" rx="2" fill="#96C3FF" />
+                                <rect
+                                    x="33"
+                                    y="48"
+                                    width="35"
+                                    height="4"
+                                    rx="2"
+                                    transform="rotate(-90 33 48)"
+                                    fill="#008CFF"
+                                />
+                                <rect
+                                    width="14.3294"
+                                    height="3.82117"
+                                    rx="1.91059"
+                                    transform="matrix(0.697868 -0.716226 0.697868 0.716226 25 21.2632)"
+                                    fill="#008CFF"
+                                />
+                                <rect
+                                    width="14.3294"
+                                    height="3.82117"
+                                    rx="1.91059"
+                                    transform="matrix(0.697868 0.716226 -0.697868 0.716226 35 11)"
+                                    fill="#008CFF"
+                                />
+                            </svg>
+                        </div>
 
-            <div className={style.navExchange}>
+                        <div className={style.formTitle}>
+                            <h2>Отправить файл</h2>
+                            <p>Здесь вы можете отправить файл на другое устройства</p>
+                        </div>
 
-              <a className={`${style.LinkExchange}`} href={'/getfile'}>Получить</a>
-              <Link className={`${style.LinkExchange} ${style.select}`} href={'/sendfile'}>Отправить</Link>
+                        <div className={style.selectBlock}>
+                            <select className={style.selectOptionStyle} onChange={(e) => selectFunChange(e)}>
+                                <option value="File" defaultValue="">
+                                    Отправить файл
+                                </option>
+                                <option value="Text">Отправить текст</option>
+                            </select>
+                        </div>
+                    </div>
 
+                    {JSON.stringify(files) != JSON.stringify([]) && option != 'Text' ? (
+                        <div className={style.filePreview}>
+                            <div className={style.filePreviewTitle}>
+                                <h3 className={style.setFilePopUpTitleInfo}>Файлы</h3>
+
+                                <span className={style.setFilePopUpFilesLength}>Количество файлов: {files.length}</span>
+                            </div>
+
+                            <div className={style.filePreviewFiles}>
+                                {files.map((file, index) => (
+                                    <div key={index} className={style.fileItem}>
+                                        <div className={style.fileInfo}>
+                                            <div className={style.fileIcon}>
+                                                <svg
+                                                    width="40"
+                                                    height="40"
+                                                    viewBox="0 0 100 100"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <g clipPath="url(#clip0_103_46)">
+                                                        <path d="M100 100V0H50H37.5L0 37.5V50V100H100Z" fill="white" />
+                                                        <path d="M50 0H37.5L0 37.5V50H50V0Z" fill="white" />
+                                                        <path
+                                                            d="M8.53554 28.9645L28.9645 8.53553C32.1143 5.38571 37.5 7.61654 37.5 12.0711V32.5C37.5 35.2614 35.2614 37.5 32.5 37.5H12.0711C7.61654 37.5 5.38572 32.1143 8.53554 28.9645Z"
+                                                            fill="#E4E4E4"
+                                                        />
+                                                        <path d="M0 37.5L37.5 0V18.75L18.75 37.5H0Z" fill="#E4E4E4" />
+                                                    </g>
+
+                                                    <defs>
+                                                        <clipPath id="clip0_103_46">
+                                                            <rect width="100" height="100" rx="5" fill="white" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            </div>
+
+                                            <div className={style.fileName}>
+                                                <span>{file.name}</span>
+                                            </div>
+                                        </div>
+
+                                        <div className={style.fileClose}>
+                                            <button
+                                                type="button"
+                                                onClick={() => CloseFileFun(index)}
+                                                className={style.buttonFileClose}
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    height="24px"
+                                                    viewBox="0 -960 960 960"
+                                                    width="24px"
+                                                    fill="#FFFFFF"
+                                                >
+                                                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+
+                                <div className={style.Fileblock}>
+                                    <button
+                                        type="button"
+                                        className={style.styleButton}
+                                        onClick={() => fileInputAddChange()}
+                                    >
+                                        Добавить файл
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    ) : option == 'Text' ? (
+                        <div></div>
+                    ) : (
+                        <div className={style.notFile}>
+                            <span>Файлы не выбраны</span>
+                        </div>
+                    )}
+
+                    <div className={style.formInputs}>
+                        {option == 'Text' ? (
+                            <textarea
+                                ref={textareaInputRef}
+                                value={text}
+                                placeholder="Введите текст..."
+                                onChange={(e) => handleTextChange(e)}
+                                className={style.styleTextareaInput}
+                            ></textarea>
+                        ) : option == 'File' ? (
+                            <div className={style.Fileblock}>
+                                <input
+                                    type="file"
+                                    name="files"
+                                    ref={fileInputRef}
+                                    onChange={(e) => handleFileChange(e)}
+                                    className={style.fileInput}
+                                    required
+                                    multiple
+                                />
+                                <input
+                                    type="file"
+                                    name="filesAdd"
+                                    ref={fileAddInputRef}
+                                    onChange={(e) => AddFileFun(e)}
+                                    className={style.fileInput}
+                                    multiple
+                                />
+                                <button
+                                    className={style.styleButtonFileSelect}
+                                    type="button"
+                                    onClick={() => fileInputChange()}
+                                >
+                                    Выбрать файл
+                                </button>
+                            </div>
+                        ) : null}
+
+                        <input
+                            type="tel"
+                            value={shareId}
+                            name="userId"
+                            onChange={(e) => valueShareId(e)}
+                            placeholder="ID Устройства"
+                            className={` ${style.styleInput} `}
+                            required
+                        />
+
+                        {recipientDetailsDataShow != false ? (
+                            recipientDetailsData == null ? (
+                                <div className={style.recipientDetailsNotFound}>
+                                    <span>Пользователь не найден</span>
+                                </div>
+                            ) : (
+                                <div className={style.recipientDetailsBlock}>
+                                    {recipientDetailsData.isGuest == undefined ? (
+                                        <div className={style.recipientDetails}>
+                                            <div className={style.recipientDetailsAvatarBlock}>
+                                                <img
+                                                    src={recipientDetailsData.avatar[400]}
+                                                    alt=""
+                                                    className={style.recipientDetailsAvatar}
+                                                />
+                                            </div>
+
+                                            <div className={style.recipientDetailsInfo}>
+                                                <span>{recipientDetailsData.username}</span>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div className={style.recipientDetails}>
+                                            <div className={style.recipientDetailsAvatarBlock}>
+                                                <img
+                                                    src={apiUrl + '/api/images/avatars/default'}
+                                                    alt=""
+                                                    className={style.recipientDetailsAvatar}
+                                                />
+                                            </div>
+
+                                            <div className={style.recipientDetailsInfo}>
+                                                <span>Гость</span>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            )
+                        ) : (
+                            <div></div>
+                        )}
+                    </div>
+
+                    {submitFileLoader != false ? <div className={style.submitFileLoaderBackground}></div> : <div></div>}
+
+                    <div className={style.formButtons} style={{ color: 'white' }}>
+                        {submitFileLoader != false ? (
+                            <button className={style.styleButtonSubmitFileLoader} type="button">
+                                <svg
+                                    width="25"
+                                    height="25"
+                                    className={style.userDataLoaderImg}
+                                    viewBox="0 0 50 50"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <g clipPath="url(#clip0_223_516)">
+                                        <circle cx="25" cy="25" r="22.5" stroke="#132a47" strokeWidth="5" />
+                                        <path
+                                            d="M34.5524 45.3716C35.1386 46.6217 34.6033 48.1232 33.3009 48.5817C29.1743 50.0343 24.7234 50.3834 20.3948 49.5722C15.2442 48.6069 10.5271 46.0475 6.91016 42.2557C3.29318 38.4638 0.959162 33.6313 0.237921 28.4408C-0.368215 24.0788 0.19048 19.6493 1.83617 15.5958C2.35556 14.3165 3.88066 13.8527 5.10172 14.4972V14.4972C6.32277 15.1417 6.77389 16.6504 6.28665 17.9423C5.1119 21.0571 4.72854 24.4293 5.19034 27.7527C5.76733 31.905 7.63454 35.7711 10.5281 38.8045C13.4217 41.838 17.1954 43.8855 21.3159 44.6578C24.6137 45.2758 28.0003 45.052 31.1671 44.0255C32.4805 43.5997 33.9662 44.1215 34.5524 45.3716V45.3716Z"
+                                            fill="#C7E6FF"
+                                        />
+                                    </g>
+
+                                    <defs>
+                                        <clipPath id="clip0_223_516">
+                                            <rect width="50" height="50" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </button>
+                        ) : (
+                            <button className={style.styleButtonSubmit} type="submit">
+                                Отправить
+                            </button>
+                        )}
+
+                        <span className={style.message}>{message}</span>
+                        <span className={style.error}>{error}</span>
+                    </div>
+
+                    <div className={style.navExchangeBlock}>
+                        <div className={style.navExchange}>
+                            <a className={`${style.LinkExchange}`} href={'/getfile'}>
+                                Получить
+                            </a>
+                            <Link className={`${style.LinkExchange} ${style.select}`} href={'/sendfile'}>
+                                Отправить
+                            </Link>
+                        </div>
+                    </div>
+                </form>
             </div>
-
-          </div>
-
-        </form>
-
-      </div>
-
-    </div>
-  );
+        </div>
+    );
 }
 
-export default Sendfile
+export default Sendfile;

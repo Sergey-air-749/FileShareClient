@@ -134,10 +134,32 @@
 }
 
 
+.deleteAccountSuccessfullyLinks {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
 
 .error {
     color: rgb(255, 137, 137);
 }
+
+.Link {
+    color: #2fb3ff;
+    font-size: 16px;
+    text-decoration: none;
+    transition: 0.2s all ;
+}
+
+.Link:hover {
+    color: #00a2ff;
+}
+
+.Link:active {
+    color: #2fb3ff;
+}
+
 
 
 
