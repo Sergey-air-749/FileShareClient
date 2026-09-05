@@ -1,4 +1,5 @@
 * {
+    font-family: 'Roboto';
     box-sizing: border-box;
     overflow-x: hidden;
     padding: 0px;
@@ -6,37 +7,157 @@
 }
 
 :root {
-    --width: #ffffff;
-    --black: #000000;
-    --dark-gray-input: #1f1f1f; /* #323232; */
-    --blue: #008cff;
-    --blueHover: #0078da;
-    --lightBlue: #96c3ff;
-    --colorCancel: #e62727;
-    --colorCancelHover: #be2121;
+
+    --color-blue-button-500: #008cff;
+    --color-blue-button-600: #0078da;
+    --color-blue-link-100: #479aff;
+
+    --color-blue-200:#C7E6FF;
+    --color-blue-300:#a7d6ff;
+    --color-blue-400:#81c4ff;
+    --color-blue-500:#008cff;
+    --color-blue-600:#0078da;
+    --color-blue-900:#21487A;
+
+    --color-red-100:#ff7b7b;
+    --color-red-200:#ff6868;
+    --color-red-300:#de1818;
+    --color-red-400:#c21b1b;
+    --color-red-500:#e62727;
+    --color-red-600:#be2121;
+    --color-red-700:#8b1a1a;
+    --color-red-800:#651313;
+    --color-red-900:#511010;
+/* 
+    --color-gray-100: #ededed;
+    --color-gray-150: #c6c6c6;
+    --color-gray-250: #bfbfbf;
+    --color-gray-300: #b8b8b8;
+    --color-gray-300: #7d7d7d;
+    --color-gray-300: #2e2e2e;
+    --color-gray-400: #242424;
+    --color-gray-500: #212121;
+    --color-gray-600: #1f1f1f; */
+
+    --color-gray-100: #ededed;
+    --color-gray-150: #c6c6c6;
+    --color-gray-200: #bfbfbf;
+    --color-gray-250: #b8b8b8;
+    --color-gray-300: #7d7d7d;
+    --color-gray-400: #434343;
+    --color-gray-500: #373737;
+    --color-gray-600: #2e2e2e;
+    --color-gray-700: #242424;
+    --color-gray-800: #212121;
+    --color-gray-900: #202020;
+    --color-gray-950: #1f1f1f;
+
+    /* --color-black-transparent-pop-up-background: rgba(0, 0, 0, / 50%); */
+    --color-black-transparent-45: rgb(0 0 0 / 45%);
+    --color-file-cart-bg: #383838;
+
+    --color-black: #000000;
+    --color-width: #ffffff;
+
+    --color-text: #ffffff;
+    --color-bg: #000000;
+
+    --burger-menu-background: rgba(14, 14, 14, 0.7);
+
+
+    ::selection {
+        background-color: #073ba7;
+        color: #ffffff;                
+    }
+
+    ::-moz-selection {
+        background-color: #073ba7;
+        color: #ffffff;
+    }
 }
 
 
-::selection {
-    background-color: #073ba7;
-    color: #ffffff;                
+
+/* light v3 */
+
+[data-theme='light'] {
+
+
+    --color-blue-button-500: #008cff;
+    --color-blue-button-600: #0078da;
+    --color-blue-link-100: #0055ba;
+
+    --color-blue-200: #21487A;
+    --color-blue-300: #005cac;
+    --color-blue-400: #0088ff;
+    --color-blue-500: #008cff;
+    --color-blue-600: #0078da;
+    --color-blue-900: #bce1ff;
+
+    
+    /* --color-red-100: #be2121;
+    --color-red-200: #e62727;
+    --color-red-300: #de1818;
+    --color-red-400: #c21b1b;
+    --color-red-500: #ff6868;
+    --color-red-600: #ff7b7b; */
+
+    /* --color-red-100: #be2121;
+    --color-red-200: #e62727;
+    --color-red-300: #de1818;
+    --color-red-400: #c21b1b;
+    --color-red-500: #ff6868;
+    --color-red-600: #ff7b7b; */
+
+    --color-red-900:#ff7b7b;
+    --color-red-800:#ff6868;
+    --color-red-700:#de1818;
+    --color-red-600:#c21b1b;
+    --color-red-500:#e62727;
+    --color-red-400:#be2121;
+    --color-red-300:#8b1a1a;
+    --color-red-200:#651313;
+    --color-red-100:#511010;
+
+
+    --color-gray-950: #ededed;
+    --color-gray-900: #ededed;
+    /* --color-gray-800: #d8d8d8; */
+    --color-gray-800: #efefef;
+    /* --color-gray-700: #e5e5e5; */
+    /* --color-gray-700: #dedede; */
+    --color-gray-700: #e6e6e6;
+    /* --color-gray-600: #d7d7d7; */
+    --color-gray-600: #c8c8c8;
+    --color-gray-500: #ffffff;
+    --color-gray-400: #e5e5e5;
+    --color-gray-300: #f1f1f1;
+    --color-gray-250: #646464;
+    --color-gray-200: #272727;
+    --color-gray-150: #494949;
+    --color-gray-100: #000000;
+    /* --color-black-transparent-pop-up-background: rgb(0, 0, 0, / 50%); */
+
+    --color-black-transparent-45: rgb(0 0 0 / 45%);
+
+    --color-file-cart-bg: rgb(255, 255, 255);
+
+    --color-black: #000000;
+    --color-width: #ffffff;
+    --color-text: #000000;
+    --color-bg: #ffffff;
+
+    --burger-menu-background: rgb(255 255 255 / 10%);
+
+
+    ::selection {
+        background-color: #c5e0fd;
+        color: #001f43;         
+    }
+
+    ::-moz-selection {
+        background-color: #c5e0fd;
+        color: #001f43;   
+    }
+    
 }
-
-::-moz-selection {
-    background-color: #073ba7;
-    color: #ffffff;
-}
-
-
-/* Test */
-
-/* ::selection {
-    background-color: #d1d1d1; /* Фон выделения 
-    color: red;                /* Цвет текста 
-}
-
-/* Для Firefox (дополнительно) 
-::-moz-selection {
-    background-color: #d1d1d1;
-    color: red;
-} */

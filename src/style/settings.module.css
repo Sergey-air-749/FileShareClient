@@ -1,0 +1,19 @@
+.settingsBlock {
+    display: flex;
+}
+
+.settingsNavMobileBlock {
+    display: none;
+}
+
+@media (max-width: 900px) {
+
+    .settingsBlock {
+        display: none;
+    }
+
+    .settingsNavMobileBlock {
+        display: flex;
+    }
+    
+}

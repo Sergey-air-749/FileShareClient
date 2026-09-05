@@ -12,6 +12,7 @@ const eslintConfig = defineConfig([
       "@next/next/no-img-element": "off", // error: http://localhost:3000/_next/image?url=http://localhost:7000/api/images/avatars/default&w=256&q=75, 400 Bad Request, "url" parameter is not allowed
       "react-hooks/exhaustive-deps": 'off',
       "@next/next/no-html-link-for-pages": "warn", // <--- THIS IS THE NEW RULE
+      "no-console": "warn" 
     },
   },
 

@@ -2,25 +2,31 @@
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
 import style from '@/style/whatYouWantToСhoose.signup.module.css';
 import { useRouter } from 'next/navigation';
+import { useIntl } from 'react-intl';
 import axios from 'axios';
 import Link from 'next/link';
+import { signUpServer, submitUpdateGuesOnUserFunServer } from './actions';
 
 export default function WhatYouWantToСhoose() {
-    const [signUpUserDataParse, setSignUpUserDataParse] = useState<string | null>('');
+    const [signUpUserDataParse, setSignUpUserDataParse] = useState<object | null>({});
     const [error, setError] = useState('');
 
     const [showLoader, setShowLoader] = useState(false);
 
     const router = useRouter();
 
+    const intl = useIntl();
+
     const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL;
 
     useEffect(() => {
-        const signUpUserData = localStorage?.getItem('signUpUserData');
+        const signUpUserData = sessionStorage?.getItem('signUpUserData');
 
         if (signUpUserData != null || signUpUserData != undefined) {
             // eslint-disable-next-line react-hooks/set-state-in-effect
             setSignUpUserDataParse(JSON.parse(signUpUserData));
+        } else {
+            router.push('/signup');
         }
     }, []);
 
@@ -32,38 +38,32 @@ export default function WhatYouWantToСhoose() {
         setShowLoader(false);
     };
 
-    const submitSignUpUser = async (e: MouseEvent<HTMLButtonElement>) => {
+    const submitSignUpNewUser = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
         try {
             showLoaderFun();
 
-            const response = await axios.post(apiUrl + '/api/signup', signUpUserDataParse);
+            if (signUpUserDataParse != null) {
+                const response = await signUpServer(signUpUserDataParse);
+                sessionStorage.removeItem('signUpUserData');
 
-            if (response?.data.token != null) {
-                localStorage.setItem('token', response?.data.token);
-                localStorage.removeItem('signUpUserData');
+                router.push('/signup/email/verification');
             }
 
-            router.push('/signup/email/verification');
-
-            //console.log('Response:', response);
-            //console.log('Token:', response.data.token);
-        } catch (error) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
             closeLoaderFun();
-            console.log(error);
-            if (axios.isAxiosError(error)) {
-                const serverMessage = error;
-                //console.log(serverMessage);
+            console.log(error.message);
 
-                if (serverMessage.response?.data?.msg != undefined) {
-                    console.log(serverMessage.response?.data?.msg);
-                    setError(serverMessage.response?.data?.msg);
-                } else {
-                    console.log(serverMessage.message);
-                    setError(serverMessage.message);
-                }
-            }
+            const serverMessage = error.message;
+
+            setError(
+                intl.formatMessage({
+                    id: `error.massage.${serverMessage}`,
+                    defaultMessage: intl.formatMessage({ id: 'error.massage.unknown' }) + serverMessage,
+                })
+            );
         }
     };
 
@@ -73,37 +73,26 @@ export default function WhatYouWantToСhoose() {
         try {
             showLoaderFun();
 
-            const token = localStorage?.getItem('token');
+            if (signUpUserDataParse != null) {
+                const response = await submitUpdateGuesOnUserFunServer(signUpUserDataParse);
 
-            await axios.post(apiUrl + '/api/guest/update', signUpUserDataParse, {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-            });
+                sessionStorage.removeItem('signUpUserData');
 
-            localStorage.removeItem('recoveringGuestToken');
-            localStorage.removeItem('signUpUserData');
-
-            router.push('/signup/email/verification');
-
-            //console.log('Response:', response);
-            //console.log('Token:', response.data.token);
-        } catch (error) {
-            closeLoaderFun();
-            console.log(error);
-            if (axios.isAxiosError(error)) {
-                const serverMessage = error;
-                //console.log(serverMessage);
-
-                if (serverMessage.response?.data?.msg != undefined) {
-                    console.log(serverMessage.response?.data?.msg);
-                    setError(serverMessage.response?.data?.msg);
-                } else {
-                    console.log(serverMessage.message);
-                    setError(serverMessage.message);
-                }
+                router.push('/signup/email/verification');
             }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            closeLoaderFun();
+            console.log(error.message);
+
+            const serverMessage = error.message;
+
+            setError(
+                intl.formatMessage({
+                    id: `error.massage.${serverMessage}`,
+                    defaultMessage: intl.formatMessage({ id: 'error.massage.unknown' }) + serverMessage,
+                })
+            );
         }
     };
 
@@ -131,13 +120,13 @@ export default function WhatYouWantToСhoose() {
                     </div>
 
                     <div className={style.formTitle}>
-                        <h2>Что вы хотите выбрать чтоб закончить регистрацию?</h2>
+                        <h2>{intl.formatMessage({ id: 'whatyouwanttochoose.formTitleH2' })}</h2>
                     </div>
                 </div>
 
                 <div className={style.formButtons}>
                     <button
-                        onClick={(e) => submitSignUpUser(e)}
+                        onClick={(e) => submitSignUpNewUser(e)}
                         type="button"
                         className={` ${style.storyLinkStyle} ${style.linkStyleBorderRadiusTop} `}
                     >
@@ -170,7 +159,9 @@ export default function WhatYouWantToСhoose() {
                                 </svg>
                             </div>
 
-                            <span className={style.linkInfoText}>Зарегистрировать новый аккаунт</span>
+                            <span className={style.linkInfoText}>
+                                {intl.formatMessage({ id: 'whatyouwanttochoose.button.createNew' })}
+                            </span>
                         </div>
                     </button>
 
@@ -212,7 +203,9 @@ export default function WhatYouWantToСhoose() {
                                 </svg>
                             </div>
 
-                            <span className={style.linkInfoText}>Обновить данные гостя</span>
+                            <span className={style.linkInfoText}>
+                                {intl.formatMessage({ id: 'whatyouwanttochoose.button.updateOld' })}
+                            </span>
                         </div>
                     </button>
                 </div>
@@ -221,17 +214,13 @@ export default function WhatYouWantToСhoose() {
 
                 <div className={style.formInfo}>
                     <div className={style.formInfoText}>
-                        <h3>Зарегистрировать новый аккаунт</h3>
-                        <span> - Выбров этот пункт вы зарегистрируете полностью новый аккаунт</span>
+                        <h3>{intl.formatMessage({ id: 'whatyouwanttochoose.info.createNew.h3' })}</h3>
+                        <span>{intl.formatMessage({ id: 'whatyouwanttochoose.info.createNew.span' })}</span>
                     </div>
 
                     <div className={style.formInfoText}>
-                        <h3>Обновить данные гостя</h3>
-                        <span>
-                            {' '}
-                            - Выбров этот пункт вы зарегистрируете новый аккаунт но ваш ID, отправленные вам файлы и
-                            история файлов будут перенесины в новый аккаунт
-                        </span>
+                        <h3>{intl.formatMessage({ id: 'whatyouwanttochoose.info.updateOld.h3' })}</h3>
+                        <span>{intl.formatMessage({ id: 'whatyouwanttochoose.info.updateOld.span' })}</span>
                     </div>
                 </div>
 
@@ -247,10 +236,10 @@ export default function WhatYouWantToСhoose() {
                                 xmlns="http://www.w3.org/2000/svg"
                             >
                                 <g clipPath="url(#clip0_223_516)">
-                                    <circle cx="25" cy="25" r="22.5" stroke="#21487A" strokeWidth="5" />
+                                    <circle cx="25" cy="25" r="22.5" stroke="var(--color-blue-900)" strokeWidth="5" />
                                     <path
                                         d="M34.5524 45.3716C35.1386 46.6217 34.6033 48.1232 33.3009 48.5817C29.1743 50.0343 24.7234 50.3834 20.3948 49.5722C15.2442 48.6069 10.5271 46.0475 6.91016 42.2557C3.29318 38.4638 0.959162 33.6313 0.237921 28.4408C-0.368215 24.0788 0.19048 19.6493 1.83617 15.5958C2.35556 14.3165 3.88066 13.8527 5.10172 14.4972V14.4972C6.32277 15.1417 6.77389 16.6504 6.28665 17.9423C5.1119 21.0571 4.72854 24.4293 5.19034 27.7527C5.76733 31.905 7.63454 35.7711 10.5281 38.8045C13.4217 41.838 17.1954 43.8855 21.3159 44.6578C24.6137 45.2758 28.0003 45.052 31.1671 44.0255C32.4805 43.5997 33.9662 44.1215 34.5524 45.3716V45.3716Z"
-                                        fill="#C7E6FF"
+                                        fill="var(--color-blue-300)"
                                     />
                                 </g>
 

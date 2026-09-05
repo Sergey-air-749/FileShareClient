@@ -1,19 +1,35 @@
-import { Metadata } from "next";
-import Gendfile from "./GendFile";
+import { Metadata } from 'next';
+import GetFile from './GetFile';
+import { cookies } from 'next/headers';
 
-export const metadata: Metadata = {
-  title: "Получить файл",
-  description: "Здесь вы можете получить отправленые вам файлы",
-};
+// export const metadata: Metadata = {
+//     title: 'Получить файл',
+//     description: 'Здесь вы можете получить отправленые вам файлы',
+// };
 
+export async function generateMetadata(): Promise<Metadata> {
+    const cookieStore = await cookies();
+    const locale = cookieStore.get('language')?.value;
+    let messages;
 
-function GetfilePage() {
+    if (locale == undefined) {
+        messages = (await import(`@/translations/ru.json`)).default;
+    } else {
+        messages = (await import(`@/translations/${locale}.json`)).default;
+    }
 
-  return (
-    <div>
-      <Gendfile/>
-    </div>
-  );
+    return {
+        title: messages['getfilePage.page.title'],
+        description: messages['getfilePage.page.description'],
+    };
 }
 
-export default GetfilePage
+function GetfilePage() {
+    return (
+        <div>
+            <GetFile />
+        </div>
+    );
+}
+
+export default GetfilePage;

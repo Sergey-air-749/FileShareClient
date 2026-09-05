@@ -1,0 +1,63 @@
+.settingsNav {
+    width: 100%;
+    padding: 20px;
+}
+
+.settingsHeader {
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+.settingsHeaderBlock {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.buttonBackPage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: transparent;
+}
+
+.headerTitle {
+    color: var(--color-text);
+}
+
+
+
+
+
+
+.settingLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-gray-900);
+    border-radius: 20px;
+}
+
+.link {
+    color: var(--color-text);
+    text-decoration: none;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--color-gray-600);
+    transition: 0.1s all ;
+}
+
+.link:hover {
+    background-color:var(--color-gray-700);
+}
+
+.link:active {
+    background-color:var(--color-gray-600);
+}
+

@@ -1,0 +1,777 @@
+{
+  "home.layout.headerTitleH2": "Обмен файлами",
+  "home.layout.burgerMenuTitle": "Меню",
+
+  "home.layout.linkSendFile": "Отправить",
+  "home.layout.linkGetFile": "Получить",
+  "home.layout.linkStory": "История",
+  "home.layout.linkSettings": "Настройки",
+  "home.layout.linkSignup": "Регистрация",
+  "home.layout.linkLogin": "Вход",
+
+
+
+
+
+  "sendfilePage.page.title": "Отправить файл",
+  "sendfilePage.page.description": "Здесь вы можете отправить файл на другое устройства",
+
+  "sendfilePage.formTitleH2": "Отправить файл",
+  "sendfilePage.formDescriptionP": "Здесь вы можете отправить файл на другое устройства",
+  
+  "sendfilePage.selectOptionSend.file": "Отправить файл",
+  "sendfilePage.selectOptionSend.text": "Отправить текст",
+
+  "sendfilePage.setFilePopUpTitleInfo": "Файлы",
+  "sendfilePage.setFilePopUpFilesLength": "Количество файлов",
+  "sendfilePage.addFile": "Добавить файл",
+  
+  "sendfilePage.noFilesSelected": "Файлы не выбраны",
+
+  "sendfilePage.inputTextTextarea": "Введите текст...",
+  "sendfilePage.inputSelectFile": "Выбрать файл",
+
+  "sendfilePage.inputDeviceID": "ID Устройства",
+
+  "sendfilePage.messageWhatDeviceIDBlock.1": "1. Откройте сайт",
+  "sendfilePage.messageWhatDeviceIDBlock.1.5": "на другом устройстве",
+  "sendfilePage.messageWhatDeviceIDBlock.2": "2. Нажмите на кнопку \"Получить\" она находится снизу экрана рядом с кнопкой \"Отправить\"",
+  "sendfilePage.messageWhatDeviceIDBlock.3": "3. На странице получить найдите строчку \"ID Вашего устройства\" и введите код ниже в это поле",
+  "sendfilePage.messageWhatDeviceIDBlock.4.file": "4. На этом устройстве выберите файлы который хотите отправить и нажимайте на кнопку \"Отправить\"",
+  "sendfilePage.messageWhatDeviceIDBlock.4.text": "4. На этом устройстве введите текст который хотите отправить и нажимайте на кнопку \"Отправить\"",
+  "sendfilePage.messageWhatDeviceIDBlock.5": "5. Дождитесь конца загрузки, файлы должны отабразится на другом устройстве",
+
+
+
+  "sendfilePage.userIsGuest.username": "Гость",
+
+  "sendfilePage.userNotfound": "Пользователь не найден",
+
+  "sendfilePage.buttonSubmitSend": "Отправить",
+
+  "sendfilePage.buttonLinkSend": "Отправить",
+  "sendfilePage.buttonLinkGet": "Получить",
+
+
+
+
+
+
+  "sendfilePage.submitLoaderPopUp.h2": "Отправка",
+  "sendfilePage.submitLoaderPopUp.h2.file.successful": "Файлы отправлены",
+  "sendfilePage.submitLoaderPopUp.h2.text.successful": "Текст отправлен",
+  "sendfilePage.submitLoaderPopUp.WhoToSendItTo": "Кому",
+
+  "sendfilePage.submitLoaderPopUp.sendFileBlock.title.files": "Файлы",
+  "sendfilePage.submitLoaderPopUp.sendFileBlock.title.text": "Текст",
+
+  "sendfilePage.submitLoaderPopUp.sendFileBlock.filesLength": "Количество файлов",
+
+  "sendfilePage.submitLoaderPopUp.warningDoNotClosePopUp": "Не закрываете страницу, до завершения отправки",
+
+  "sendfilePage.massage.sendFileSuccessful": "Файлы успешно отправлены",
+  "sendfilePage.massage.sendTextSuccessful": "Текст успешно отправлен",
+
+  "sendfilePage.submitLoaderPopUp.close": "Готова",
+
+
+
+
+
+
+
+
+
+
+
+  "getfilePage.page.title": "Получить файл",
+  "getfilePage.page.description": "Здесь вы можете получить отправленые вам файлы",
+
+  "getfilePage.formTitleH2": "Получить файл",
+  "getfilePage.formDescriptionP": "Здесь вы можете принять файлы с других устройств",
+
+  "getfilePage.yourDeviceID": "ID Вашего устройства",
+  "getfilePage.loding": "Загрузка",
+  "getfilePage.yourDeviceID.copy.click": "ID скопирован!",
+
+  "getfilePage.openFileList": "Открыть список файлов",
+
+  "getfilePage.buttonLinkSend": "Отправить",
+  "getfilePage.buttonLinkGet": "Получить",
+
+
+  "getfilePage.getFilePopUpTitleInfoH2": "Принять файлы",
+  "getfilePage.getFilePopUpFilesLengthSpan": "Количество файлов",
+  
+  "getfilePage.file.sentToUser": "Отправитель",
+  "getfilePage.file.userWillReceive": "Получатель",
+  "getfilePage.file.sentFromDevice": "Отправлено с устройства",
+  "getfilePage.file.date": "Время",
+  "getfilePage.file.size": "Размер",
+
+  "getfilePage.file.size.byte": "Байт",
+  "getfilePage.file.size.kilobyte": "КБ",
+  "getfilePage.file.size.megabyte": "МБ",
+  "getfilePage.file.size.gigabyte": "ГБ",
+
+  "getfilePage.file.reject": "Отклонить",
+  "getfilePage.file.download": "Скачать",
+  "getfilePage.file.copy": "Капировать",
+  "getfilePage.file.copy.click": "Текст скопирован!",
+
+  "getfilePage.files.rejectAll": "Отклонить всё",
+  "getfilePage.files.acceptEverything": "Принять всё",
+
+
+  "getfilePage.file.thereAreNoFilesInTheHistory": "Файлов нет",
+
+
+  "getfilePage.filtersGetFilePopUpH2": "Фильтры",
+  
+  "getfilePage.selectOptionfilters.all": "Все",
+  "getfilePage.selectOptionfilters.files": "Файлы",
+  "getfilePage.selectOptionfilters.texts": "Текст",
+
+  "getfilePage.selectOptionfilters.sentToUserNames": "Введите имя отпровителя (Пример: Имя1, Имя2)",
+
+  "getfilePage.selectOptionfiltersStatus.resetFilters": "Сбросить фильтры",
+
+
+
+
+
+
+
+
+
+
+
+
+  "storyPage.page.title": "История",
+  "storyPage.page.description": "История ваших файлов",
+
+  "storyPage.formTitleH2": "История",
+  "storyPage.formDescriptionP": "История ваших файлов",
+
+  "storyPage.storyLinkStyleSend": "Отправленные",
+  "storyPage.storyLinkStyleGet": "Полученные",
+
+
+
+  "sendFileStory.page.title": "История отправленых файлов",
+  "sendFileStory.page.description": "Здесь вы можете посмотреть все файлы которые вы отправели, время, кому вы отправель и с какого устройства",
+
+  "sendFileStory.linkStoryOptionsSent": "Отправленные",
+  "sendFileStory.linkStoryOptionsGet": "Принятые",
+
+  "sendFileStory.formTitleH2": "История отправленых файлов",
+  "sendFileStory.formDescriptionP": "Здесь вы можете посмотреть все файлы которые вы отправели, время, кому вы отправель и с какого устройства",
+  "sendFileStory.formFileStoryHeadH2": "История",
+
+  "sendFileStory.inputSearch": "Поиск по названию",
+  
+  "sendFileStory.file.sentToUser": "Отправитель",
+  "sendFileStory.file.userWillReceive": "Получатель",
+  "sendFileStory.file.sentFromDevice": "Отправлено с устройства",
+  "sendFileStory.file.date": "Время",
+
+  "sendFileStory.file.status": "Статус",
+  "sendFileStory.file.status.sent": "Отправлено",
+  "sendFileStory.file.status.accepted": "Принято",
+  "sendFileStory.file.status.refusal": "Отказон",
+
+  "sendFileStory.file.delete": "Удалить",
+  "sendFileStory.file.cancelSending": "Отменить отправку",
+
+  "sendFileStory.file.thereAreNoFilesInTheHistory": "Файлов в истории нет",
+
+  "sendFileStory.settingsStoryPopUpH2": "Упровление историй",
+  "sendFileStory.settingsStoryPopUp.clearAllHistory": "Очистить всю историю",
+
+  "sendFileStory.messageDeleteStoryPopUpH2": "Очистить всю историю",
+  "sendFileStory.messageDeleteStoryPopUpSpan": "Вся ваша история будет безвозвратно удалена",
+  "sendFileStory.messageDeleteStoryPopUp.delete": "Удалить",
+  "sendFileStory.messageDeleteStoryPopUp.cancel": "Отмена",
+
+  "sendFileStory.filtersStoryPopUpH2": "Фильтры",
+  
+  "sendFileStory.selectOptionfilters.all": "Все",
+  "sendFileStory.selectOptionfilters.files": "Файлы",
+  "sendFileStory.selectOptionfilters.texts": "Текст",
+
+  "sendFileStory.selectOptionfiltersStatus.all": "Любой статус",
+  "sendFileStory.selectOptionfiltersStatus.sent": "Отправлено",
+  "sendFileStory.selectOptionfiltersStatus.accepted": "Принято",
+  "sendFileStory.selectOptionfiltersStatus.refusal": "Отказано",
+
+  "sendFileStory.selectOptionfiltersStatus.resetFilters": "Сбросить фильтры",
+
+
+
+
+
+  "getFileStory.page.title": "История принятых файлов",
+  "getFileStory.page.description": "Здесь вы можете посмотреть все файлы которые скачали, время, от кого и с какого устройства был отправлен файл",
+
+  "getFileStory.linkStoryOptionsSent": "Отправленные",
+  "getFileStory.linkStoryOptionsGet": "Принятые",
+
+  "getFileStory.formTitleH2": "История принятых файлов",
+  "getFileStory.formDescriptionP": "Здесь вы можете посмотреть все файлы которые скачали, время, от кого и с какого устройства был отправлен файл",
+  "getFileStory.formFileStoryHeadH2": "История",
+
+  "getFileStory.inputSearch": "Поиск по названию",
+  
+  "getFileStory.file.sentToUser": "Отправитель",
+  "getFileStory.file.userWillReceive": "Получатель",
+  "getFileStory.file.sentFromDevice": "Отправлено с устройства",
+  "getFileStory.file.date": "Время",
+
+  "getFileStory.file.delete": "Удалить",
+
+  "getFileStory.file.thereAreNoFilesInTheHistory": "Файлов в истории нет",
+
+  "getFileStory.settingsStoryPopUpH2": "Упровление историй",
+  "getFileStory.settingsStoryPopUp.clearAllHistory": "Очистить всю историю",
+
+  "getFileStory.messageDeleteStoryPopUpH2": "Очистить всю историю",
+  "getFileStory.messageDeleteStoryPopUpSpan": "Вся ваша история будет безвозвратно удалена",
+  "getFileStory.messageDeleteStoryPopUp.delete": "Удалить",
+  "getFileStory.messageDeleteStoryPopUp.cancel": "Отмена",
+
+  "getFileStory.filtersStoryPopUpH2": "Фильтры",
+  
+  "getFileStory.selectOptionfilters.all": "Все",
+  "getFileStory.selectOptionfilters.files": "Файлы",
+  "getFileStory.selectOptionfilters.texts": "Текст",
+
+  "getFileStory.selectOptionfiltersStatus.all": "Любой статус",
+  "getFileStory.selectOptionfiltersStatus.sent": "Отправлено",
+  "getFileStory.selectOptionfiltersStatus.accepted": "Принято",
+  "getFileStory.selectOptionfiltersStatus.refusal": "Отказано",
+
+  "getFileStory.selectOptionfiltersStatus.resetFilters": "Сбросить фильтры",
+
+
+
+
+
+
+
+  "login.page.title": "Вход",
+
+  "login.formTitleH2": "Вход",
+  "login.input.username": "Имя пользователя",
+  "login.input.email": "Адрес эл. почты",
+  "login.input.password": "Пароль",
+
+  "login.button.submit": "Войти",
+
+  "login.in": "Войти по",
+  "login.in.username": "Имени пользователя",
+  "login.in.email": "Почте",
+
+  "login.link.noAccountRegistration": "Нет акаунта регистрация",
+  "login.link.recoverAccount": "Восстановить аккаунт?",
+  "login.link.forgotYourPassword": "Забыли пароль?",
+
+
+
+
+
+  
+  "resetPassword.page.title": "Сброс пароля",
+  "resetPassword.page.description": "Введите ваш Адрес эл. почты на которую был зарегистрирован аккаунт",
+
+  "resetPassword.formTitleH2": "Сброс пароля",
+  "resetPassword.formDescriptionP": "Введите ваш Адрес эл. почты на которую был зарегистрирован аккаунт",
+  "resetPassword.input.email": "Адрес эл. почты",
+  "resetPassword.button.submit": "Продолжить",
+
+
+
+
+
+  "resetPasswordVerification.page.title": "Введите новый пароль",
+  "resetPasswordVerification.page.description": "Введите новый пароль для аккаунта",
+
+  "resetPasswordVerification.formTitleH2": "Введите код из эл. почты",
+
+  "resetPasswordVerification.input.enterTheCodeFromTheEmail": "Введите код из эл. почты",
+  "resetPasswordVerification.input.newPassword": "Введите новый пароль",
+  "resetPasswordVerification.input.repeatNewPassword": "Повторите новый пароль",
+
+  "resetPasswordVerification.input.validation.password.error": "Пароль должна состоять от 8 символов, включая цифры, заглавные буквы, строчные буквы и спец символов: @, $, !, %, *, ?, &.",
+  "resetPasswordVerification.input.password.passwordDoesnMatch": "Пароль не совпадает",
+
+  "resetPasswordVerification.button.submit": "Отправить код",
+  "resetPasswordVerification.button.getNewCode": "Получить новый код",
+  "resetPasswordVerification.message.getNewCode": "Новый код отправлен",
+  "resetPasswordVerification.button.cancel": "Отмена",
+
+
+
+
+
+
+
+  "signup.page.title": "Регистрация",
+
+  "signup.formTitleH2": "Регистрация",
+
+  "signup.input.email": "Адрес эл. почты", 
+  "signup.input.username": "Имя пользователя", 
+  "signup.input.password": "Пароль", 
+  "signup.input.repeatPassword": "Повторите пароль", 
+
+  "signup.input.validation.email.error": "Почта должна состоять от 3 символов, содержать символ @",
+  "signup.input.validation.username.error": "Имя пользователя должна состоять от 3 символов и не содержать пробелов",
+  "signup.input.validation.password.error": "Пароль должна состоять от 8 символов, включая цифры, заглавные буквы, строчные буквы и спец символов: @, $, !, %, *, ?, &.",
+  "signup.input.password.passwordDoesnMatch": "Пароль не совпадает",
+
+  "signup.button.submit": "Заригистрироватся",
+
+  "signup.link.haveAnAccountLogin": "Есть аккаунт вход",
+
+
+
+
+
+
+
+  
+  "signupEmail.page.title": "Подтвердить почту",
+  "signupEmail.page.description": "Подтвердить почту чтобы закончить регистрацию",
+  
+  "signupEmail.formTitleH2": "Введите код из эл. почты",
+
+  "signupEmail.input.enterTheCodeFromTheEmail": "Введите код из эл. почты",
+  "signupEmail.message.getNewCode": "Новый код отправлен",
+
+  "signupEmail.button.submit": "Отправить код",
+  "signupEmail.button.getNewCode": "Получить новый код",
+  "signupEmail.button.cancel": "Отмена",
+
+
+
+
+
+
+  "whatyouwanttochoose.page.title": "Что вы хотите выбрать чтоб закончить регистрацию?",
+
+  "whatyouwanttochoose.formTitleH2": "Что вы хотите выбрать чтоб закончить регистрацию?",
+
+  "whatyouwanttochoose.button.createNew": "Зарегистрировать новый аккаунт",
+  "whatyouwanttochoose.button.updateOld": "Обновить данные гостя",
+
+  "whatyouwanttochoose.info.createNew.h3": "Зарегистрировать новый аккаунт",
+  "whatyouwanttochoose.info.updateOld.h3": "Обновить данные гостя",
+  
+  "whatyouwanttochoose.info.createNew.span": " - Выбров этот пункт вы зарегистрируете полностью новый аккаунт",
+  "whatyouwanttochoose.info.updateOld.span": " - Выбров этот пункт вы зарегистрируете новый аккаунт но ваш ID, отправленные вам файлы и история файлов будут перенесины в новый аккаунт",
+
+
+
+  "recovering.account.page.title": "Васстановить аккаунт",
+  "recovering.account.page.description": "Восстановить аккаунт после удаления можно если с момента удаления аккаунта не прошло 14 дней",
+
+  "recovering.account.formTitleH2": "Васстановить аккаунт",
+  "recovering.account.formDescriptionP": "Введите данные аккаунта который хотите восстановить",
+
+  "recovering.account.input.name": "Имя пользователя",
+  "recovering.account.input.email": "Адрес эл. почты",
+  "recovering.account.input.password": "Пароль",
+
+  "recovering.account.button.submit": "Васстановить",
+
+  "recovering.account.by": "Васстановить по",
+  "recovering.account.by.username": "Имени пользователя",
+  "recovering.account.by.email": "Почте",
+
+  "recovering.account.link.forgotYourPassword": "Забыли пароль?",
+
+
+
+
+
+  "recovering.account.verification.page.title": "Подтвердите почту для её изменения",
+
+  "recovering.account.verification.formTitleH2": "Введите код из эл. почты",
+  "recovering.account.verification.formDescriptionP": "Мы отправели код потверждения на почту указанную в аккаунте который вы пытаетесь восстановить",
+
+  "recovering.account.verification.input.code": "Введите код из эл. почты",
+
+  "recovering.account.verification.button.submit": "Отправить код",
+
+  "recovering.account.verification.button.getТewСode": "Получить новый код",
+  "recovering.account.verification.message.getТewСode": "Новый код отправлен",
+  
+  "recovering.account.verification.button.cancel": "Отмена",
+
+
+
+
+
+
+
+  "recovering.account.successfully.page.title": "Доступ к аккаунту васстоновлен",
+
+  "recovering.account.successfully.formTitleH2": "Васстановить аккаунт",
+
+  "recovering.account.successfully.info": "Ваш аккаунт, отправленные вам файлы и история, были васстановлены",
+  "recovering.account.successfully.link.home": "На главную",
+
+
+
+
+
+
+  "settings.page.title": "Настройки",
+  "settings.page.description": "Настройки сайта", 
+
+  "settings.settingsHeaderH2": "Основное",
+
+  "settings.date.title": "Формат времени",
+  "settings.languages.title": "Язык",
+
+
+  "settings.date.option.value.12": "12 - часовой",
+  "settings.date.option.value.23": "24 - часовой",
+
+  "settings.languages.option.value.ru": "Русский - Russian",
+  "settings.languages.option.value.en": "Английский - English",
+
+
+
+  "settingsNav.headerTitleH2": "Настройки",
+  "settingsNav.link.main": "Основное",
+  "settingsNav.link.decor": "Оформление",
+
+
+
+
+
+  
+
+  "decor.page.title": "Оформление",
+  "decor.page.description": "Управление оформление",
+
+  "decor.settingsHeaderH2": "Оформление",
+
+  "decor.themes.title": "Тема",
+
+  "decor.themes.option.value.system": "Как в системе",
+  "decor.themes.option.value.light": "Светлая",
+  "decor.themes.option.value.dark": "Тёмная",
+
+
+
+
+
+
+
+
+
+  "accountAccessDeniedPage.page.title": "Доступ закрыт",
+  "accountAccessDeniedPage.page.description": "Настройки аккаунта недоступны в гостевом режиме",
+  "accountAccessDeniedPage.page.link": "Вернуться на главную",
+
+
+
+  "account.page.title": "Аккаунт",
+  "account.page.description": "Управление Аккаунтам",
+
+  "account.headerTitleH2": "Аккаунт",
+  "account.userData.userAvatarImg": "Аватар пользователя",
+
+
+  "account.popup.setAvatar.title": "Ваша аватарка",
+  "account.popup.setAvatar.button.change": "Изменить",
+  "account.popup.setAvatar.button.delete": "Удалить",
+  "account.popup.setAvatar.button.save": "Сохранить",
+  "account.popup.setAvatar.button.selectAnotherOne": "Выбрать другую",
+
+
+  "account.accountSetting.link.change.email": "Изменить адрес эл. почты",
+  "account.accountSetting.link.change.name": "Изменить имя пользователя",
+  "account.accountSetting.link.change.password": "Изменить пароль",
+  "account.accountSetting.link.change.delete": "Удалить аккаунт",
+
+  "account.accountSetting.link.logout": "Выход",
+
+
+
+
+
+
+  "changeEmail.page.title": "Изменить адрес эл. почты",
+
+  "changeEmail.headerTitleH2": "Изменить адрес эл. почты",
+  "changeEmail.headerDescriptionP": "Введите новый адрес эл. почты",
+
+  "changeEmail.input.email": "Изменить адрес эл. почты",
+  "changeEmail.input.validation.email": "Почта должна состоять от 3 символов, содержать символ @",
+
+  "changeEmail.currentEmail": "Текущая эл. почта:",
+  "changeEmail.currentEmail.login": "Загрузка...",
+
+  "changeEmail.button.submit": "Сохранить изменения",
+  "changeEmail.button.cancel": "Отмена",
+
+
+
+
+
+
+  "changeEmailVerification.page.title": "Подтвердите почту для её изменения",
+
+  "changeEmailVerification.formTitleH2": "Введите код из эл. почты",
+  "changeEmailVerification.formDescriptionP": "Мы отправели код потверждения на",
+
+  "changeEmailVerification.input.code": "Введите код из эл. почты",
+
+  "changeEmailVerification.button.submit": "Отправить код",
+
+  "changeEmailVerification.button.getТewСode": "Получить новый код",
+  "changeEmailVerification.message.getТewСode": "Новый код отправлен",
+  
+  "changeEmailVerification.button.cancel": "Отмена",
+
+
+
+
+
+
+
+  
+  "changeUserName.page.title": "Изменить имя пользователя",
+
+  "changeUserName.formTitleH2": "Изменить имя пользователя",
+  "changeUserName.formDescriptionP": "Введите новое имя пользователя",
+
+  "changeUserName.input.newUserName": "Новое имя пользователя",
+  "changeUserName.input.newUserName.validation": "Имя пользователя должна состоять от 3 символов",
+
+  "changeUserName.info.currentName": "Текущее имя",
+  "changeUserName.info.currentName.loding": "Загрузка...",
+  
+  "changeUserName.button.submit": "Сохранить изменения",
+  "changeUserName.button.cancel": "Отмена",
+
+
+
+
+
+
+
+
+
+  
+  "changePassword.page.title": "Изменить пароль",
+
+  "changePassword.formTitleH2": "Изменить пароль",
+  "changePassword.formDescriptionP": "Введите новый пароль",
+
+  "changePassword.input.oldPasswode": "Старый пароль",
+  "changePassword.input.newPasswode": "Новый пароль",
+  "changePassword.input.repeatPassword": "Повторите новый пароль",
+
+  "changePassword.input.newPasswode.validation": "Пароль должна состоять от 8 символов, включая цифры, заглавные буквы, строчные буквы и спец символов: @, $, !, %, *, ?, &.",
+  "changePassword.passwordDoesNotMatch.validation": "Пароль не совподает",
+  
+  "changePassword.button.submit": "Сохранить изменения",
+  "changePassword.button.cancel": "Отмена",
+  
+
+
+
+
+
+
+
+  "deleteAccount.page.title": "Удалить аккаунт",
+
+  "deleteAccount.formTitleH2": "Удалить аккаунт",
+
+  "deleteAccount.info.warning.title": "Внимательно прочтите это перед тем как удалить аккаунта",
+  "deleteAccount.info.warning.info": "Ваш аккаунт, отправленные вам файлы и история, будет навсегда удален, отменить удаление можно в течение 14 дней",
+  
+  "deleteAccount.button.submit": "Удалить",
+  "deleteAccount.button.cancel": "Отмена",
+
+
+
+
+
+
+
+
+
+
+
+
+  "deleteAccountVerification.page.title": "Введите пароль чтобы продолжить",
+
+  "deleteAccountVerification.formTitleH2": "Введите пароль чтобы продолжить",
+  "deleteAccountVerification.formDescriptionP": "Подтвердите, что это ваш аккаунт",
+  
+  "deleteAccountVerification.input.password": "Пароль",
+
+  "deleteAccountVerification.button.submit": "Продолжить",
+  "deleteAccountVerification.button.cancel": "Отмена",
+
+
+
+
+
+
+
+
+
+
+
+
+  "deleteAccountSuccessfully.page.title": "Аккаунт успешна удалён",
+
+  "deleteAccountSuccessfully.formTitleH2": "Ваш аккаунт удален",
+
+  "deleteAccountSuccessfully.info": "Ваш аккаунт, отправленные вам файлы и история, были удалены, отменить удаление можно в течение 14 дней",
+
+  "deleteAccountSuccessfully.link.home": "На главную",
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  "signup.error.aUserEmailAlreadyExists": "Пользователь с этой почтай уже существует",
+  "signup.error.userNameIsTaken": "Это имя пользователя занято",
+  "signup.error.UserIsNotAGuest": "Пользователь не является гостям",
+
+  "login.error.invalidUserName": "Неверное имя пользователя",
+  "login.error.invalidUserEmail": "Неверная почта",
+  "login.error.accountDetailsNotExist": "Аккаунта с такими данными не существует",
+  "login.error.incorrectPassword": "Неверный пароль",
+
+  "resetPassword.error.accountEmailAddressNotExist": "Аккаунта с этой почтой не существует",
+
+  "emailVerification.error.accountEmailAddressNotExist": "Аккаунта с этой почтой не существует",
+  "emailVerification.error.invalidConfirmationCode": "Неверный код подтверждения",
+  "emailVerification.error.codeExpiredRequestNewCode": "Срок действия кода истёк. Запросите новый код.",
+  "emailVerification.error.verificationErrorPleaseTryAgain": "Ошибка при вирефикацы, повторите попытку",
+  "emailVerification.error.somethingWentWrong": "Что-то пошло не так",
+  
+
+
+
+
+
+
+  "error.massage.somethingWentWrong": "Что-то пошло не так",
+  "error.massage.unknown": "Ошибка: ",
+
+  "error.massage.aUserEmailAlreadyExists": "Пользователь с этой почтай уже существует",
+  "error.massage.userNameIsTaken": "Это имя пользователя занято",
+  "error.massage.userIsNotAGuest": "Пользователь не является гостям",
+
+  "error.massage.invalidUserName": "Неверное имя пользователя",
+  "error.massage.invalidUserEmail": "Неверная почта",
+  "error.massage.accountDetailsNotExist": "Аккаунта с такими данными не существует",
+  "error.massage.incorrectPassword": "Неверный пароль",
+
+  "error.massage.accountEmailAddressNotExist": "Аккаунта с этой почтой не существует",
+  "error.massage.failedToSendTheConfirmationCode": "Не удалось отправить код подтверждения",
+  "error.massage.invalidConfirmationCode": "Неверный код подтверждения",
+  "error.massage.codeExpiredRequestNewCode": "Срок действия кода истёк. Запросите новый код.",
+  "error.massage.verificationErrorPleaseTryAgain": "Ошибка при вирефикацы, повторите попытку",
+
+  "error.massage.anErrorOccurredWhileSending": "Произошла ошибка при отправке, повторите попытку",
+  "error.massage.errorDuringCancellationPleaseTryAgain": "Ошибка при отмене, повторите попытку",
+  
+
+  "error.massage.emailNotVerified": "Почта не верифицирована",
+
+  
+  "error.massage.invalidUserID": "Неверный ID или этого аккаунта не существует",
+  "error.massage.deviceIDDoNotMatch": "ID устройств не совпадают",
+
+  "error.massage.fileNotFound": "Файл не найден",
+  "error.massage.textNotFound": "Текст не найден",
+
+  "error.massage.userNotFound": "Пользователь не найден",
+  "error.massage.fileSenderNotFound": "Отпровитель файла не найден",
+
+
+
+  "error.massage.cookieNotFound": "Не удалось найти файлы cookie в запросе",
+  "error.massage.cookieParseError": "Произошла ошибка во время оброботки cookie",
+
+
+  "error.massage.senderTimeZoneUndefined": "Часовой пояс отправителя не определён",
+  
+  
+  
+  
+  "error.massage.failedToCancelSsending": "Ошибка не удалось отменить отправку",
+  
+  
+
+  "error.massage.thisAccountHasNotBeenDeleted": "Данный аккаунт не являться удалёным",
+  "error.massage.accountDeleted": "Аккаунт удалён",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  "userIsGuest.username": "Гость",
+  "userIsDelete.username": "Удалённый аккаунт",
+
+  "file.notFound": "Файлов нет",
+
+
+  
+  "filtersFilePop.titleH2": "Фильтры",
+  
+  "filtersFilePop.selectOptionfilters.all": "Все",
+  "filtersFilePop.selectOptionfilters.files": "Файлы",
+  "filtersFilePop.selectOptionfilters.texts": "Текст",
+
+  "filtersFilePop.selectOptionfiltersStatus.all": "Любой статус",
+  "filtersFilePop.selectOptionfiltersStatus.sent": "Отправлено",
+  "filtersFilePop.selectOptionfiltersStatus.accepted": "Принято",
+  "filtersFilePop.selectOptionfiltersStatus.refusal": "Отказано",
+
+  "filtersFilePop.selectOptionfilters.sentToUserNames": "Введите имя отпровителя (Пример: Имя1, Имя2)",
+
+  "filtersFilePop.resetFilters": "Сбросить фильтры"
+}

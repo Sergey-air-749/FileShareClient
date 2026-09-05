@@ -20,7 +20,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgb(26, 26, 26);
 }
 
 .recoverAccountSuccessfullyForm {
@@ -28,8 +27,8 @@
     display: flex;
     width: 500px;
     flex-direction: column;
-    background-color: #000000;
-    border: 1px solid #222222;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-gray-600);
     border-radius: 10px;
     padding: 40px;
 }
@@ -38,7 +37,7 @@
     display: flex;
     align-items: center;
     justify-content: start;
-    background-color: black;
+    background-color: var(--color-bg);
     /* padding: 15px 0px 15px 0px; */
     gap: 10px;
 } 
@@ -48,7 +47,7 @@
 
 
 .headerTitle {
-    color: #ffffff;
+    color: var(--color-text);
 }
 
 .buttonBackPage {
@@ -82,7 +81,7 @@
 }
 
 .formTitle h2 {
-    color: #ffffff;
+    color: var(--color-text);
     text-align: center;
 }
 
@@ -96,11 +95,11 @@
 }
 
 .recoverAccountSuccessfullyInfo h3 {
-    color: #ffffff;
+    color: var(--color-text);
 }
 
 .recoverAccountSuccessfullyInfo p {
-    color: #c0c0c0;
+    color: var(--color-gray-150);
 }
 
 .styleFooter {

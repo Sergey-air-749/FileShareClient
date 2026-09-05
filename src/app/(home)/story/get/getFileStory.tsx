@@ -3,6 +3,8 @@ import { useState, useEffect, ChangeEvent } from 'react';
 import style from '@/style/getFileStory.module.css';
 
 import { useRouter } from 'next/navigation';
+import { useIntl } from 'react-intl';
+import { deleteAllFilesStoryGetServer, deleteFileStoryGetServer, getStoryGetFileServer } from './actions';
 
 import Link from 'next/link';
 import axios from 'axios';
@@ -13,7 +15,13 @@ interface FileItem {
     sentToUser: string;
     userWillReceive: string;
     text: string;
-    data: string;
+    data:
+        | {
+              data: string;
+              gtm: string;
+          }
+        | string;
+    size: string;
     status: string;
     id: string;
 }
@@ -24,8 +32,20 @@ export default function GetFileStory() {
     const [showMessageSettingsPopUp, setShowMessageSettingsPopUp] = useState(false);
     const [userFileStory, setUserFileStory] = useState<FileItem[]>([]);
     const [error, setError] = useState('');
+    const [timeFormat, setTimeFormat] = useState<string | null>(null);
+
+    const intl = useIntl();
+
+    useEffect(() => {
+        const timeFormat = localStorage.getItem('timeFormat');
+        if (timeFormat != null) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setTimeFormat(timeFormat);
+        }
+    }, []);
 
     const [filters, setFilters] = useState({
+        sentToUser: '',
         date: '',
         dateParse: '',
         type: 'all', // all | file | text
@@ -39,73 +59,44 @@ export default function GetFileStory() {
     const fileApiUrl = process.env.NEXT_PUBLIC_SERVER_FILE_API_URL;
 
     const getStoryGetFile = async () => {
-        const token = localStorage?.getItem('token');
-
         try {
-            const response = await axios.get(apiUrl + '/api/story/get', {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-            });
+            const response = await getStoryGetFileServer();
 
-            console.log('Response:', response.data);
+            setUserFileStory(response);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            console.log(error.message);
 
-            setUserFileStory(response.data);
-        } catch (error) {
-            console.log(error);
-            if (axios.isAxiosError(error)) {
-                const serverMessage = error;
-                //console.log(serverMessage);
+            const serverMessage = error.message;
 
-                if (serverMessage.response?.data?.msg != undefined) {
-                    console.log(serverMessage.response?.data?.msg);
-                    setError(serverMessage.response?.data?.msg);
-
-                    if (serverMessage.response?.data?.msg == 'invalid token') {
-                        router.push('/login');
-                    }
-                } else {
-                    console.log(serverMessage.message);
-                    setError(serverMessage.message);
-                }
-            }
+            setError(
+                intl.formatMessage({
+                    id: `error.massage.${serverMessage}`,
+                    defaultMessage: intl.formatMessage({ id: 'error.massage.unknown' }) + serverMessage,
+                })
+            );
         }
     };
 
     useEffect(() => {
         const getStoryGetFile = async () => {
-            const token = localStorage?.getItem('token');
-
             try {
-                const response = await axios.get(apiUrl + '/api/story/get', {
-                    headers: {
-                        authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    },
-                });
+                const response = await getStoryGetFileServer();
+                console.log(response);
 
-                console.log('Response:', response.data);
+                setUserFileStory(response);
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            } catch (error: any) {
+                console.log(error.message);
 
-                setUserFileStory(response.data);
-            } catch (error) {
-                console.log(error);
-                if (axios.isAxiosError(error)) {
-                    const serverMessage = error;
-                    //console.log(serverMessage);
+                const serverMessage = error.message;
 
-                    if (serverMessage.response?.data?.msg != undefined) {
-                        console.log(serverMessage.response?.data?.msg);
-                        setError(serverMessage.response?.data?.msg);
-
-                        if (serverMessage.response?.data?.msg == 'invalid token') {
-                            router.push('/login');
-                        }
-                    } else {
-                        console.log(serverMessage.message);
-                        setError(serverMessage.message);
-                    }
-                }
+                setError(
+                    intl.formatMessage({
+                        id: `error.massage.${serverMessage}`,
+                        defaultMessage: intl.formatMessage({ id: 'error.massage.unknown' }) + serverMessage,
+                    })
+                );
             }
         };
 
@@ -116,7 +107,21 @@ export default function GetFileStory() {
         // Фильтр по дате
         if (filters.dateParse) {
             console.log(filters.dateParse);
-            if (!file.data?.includes(filters.dateParse)) return false;
+
+            if (typeof file.data === 'object') {
+                if (!file.data.data?.includes(filters.dateParse)) return false;
+            } else if (typeof file.data === 'string') {
+                if (!file.data?.includes(filters.dateParse)) return false;
+            }
+        }
+
+        // Поиск по имени отпровителя
+        if (filters.sentToUser != '') {
+            console.log('file.sentToUser:', file.sentToUser);
+            const sentToUserNames = filters.sentToUser.split(', ');
+            console.log(sentToUserNames);
+
+            if (!sentToUserNames.includes(file.sentToUser)) return false;
         }
 
         // Тип
@@ -170,6 +175,7 @@ export default function GetFileStory() {
 
     const filesResetFiltersFun = () => {
         setFilters({
+            sentToUser: '',
             date: '',
             dateParse: '',
             type: 'all',
@@ -178,85 +184,255 @@ export default function GetFileStory() {
         });
     };
 
+    // const [date, setDate] = useState('');
+    // const [time, setTime] = useState('');
+    // const [fromTz, setFromTz] = useState('UTC');
+    // const [toTz, setToTz] = useState('Europe/Berlin');
+    // const [result, setResult] = useState<string | null>(null);
+
+    const dateParserTimeZone = (date: string, gtm: string | undefined) => {
+        // -300 -> GTM+5
+        // 300 -> GTM-5
+        // -180 -> GTM+3
+        // 180 -> GTM-3
+
+        if (gtm != undefined) {
+            if (!!Number(gtm)) {
+                console.log(date);
+                console.log(gtm);
+
+                const dateSplit = date.split(', ');
+
+                // console.log(dateSplit);
+
+                const dayMonthFullSplit = dateSplit[0].split('.');
+                const taimSplit = dateSplit[1].split(':');
+
+                // console.log(dayMonthFullSplit);
+                // console.log(taimSplit);
+
+                let month: string | number = Number(dayMonthFullSplit[1]);
+
+                if (month < 10) {
+                    month = '0' + month;
+                }
+
+                // //${year}-${month}-${day}T${time}:00
+                const dateParse = `${dayMonthFullSplit[2]}-${month}-${dayMonthFullSplit[0]}T${taimSplit[0] + ':' + taimSplit[1]}:00`;
+                const newDate = new Date(dateParse);
+                console.log(newDate);
+                console.log(newDate.getMinutes());
+
+                // console.log(dateParse);
+
+                // Получаем дату в удобном формате
+                // Пример: "08.03.2026, 11:43" -> "Sun Feb 08 2026 11:43:00 GMT+0500"
+
+                // Перевести в часы (знак меняется на противоположный)
+                const offsetFrom = Number(gtm);
+                const offsetMinutes = new Date().getTimezoneOffset();
+                console.log('offsetMinutes:', offsetMinutes);
+                const offsetTo = -offsetMinutes / 60; // -5 -> 5 | 5 -> -5
+                const diff = offsetFrom - offsetTo; // 5 - 4 = 1 | 5 - (-4) = 9
+
+                // const diff = offsetTo - offsetFrom
+                console.log('offsetTo:', offsetTo);
+                console.log('-');
+                console.log('offsetFrom:', offsetFrom);
+                console.log('=');
+                console.log('diff:', diff);
+
+                console.log("String(offsetTo).includes('.5')", String(offsetTo).includes('.5'));
+                console.log("String(offsetTo).includes('.75')", String(offsetTo).includes('.75'));
+
+                console.log('-offsetMinutes >= 0', -offsetMinutes >= 0);
+
+                if (-offsetMinutes >= 0) {
+                    // +
+
+                    const sign = offsetTo >= 0 ? '+' : '';
+                    console.log('GTM' + sign + offsetTo);
+                    // newDate.setHours(newDate.getHours() + diff);
+
+                    if (String(offsetTo).includes('.5') == true) {
+                        const diffHours = String(diff).split('.');
+                        console.log('diffHours:', diffHours);
+
+                        console.log('diffHours[0].split()[0]:', diffHours[0].split('')[0]);
+
+                        if (diffHours[0].split('')[0] == '-') {
+                            newDate.setMinutes(newDate.getMinutes() + 30);
+                            console.log('newDate.getMinutes():', newDate.getMinutes());
+                            console.log('newDate.getMinutes() + 30:', newDate.getMinutes() + 30);
+                            newDate.setHours(newDate.getHours() - Number(diffHours[0]));
+                        } else if (diffHours[0].split('')[0] != '-') {
+                            if (typeof Number(diffHours[0]) == 'number') {
+                                newDate.setMinutes(newDate.getMinutes() - 30);
+                                console.log('newDate.getMinutes():', newDate.getMinutes());
+                                console.log('newDate.getMinutes() - 30:', newDate.getMinutes() - 30);
+                                newDate.setHours(newDate.getHours() - Number(diffHours[0]));
+                            }
+                        }
+                    } else if (String(offsetTo).includes('.75') == true) {
+                        const diffHours = String(diff).split('.');
+                        console.log('diffHours:', diffHours);
+
+                        console.log('diffHours[0].split()[0]:', diffHours[0].split('')[0]);
+
+                        if (diffHours[0].split('')[0] == '-') {
+                            newDate.setMinutes(newDate.getMinutes() + 45);
+                            console.log('newDate.getMinutes():', newDate.getMinutes());
+                            console.log('newDate.getMinutes() + 45:', newDate.getMinutes() + 45);
+                            newDate.setHours(newDate.getHours() - Number(diffHours[0]));
+                        } else if (diffHours[0].split('')[0] != '-') {
+                            if (typeof Number(diffHours[0]) == 'number') {
+                                newDate.setMinutes(newDate.getMinutes() - 45);
+                                console.log('newDate.getMinutes():', newDate.getMinutes());
+                                console.log('newDate.getMinutes() - 45:', newDate.getMinutes() - 45);
+                                newDate.setHours(newDate.getHours() - Number(diffHours[0]));
+                            }
+                        }
+                    } else {
+                        newDate.setHours(newDate.getHours() - diff);
+                    }
+                }
+
+                console.log('newDate:', newDate);
+
+                const hourCycle =
+                    timeFormat == '12' ? 'h12' : timeFormat == '23' ? 'h23' : timeFormat == null ? 'h23' : 'h23';
+
+                const formatter = new Intl.DateTimeFormat('en-EN', {
+                    hourCycle,
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                });
+
+                const newDateForma = formatter.format(newDate);
+                const newDateFormaSplit = newDateForma.split('/');
+
+                console.log(newDateForma);
+                console.log(newDateFormaSplit);
+                console.log(`${newDateFormaSplit[1]}.${newDateFormaSplit[0]}.${newDateFormaSplit[2]}`);
+
+                const newDateParse = `${newDateFormaSplit[1]}.${newDateFormaSplit[0]}.${newDateFormaSplit[2]}`;
+
+                console.log(newDateParse);
+
+                return newDateParse;
+
+                // // 3. Вычисляем смещение в миллисекундах
+                // // Разница между текущим (UTC+5) и целевым (UTC+target)
+                // const diffInHours = offsetHours - 5;
+                // date.setHours(date.getHours() + diffInHours);
+
+                // // 4. Форматируем результат обратно в красивый вид
+                // return date.toLocaleString('ru-RU', {
+                //     day: '2-digit',
+                //     month: '2-digit',
+                //     year: 'numeric',
+                //     hour: '2-digit',
+                //     minute: '2-digit',
+                // });
+            } else {
+                return `${date} (${intl.formatMessage({ id: 'error.massage.senderTimeZoneUndefined' })})`;
+            }
+        } else {
+            return `${date} (${intl.formatMessage({ id: 'error.massage.senderTimeZoneUndefined' })})`;
+        }
+    };
+
+    const funConvertFileSize = (size: string) => {
+        const byteSizeNum = Number(size);
+        let kilobyteSizeNumRender = 0;
+
+        // Переводим из байтов в киловайты
+        kilobyteSizeNumRender = byteSizeNum / 1024;
+        console.log('kilobyteSizeNumRender: ', kilobyteSizeNumRender);
+
+        if (kilobyteSizeNumRender >= 1024) {
+            // Переводим из киловайты в мегобайт
+            kilobyteSizeNumRender = Math.floor(kilobyteSizeNumRender / 1024);
+
+            if (kilobyteSizeNumRender >= 1024) {
+                // Переводим из мегобайт в гигабайты
+                kilobyteSizeNumRender = Math.floor(kilobyteSizeNumRender / 1024);
+                console.log(
+                    `${Math.floor(kilobyteSizeNumRender)} ${intl.formatMessage({ id: 'getfilePage.file.size.gigabyte' })}`
+                );
+
+                return `${Math.floor(kilobyteSizeNumRender)} ${intl.formatMessage({ id: 'getfilePage.file.size.gigabyte' })}`;
+            } else {
+                console.log(
+                    `${Math.floor(kilobyteSizeNumRender)} ${intl.formatMessage({ id: 'getfilePage.file.size.megabyte' })}`
+                );
+
+                return `${Math.floor(kilobyteSizeNumRender)} ${intl.formatMessage({ id: 'getfilePage.file.size.megabyte' })}`;
+            }
+        } else if (kilobyteSizeNumRender < 1) {
+            const byteSizeStrRemoveZeros = String(kilobyteSizeNumRender).replaceAll('0', '');
+            const byteSizeStrMin = byteSizeStrRemoveZeros.slice(1, 3);
+
+            console.log(`${byteSizeStrMin} ${intl.formatMessage({ id: 'getfilePage.file.size.byte' })}`);
+            return `${byteSizeStrMin} ${intl.formatMessage({ id: 'getfilePage.file.size.byte' })}`;
+        } else {
+            console.log(
+                `${Math.floor(kilobyteSizeNumRender)} ${intl.formatMessage({ id: 'getfilePage.file.size.kilobyte' })}`
+            );
+            return `${Math.floor(kilobyteSizeNumRender)} ${intl.formatMessage({ id: 'getfilePage.file.size.kilobyte' })}`;
+        }
+    };
+
+    // dateParserTimeZone('08.03.2026, 11:43', '+5')
+
     const deleteAllFilesStory = async () => {
         closeMessageDeletePopUpFun();
         closeSettingsPopUpFun();
-        const token = localStorage?.getItem('token');
-
-        //console.log(token);
 
         try {
-            await axios.post(
-                fileApiUrl + '/api/story/get/deleteAll/',
-                {},
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            await deleteAllFilesStoryGetServer();
 
             //console.log('Response:', response.data);
             getStoryGetFile();
-        } catch (error) {
-            console.log(error);
-            if (axios.isAxiosError(error)) {
-                const serverMessage = error;
-                //console.log(serverMessage);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            console.log(error.message);
 
-                if (serverMessage.response?.data?.msg != undefined) {
-                    console.log(serverMessage.response?.data?.msg);
-                    setError(serverMessage.response?.data?.msg);
+            const serverMessage = error.message;
 
-                    if (serverMessage.response?.data?.msg == 'invalid token') {
-                        router.push('/login');
-                    }
-                } else {
-                    console.log(serverMessage.message);
-                    setError(serverMessage.message);
-                }
-            }
+            setError(
+                intl.formatMessage({
+                    id: `error.massage.${serverMessage}`,
+                    defaultMessage: intl.formatMessage({ id: 'error.massage.unknown' }) + serverMessage,
+                })
+            );
         }
     };
 
     const deleteFileStory = async (id: string) => {
         closeMessageDeletePopUpFun();
         closeSettingsPopUpFun();
-        const token = localStorage?.getItem('token');
 
         try {
-            await axios.post(
-                fileApiUrl + '/api/story/get/delete/' + id,
-                {},
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            await deleteFileStoryGetServer(id);
 
             //console.log('Response:', response.data);
             getStoryGetFile();
-        } catch (error) {
-            console.log(error);
-            if (axios.isAxiosError(error)) {
-                const serverMessage = error;
-                //console.log(serverMessage);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            console.log(error.message);
 
-                if (serverMessage.response?.data?.msg != undefined) {
-                    console.log(serverMessage.response?.data?.msg);
-                    setError(serverMessage.response?.data?.msg);
+            const serverMessage = error.message;
 
-                    if (serverMessage.response?.data?.msg == 'invalid token') {
-                        router.push('/login');
-                    }
-                } else {
-                    console.log(serverMessage.message);
-                    setError(serverMessage.message);
-                }
-            }
+            setError(
+                intl.formatMessage({
+                    id: `error.massage.${serverMessage}`,
+                    defaultMessage: intl.formatMessage({ id: 'error.massage.unknown' }) + serverMessage,
+                })
+            );
         }
     };
 
@@ -297,7 +473,11 @@ export default function GetFileStory() {
                             <div className={style.filtersStoryPopUp}>
                                 <div className={style.filtersStoryPopUpMain}>
                                     <div className={style.filtersStoryPopUpHeader}>
-                                        <h2>Фильтры</h2>
+                                        <h2>
+                                            {intl.formatMessage({
+                                                id: 'filtersFilePop.titleH2',
+                                            })}
+                                        </h2>
 
                                         <button
                                             type="button"
@@ -309,7 +489,7 @@ export default function GetFileStory() {
                                                 height="30px"
                                                 viewBox="0 -960 960 960"
                                                 width="30px"
-                                                fill="#FFFFFF"
+                                                fill="var(--color-text)"
                                             >
                                                 <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
                                             </svg>
@@ -331,9 +511,21 @@ export default function GetFileStory() {
                                                 value={filters.type}
                                                 onChange={(e) => setFilters({ ...filters, type: e.target.value })}
                                             >
-                                                <option value="all">Все</option>
-                                                <option value="file">Файлы</option>
-                                                <option value="text">Текст</option>
+                                                <option value="all">
+                                                    {intl.formatMessage({
+                                                        id: 'filtersFilePop.selectOptionfilters.all',
+                                                    })}
+                                                </option>
+                                                <option value="file">
+                                                    {intl.formatMessage({
+                                                        id: 'filtersFilePop.selectOptionfilters.files',
+                                                    })}
+                                                </option>
+                                                <option value="text">
+                                                    {intl.formatMessage({
+                                                        id: 'filtersFilePop.selectOptionfilters.texts',
+                                                    })}
+                                                </option>
                                             </select>
 
                                             <select
@@ -341,11 +533,38 @@ export default function GetFileStory() {
                                                 value={filters.status}
                                                 onChange={(e) => setFilters({ ...filters, status: e.target.value })}
                                             >
-                                                <option value="all">Любой статус</option>
-                                                <option value="sent">Отправлено</option>
-                                                <option value="accepted">Принято</option>
-                                                <option value="refusal">Отказано</option>
+                                                <option value="all">
+                                                    {intl.formatMessage({
+                                                        id: 'filtersFilePop.selectOptionfiltersStatus.all',
+                                                    })}
+                                                </option>
+                                                <option value="sent">
+                                                    {intl.formatMessage({
+                                                        id: 'filtersFilePop.selectOptionfiltersStatus.sent',
+                                                    })}
+                                                </option>
+                                                <option value="accepted">
+                                                    {intl.formatMessage({
+                                                        id: 'filtersFilePop.selectOptionfiltersStatus.accepted',
+                                                    })}
+                                                </option>
+                                                <option value="refusal">
+                                                    {intl.formatMessage({
+                                                        id: 'filtersFilePop.selectOptionfiltersStatus.refusal',
+                                                    })}
+                                                </option>
                                             </select>
+
+                                            <input
+                                                type="text"
+                                                className={style.inputFiltersText}
+                                                value={filters.sentToUser}
+                                                onChange={(e) => setFilters({ ...filters, sentToUser: e.target.value })}
+                                                name="sentToUser"
+                                                placeholder={intl.formatMessage({
+                                                    id: 'filtersFilePop.selectOptionfilters.sentToUserNames',
+                                                })}
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -356,7 +575,9 @@ export default function GetFileStory() {
                                         onClick={() => filesResetFiltersFun()}
                                         className={style.styleButtonResetFilters}
                                     >
-                                        Сбросить фильтры
+                                        {intl.formatMessage({
+                                            id: 'filtersFilePop.resetFilters',
+                                        })}
                                     </button>
                                 </div>
                             </div>
@@ -369,7 +590,7 @@ export default function GetFileStory() {
                         <div className={style.settingsStoryPopUpBackground}>
                             <div className={style.settingsStoryPopUp}>
                                 <div className={style.settingsStoryPopUpHeader}>
-                                    <h2>Упровление историй</h2>
+                                    <h2>{intl.formatMessage({ id: 'getFileStory.settingsStoryPopUpH2' })}</h2>
 
                                     <button
                                         type="button"
@@ -381,7 +602,7 @@ export default function GetFileStory() {
                                             height="30px"
                                             viewBox="0 -960 960 960"
                                             width="30px"
-                                            fill="#FFFFFF"
+                                            fill="var(--color-text)"
                                         >
                                             <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
                                         </svg>
@@ -400,11 +621,13 @@ export default function GetFileStory() {
                                                 height="30px"
                                                 viewBox="0 -960 960 960"
                                                 width="30px"
-                                                fill="#ff7070"
+                                                fill="var(--color-red-100)"
                                             >
                                                 <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
                                             </svg>
-                                            Очистить всю историю
+                                            {intl.formatMessage({
+                                                id: 'getFileStory.settingsStoryPopUp.clearAllHistory',
+                                            })}
                                         </button>
                                     </div>
                                 </div>
@@ -418,9 +641,11 @@ export default function GetFileStory() {
                         <div className={style.messageDeleteStoryPopUpBackground}>
                             <div className={style.messageDeleteStoryPopUp}>
                                 <div className={style.messageDeleteStoryPopUpHeader}>
-                                    <h2>Очистить всю историю</h2>
+                                    <h2>{intl.formatMessage({ id: 'getFileStory.messageDeleteStoryPopUpH2' })}</h2>
 
-                                    <span>Вся ваша история будет безвозвратно удалена</span>
+                                    <span>
+                                        {intl.formatMessage({ id: 'getFileStory.messageDeleteStoryPopUpSpan' })}
+                                    </span>
                                 </div>
 
                                 <div className={style.messageDeleteStoryPopUpOptions}>
@@ -429,14 +654,14 @@ export default function GetFileStory() {
                                         onClick={() => deleteAllFilesStory()}
                                         className={` ${style.messageDeletePopUpOptionButton} ${style.filesAllDelete} `}
                                     >
-                                        Удалить
+                                        {intl.formatMessage({ id: 'getFileStory.messageDeleteStoryPopUp.delete' })}
                                     </button>
                                     <button
                                         type="button"
                                         onClick={() => closeMessageDeletePopUpFun()}
                                         className={` ${style.messageDeletePopUpOptionButton} `}
                                     >
-                                        Отмена
+                                        {intl.formatMessage({ id: 'getFileStory.messageDeleteStoryPopUp.cancel' })}
                                     </button>
                                 </div>
                             </div>
@@ -454,7 +679,7 @@ export default function GetFileStory() {
                                         height="36px"
                                         viewBox="0 -960 960 960"
                                         width="36px"
-                                        fill="#ffffff"
+                                        fill="var(--color-text)"
                                     >
                                         <path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z" />
                                     </svg>
@@ -464,10 +689,14 @@ export default function GetFileStory() {
                             <div className={style.navStoryOptionsBlock}>
                                 <div className={style.navStoryOptions}>
                                     <Link className={`${style.LinkStoryOptions} ${style.select}`} href={'/story/get'}>
-                                        Принятые
+                                        {intl.formatMessage({
+                                            id: 'getFileStory.linkStoryOptionsGet',
+                                        })}
                                     </Link>
                                     <Link className={`${style.LinkStoryOptions}`} href={'/story/send'}>
-                                        Отправленные
+                                        {intl.formatMessage({
+                                            id: 'getFileStory.linkStoryOptionsSent',
+                                        })}
                                     </Link>
                                 </div>
                             </div>
@@ -495,17 +724,14 @@ export default function GetFileStory() {
                         </div>
 
                         <div className={style.formTitle}>
-                            <h2>История принятых файлов</h2>
-                            <p>
-                                Здесь вы можете посмотреть все файлы которые скачали, время, от кого и с какого
-                                устройства
-                            </p>
+                            <h2>{intl.formatMessage({ id: 'getFileStory.formTitleH2' })}</h2>
+                            <p>{intl.formatMessage({ id: 'getFileStory.formDescriptionP' })}</p>
                         </div>
                     </div>
 
                     <div className={style.formFileStoryView}>
                         <div className={style.formFileStoryHead}>
-                            <h2>История</h2>
+                            <h2>{intl.formatMessage({ id: 'getFileStory.formFileStoryHeadH2' })}</h2>
 
                             <div className={style.formFileStoryButtons}>
                                 <button
@@ -518,7 +744,7 @@ export default function GetFileStory() {
                                         height="30px"
                                         viewBox="0 -960 960 960"
                                         width="30px"
-                                        fill="#ffffff"
+                                        fill="var(--color-text)"
                                     >
                                         <path d="M440-160q-17 0-28.5-11.5T400-200v-240L168-736q-15-20-4.5-42t36.5-22h560q26 0 36.5 22t-4.5 42L560-440v240q0 17-11.5 28.5T520-160h-80Zm40-308 198-252H282l198 252Zm0 0Z" />
                                     </svg>
@@ -534,7 +760,7 @@ export default function GetFileStory() {
                                         height="30px"
                                         viewBox="0 -960 960 960"
                                         width="30px"
-                                        fill="#ffffff"
+                                        fill="var(--color-text)"
                                     >
                                         <path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z" />
                                     </svg>
@@ -550,11 +776,11 @@ export default function GetFileStory() {
                             <div></div>
                         )}
 
-                        <div className={style.inputShareBlock}>
+                        <div className={style.inputSearchBlock}>
                             <input
                                 className={style.inputFilters}
                                 type="text"
-                                placeholder="Поиск по названию"
+                                placeholder={intl.formatMessage({ id: 'getFileStory.inputSearch' })}
                                 value={filters.search}
                                 onChange={(e) => setFilters({ ...filters, search: e.target.value })}
                             />
@@ -568,31 +794,21 @@ export default function GetFileStory() {
                                             <div className={style.fileBlock}>
                                                 <div className={style.fileIcon}>
                                                     <svg
-                                                        width="40"
-                                                        height="40"
+                                                        width="35"
+                                                        height="35"
                                                         viewBox="0 0 100 100"
                                                         fill="none"
                                                         xmlns="http://www.w3.org/2000/svg"
                                                     >
-                                                        <g clipPath="url(#clip0_103_46)">
+                                                        <g clipPath="url(#clip0_358_516)">
                                                             <path
-                                                                d="M100 100V0H50H37.5L0 37.5V50V100H100Z"
-                                                                fill="white"
-                                                            />
-                                                            <path d="M50 0H37.5L0 37.5V50H50V0Z" fill="white" />
-                                                            <path
-                                                                d="M8.53554 28.9645L28.9645 8.53553C32.1143 5.38571 37.5 7.61654 37.5 12.0711V32.5C37.5 35.2614 35.2614 37.5 32.5 37.5H12.0711C7.61654 37.5 5.38572 32.1143 8.53554 28.9645Z"
-                                                                fill="#E4E4E4"
-                                                            />
-                                                            <path
-                                                                d="M0 37.5L37.5 0V18.75L18.75 37.5H0Z"
-                                                                fill="#E4E4E4"
+                                                                d="M60 30L60.0127 30.5146C60.2805 35.7983 64.6498 40 70 40H100V90C100 95.5228 95.5229 100 90 100H10C4.47715 100 0 95.5228 0 90V10C1.03081e-06 4.47715 4.47715 0 10 0H60V30ZM97.7861 36H70C66.6863 36 64 33.3137 64 30V2.21289L97.7861 36Z"
+                                                                fill="#ADADAD"
                                                             />
                                                         </g>
-
                                                         <defs>
-                                                            <clipPath id="clip0_103_46">
-                                                                <rect width="100" height="100" rx="5" fill="white" />
+                                                            <clipPath id="clip0_358_516">
+                                                                <rect width="100" height="100" fill="white" />
                                                             </clipPath>
                                                         </defs>
                                                     </svg>
@@ -611,14 +827,59 @@ export default function GetFileStory() {
                                         )}
 
                                         <div className={style.fileInfo}>
-                                            <span className={style.fileInfoText}>Отправитель: {file.sentToUser}</span>
                                             <span className={style.fileInfoText}>
-                                                Получатель: {file.userWillReceive}
+                                                {intl.formatMessage({ id: 'getfilePage.file.sentToUser' })}:{' '}
+                                                {file.sentToUser == 'Гость'
+                                                    ? ((file.sentToUser = intl.formatMessage({
+                                                          id: 'userIsGuest.username',
+                                                      })),
+                                                      file.sentToUser)
+                                                    : file.sentToUser == 'Удалённый аккаунт'
+                                                      ? ((file.sentToUser = intl.formatMessage({
+                                                            id: 'userIsDelete.username',
+                                                        })),
+                                                        file.sentToUser)
+                                                      : file.sentToUser}
                                             </span>
                                             <span className={style.fileInfoText}>
-                                                Отправлено с устройства : {file.sentFromDevice}
+                                                {intl.formatMessage({
+                                                    id: 'getfilePage.file.userWillReceive',
+                                                })}
+                                                :{' '}
+                                                {file.userWillReceive == 'Гость'
+                                                    ? ((file.userWillReceive = intl.formatMessage({
+                                                          id: 'userIsGuest.username',
+                                                      })),
+                                                      file.userWillReceive)
+                                                    : file.userWillReceive == 'Удалённый аккаунт'
+                                                      ? ((file.userWillReceive = intl.formatMessage({
+                                                            id: 'userIsDelete.username',
+                                                        })),
+                                                        file.userWillReceive)
+                                                      : file.userWillReceive}
                                             </span>
-                                            <span className={style.fileInfoText}>Время: {file.data}</span>
+                                            <span className={style.fileInfoText}>
+                                                {intl.formatMessage({ id: 'getFileStory.file.sentFromDevice' })}:{' '}
+                                                {file.sentFromDevice}
+                                            </span>
+
+                                            <span className={style.fileInfoText}>
+                                                {intl.formatMessage({ id: 'getFileStory.file.date' })}:{' '}
+                                                {typeof file.data === 'object'
+                                                    ? dateParserTimeZone(file.data.data, file.data.gtm)
+                                                    : dateParserTimeZone(file.data, undefined)}
+                                            </span>
+
+                                            {file.size != null ? (
+                                                <span className={style.fileInfoText}>
+                                                    {intl.formatMessage({
+                                                        id: 'getfilePage.file.size',
+                                                    })}
+                                                    : {funConvertFileSize(file.size)}
+                                                </span>
+                                            ) : (
+                                                ''
+                                            )}
                                         </div>
 
                                         <div className={style.fileButtons}>
@@ -627,14 +888,18 @@ export default function GetFileStory() {
                                                 onClick={() => deleteFileStory(file.id)}
                                                 className={` ${style.buttonFileDeleteStory}`}
                                             >
-                                                Удалить
+                                                {intl.formatMessage({ id: 'getFileStory.file.delete' })}
                                             </button>
                                         </div>
                                     </div>
                                 ))
                             ) : (
                                 <div className={style.notFilesStory}>
-                                    <span className={style.notFilesStorySpan}>Файлов в истории нет</span>
+                                    <span className={style.notFilesStorySpan}>
+                                        {intl.formatMessage({
+                                            id: 'getFileStory.file.thereAreNoFilesInTheHistory',
+                                        })}
+                                    </span>
                                 </div>
                             )}
                         </div>

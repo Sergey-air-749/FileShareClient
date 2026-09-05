@@ -2,7 +2,14 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import style from '@/style/resetpassword.verification.module.css';
 import { useRouter } from 'next/navigation';
+import { useIntl } from 'react-intl';
 import axios from 'axios';
+import {
+    submitResetPasswordVerifyServer,
+    submitResetPasswordUserGetТewСodeServer,
+    submitResetPasswordUserСancelServer,
+} from './actions';
+import Cookies from 'js-cookie';
 
 export default function ResetPasswordVerification() {
     const [email, setEmail] = useState<string | null>('');
@@ -23,9 +30,11 @@ export default function ResetPasswordVerification() {
 
     const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL;
 
+    const intl = useIntl();
+
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
-        setEmail(localStorage?.getItem('userEmail'));
+        setEmail(sessionStorage?.getItem('userEmail'));
     }, []);
 
     const showLoaderFun = () => {
@@ -51,9 +60,7 @@ export default function ResetPasswordVerification() {
         if (passwordRegexp.test(value) == true) {
             setError('');
         } else {
-            setError(
-                'Пароль должна состоять от 8 символов, включая цифры, заглавные буквы, строчные буквы и спец символов: @, $, !, %, *, ?, &.'
-            );
+            setError(intl.formatMessage({ id: 'resetPasswordVerification.input.validation.password.error' }));
         }
 
         setPasswordNew(value);
@@ -67,9 +74,7 @@ export default function ResetPasswordVerification() {
         if (passwordRegexp.test(value) == true) {
             setError('');
         } else {
-            setError(
-                'Пароль должна состоять от 8 символов, включая цифры, заглавные буквы, строчные буквы и спец символов: @, $, !, %, *, ?, &.'
-            );
+            setError(intl.formatMessage({ id: 'resetPasswordVerification.input.validation.password.error' }));
         }
 
         setPasswordNewRepeat(value);
@@ -109,40 +114,29 @@ export default function ResetPasswordVerification() {
 
                 //console.log(codeObj);
 
-                const response = await axios.post(
-                    apiUrl + '/api/login/resetpassword/verify',
-                    codeObj,
-
-                    {
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    }
-                );
+                const response = await submitResetPasswordVerifyServer(codeObj);
                 //console.log('Response:', response);
-                localStorage.removeItem('userEmail');
+                sessionStorage.removeItem('userEmail');
 
-                localStorage.setItem('token', response.data.token);
+                // localStorage.setItem('token', response.data.token);
                 router.push('/sendfile');
             } else {
                 closeLoaderFun();
-                setError('Пароль не совподает');
+                setError(intl.formatMessage({ id: 'resetPasswordVerification.input.password.passwordDoesnMatch' }));
             }
-        } catch (error) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
             closeLoaderFun();
-            console.log(error);
-            if (axios.isAxiosError(error)) {
-                const serverMessage = error;
-                //console.log(serverMessage);
+            console.log(error.message);
 
-                if (serverMessage.response?.data?.msg != undefined) {
-                    console.log(serverMessage.response?.data?.msg);
-                    setError(serverMessage.response?.data?.msg);
-                } else {
-                    console.log(serverMessage.message);
-                    setError(serverMessage.message);
-                }
-            }
+            const serverMessage = error.message;
+
+            setError(
+                intl.formatMessage({
+                    id: `error.massage.${serverMessage}`,
+                    defaultMessage: intl.formatMessage({ id: 'error.massage.unknown' }) + serverMessage,
+                })
+            );
         }
     };
 
@@ -150,69 +144,60 @@ export default function ResetPasswordVerification() {
         try {
             showNewEmailCodLoaderFun();
 
-            await axios.post(
-                apiUrl + '/api/login/resetpassword',
-                {
-                    email: email,
-                },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+            if (email != null) {
+                let lang = Cookies.get('language');
+
+                if (lang == undefined) {
+                    lang = 'ru';
                 }
-            );
+
+                const userData = {
+                    email: email,
+                    lang: lang,
+                };
+
+                const response = await submitResetPasswordUserGetТewСodeServer(userData);
+            }
+
             //console.log('Response:', response);
 
-            setMessage('Новый код отправлен');
+            setMessage(intl.formatMessage({ id: 'resetPasswordVerification.message.getNewCode' }));
             closeNewEmailCodLoaderFun();
-        } catch (error) {
-            closeNewEmailCodLoaderFun();
-            console.log(error);
-            if (axios.isAxiosError(error)) {
-                const serverMessage = error;
-                //console.log(serverMessage);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            closeLoaderFun();
+            console.log(error.message);
+            const serverMessage = error.message;
 
-                if (serverMessage.response?.data?.msg != undefined) {
-                    console.log(serverMessage.response?.data?.msg);
-                    setError(serverMessage.response?.data?.msg);
-                } else {
-                    console.log(serverMessage.message);
-                    setError(serverMessage.message);
-                }
-            }
+            setError(
+                intl.formatMessage({
+                    id: `error.massage.${serverMessage}`,
+                    defaultMessage: intl.formatMessage({ id: 'error.massage.unknown' }) + serverMessage,
+                })
+            );
         }
     };
 
     const buttonBackPage = async () => {
         try {
-            await axios.post(
-                apiUrl + '/api/login/resetpassword/cancel',
-                {
-                    email: email,
-                },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                }
-            );
+            if (email != null) {
+                const response = await submitResetPasswordUserСancelServer(email);
+            }
             //console.log('Response:', response);
 
             router.back();
-        } catch (error) {
-            console.log(error);
-            if (axios.isAxiosError(error)) {
-                const serverMessage = error;
-                //console.log(serverMessage);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            closeLoaderFun();
+            console.log(error.message);
+            const serverMessage = error.message;
 
-                if (serverMessage.response?.data?.msg != undefined) {
-                    console.log(serverMessage.response?.data?.msg);
-                    setError(serverMessage.response?.data?.msg);
-                } else {
-                    console.log(serverMessage.message);
-                    setError(serverMessage.message);
-                }
-            }
+            setError(
+                intl.formatMessage({
+                    id: `error.massage.${serverMessage}`,
+                    defaultMessage: intl.formatMessage({ id: 'error.massage.unknown' }) + serverMessage,
+                })
+            );
         }
     };
 
@@ -242,37 +227,38 @@ export default function ResetPasswordVerification() {
                 <div className={style.formHead}>
                     <div className={style.formIcon}>
                         <svg width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M54 49.5C54 54.1944 45.4934 58 35 58C24.5066 58 16 54.1944 16 49.5C16 47.0553 18.3069 44.8517 22 43.301C25.3986 41.874 29.9712 41 35 41C45.4934 41 54 44.8056 54 49.5Z"
-                                fill="#96C3FF"
-                            />
-                            <circle cx="35" cy="30" r="8" fill="#96C3FF" />
-                            <circle cx="35" cy="35" r="23.5" stroke="#008CFF" strokeWidth="3" />
-                            <rect x="4" y="45" width="36" height="12" rx="6" fill="white" />
-                            <circle cx="10" cy="51" r="2" fill="#008CFF" />
-                            <circle cx="18" cy="51" r="2" fill="#008CFF" />
-                            <circle cx="26" cy="51" r="2" fill="#008CFF" />
-                            <circle cx="34" cy="51" r="2" fill="#008CFF" />
-                            <circle cx="52" cy="51" r="8" fill="white" stroke="white" strokeWidth="2" />
-                            <path
-                                d="M50.4024 54.6395L47.7522 55.1684L48.2811 52.5182L54.8923 45.907L57.0136 48.0283L50.4024 54.6395Z"
-                                fill="white"
-                                stroke="#008CFF"
-                            />
                             <rect
-                                x="57.7207"
-                                y="48.0283"
-                                width="3"
-                                height="4"
-                                rx="0.2"
-                                transform="rotate(135 57.7207 48.0283)"
+                                x="21.5"
+                                y="58.5"
+                                width="49"
+                                height="27"
+                                rx="13.5"
+                                transform="rotate(-90 21.5 58.5)"
+                                stroke="#96C3FF"
+                                strokeWidth="5"
+                            />
+                            <path
+                                d="M55 30.583C57.3471 30.583 59.2499 32.4859 59.25 34.833V58.833C59.25 61.1802 57.3472 63.083 55 63.083H15C12.6528 63.083 10.75 61.1802 10.75 58.833V34.833C10.7501 32.4859 12.6529 30.583 15 30.583H55ZM34.9883 38.8398C32.7791 38.8398 30.9883 40.6307 30.9883 42.8398C30.9885 44.4852 31.9824 45.8977 33.4023 46.5117V53.2393C33.4023 54.1228 34.1185 54.8396 35.002 54.8398C35.8856 54.8398 36.6025 54.1229 36.6025 53.2393V46.499C38.0073 45.8785 38.9881 44.4742 38.9883 42.8398C38.9883 40.6307 37.1974 38.8398 34.9883 38.8398Z"
+                                fill="#008CFF"
+                            />
+                            <circle cx="55" cy="56" r="12" fill="white" stroke="white" strokeWidth="2" />
+                            <path
+                                d="M61.5031 53.3742C61.5812 53.4523 61.5812 53.5789 61.5031 53.657L53.8817 61.2785C53.8036 61.3566 53.677 61.3566 53.5988 61.2785L49.639 57.3187C49.5609 57.2406 49.5609 57.1139 49.639 57.0358L57.2605 49.4144C57.3386 49.3363 57.4652 49.3363 57.5433 49.4144L61.5031 53.3742Z"
+                                fill="#008CFF"
+                            />
+                            <path
+                                d="M63.7765 51.1013C63.8547 51.1794 63.8547 51.306 63.7765 51.3841L62.0833 53.0773C62.0052 53.1554 61.8786 53.1554 61.8005 53.0773L57.8407 49.1175C57.7626 49.0394 57.7626 48.9128 57.8407 48.8347L59.5339 47.1415C59.612 47.0634 59.7386 47.0634 59.8167 47.1415L63.7765 51.1013Z"
+                                fill="#008CFF"
+                            />
+                            <path
+                                d="M49.4371 57.7096L53.2069 61.4794C53.3139 61.5863 53.268 61.7687 53.1232 61.8123L47.7267 63.4391C47.5739 63.4851 47.4314 63.3426 47.4774 63.1899L49.1042 57.7933C49.1479 57.6485 49.3302 57.6027 49.4371 57.7096Z"
                                 fill="#008CFF"
                             />
                         </svg>
                     </div>
 
                     <div className={style.formTitle}>
-                        <h2>Введите код из эл. почты</h2>
+                        <h2>{intl.formatMessage({ id: 'resetPasswordVerification.formTitleH2' })}</h2>
                     </div>
                 </div>
 
@@ -281,7 +267,9 @@ export default function ResetPasswordVerification() {
                         className={style.inputStyle}
                         value={code}
                         onChange={(e) => validationInputCode(e)}
-                        placeholder="Введите код из эл. почты"
+                        placeholder={intl.formatMessage({
+                            id: 'resetPasswordVerification.input.enterTheCodeFromTheEmail',
+                        })}
                         type="text"
                         name="code"
                         id="code"
@@ -292,7 +280,9 @@ export default function ResetPasswordVerification() {
                         <input
                             className={style.inputStylePassword}
                             onChange={(e) => validationInputPassword(e)}
-                            placeholder="Введите новый пароль"
+                            placeholder={intl.formatMessage({
+                                id: 'resetPasswordVerification.input.newPassword',
+                            })}
                             type={showPasswordStatus}
                             name="password"
                             id="password"
@@ -306,7 +296,7 @@ export default function ResetPasswordVerification() {
                                     height="24px"
                                     viewBox="0 -960 960 960"
                                     width="24px"
-                                    fill="#e3e3e3"
+                                    fill="var(--color-text)"
                                 >
                                     <path d="m644-428-58-58q9-47-27-88t-93-32l-58-58q17-8 34.5-12t37.5-4q75 0 127.5 52.5T660-500q0 20-4 37.5T644-428Zm128 126-58-56q38-29 67.5-63.5T832-500q-50-101-143.5-160.5T480-720q-29 0-57 4t-55 12l-62-62q41-17 84-25.5t90-8.5q151 0 269 83.5T920-500q-23 59-60.5 109.5T772-302Zm20 246L624-222q-35 11-70.5 16.5T480-200q-151 0-269-83.5T40-500q21-53 53-98.5t73-81.5L56-792l56-56 736 736-56 56ZM222-624q-29 26-53 57t-41 67q50 101 143.5 160.5T480-280q20 0 39-2.5t39-5.5l-36-38q-11 3-21 4.5t-21 1.5q-75 0-127.5-52.5T300-500q0-11 1.5-21t4.5-21l-84-82Zm319 93Zm-151 75Z" />
                                 </svg>
@@ -316,7 +306,7 @@ export default function ResetPasswordVerification() {
                                     height="24px"
                                     viewBox="0 -960 960 960"
                                     width="24px"
-                                    fill="#e3e3e3"
+                                    fill="var(--color-text)"
                                 >
                                     <path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z" />
                                 </svg>
@@ -328,7 +318,9 @@ export default function ResetPasswordVerification() {
                         <input
                             className={style.inputStylePassword}
                             onChange={(e) => validationInputPasswordRepeat(e)}
-                            placeholder="Повторите новый пароль"
+                            placeholder={intl.formatMessage({
+                                id: 'resetPasswordVerification.input.repeatNewPassword',
+                            })}
                             type={showPasswordRepeatStatus}
                             name="passwordRepeat"
                             id="passwordRepeat"
@@ -346,7 +338,7 @@ export default function ResetPasswordVerification() {
                                     height="24px"
                                     viewBox="0 -960 960 960"
                                     width="24px"
-                                    fill="#e3e3e3"
+                                    fill="var(--color-text)"
                                 >
                                     <path d="m644-428-58-58q9-47-27-88t-93-32l-58-58q17-8 34.5-12t37.5-4q75 0 127.5 52.5T660-500q0 20-4 37.5T644-428Zm128 126-58-56q38-29 67.5-63.5T832-500q-50-101-143.5-160.5T480-720q-29 0-57 4t-55 12l-62-62q41-17 84-25.5t90-8.5q151 0 269 83.5T920-500q-23 59-60.5 109.5T772-302Zm20 246L624-222q-35 11-70.5 16.5T480-200q-151 0-269-83.5T40-500q21-53 53-98.5t73-81.5L56-792l56-56 736 736-56 56ZM222-624q-29 26-53 57t-41 67q50 101 143.5 160.5T480-280q20 0 39-2.5t39-5.5l-36-38q-11 3-21 4.5t-21 1.5q-75 0-127.5-52.5T300-500q0-11 1.5-21t4.5-21l-84-82Zm319 93Zm-151 75Z" />
                                 </svg>
@@ -356,7 +348,7 @@ export default function ResetPasswordVerification() {
                                     height="24px"
                                     viewBox="0 -960 960 960"
                                     width="24px"
-                                    fill="#e3e3e3"
+                                    fill="var(--color-text)"
                                 >
                                     <path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z" />
                                 </svg>
@@ -370,7 +362,9 @@ export default function ResetPasswordVerification() {
 
                 <div className={style.formButtons}>
                     <button type="submit" className={style.buttonSubmit}>
-                        Отправить код
+                        {intl.formatMessage({
+                            id: 'resetPasswordVerification.button.submit',
+                        })}
                     </button>
 
                     {newEmailCodLoader != false ? (
@@ -400,12 +394,16 @@ export default function ResetPasswordVerification() {
                         </button>
                     ) : (
                         <button type="button" onClick={() => buttonGetТewСode()} className={style.buttonGetТewСode}>
-                            Получить новый код
+                            {intl.formatMessage({
+                                id: 'resetPasswordVerification.button.getNewCode',
+                            })}
                         </button>
                     )}
 
                     <button type="button" onClick={() => buttonBackPage()} className={style.buttonCancel}>
-                        Отмена
+                        {intl.formatMessage({
+                            id: 'resetPasswordVerification.button.cancel',
+                        })}
                     </button>
                 </div>
 
@@ -421,10 +419,10 @@ export default function ResetPasswordVerification() {
                                 xmlns="http://www.w3.org/2000/svg"
                             >
                                 <g clipPath="url(#clip0_223_516)">
-                                    <circle cx="25" cy="25" r="22.5" stroke="#21487A" strokeWidth="5" />
+                                    <circle cx="25" cy="25" r="22.5" stroke="var(--color-blue-900)" strokeWidth="5" />
                                     <path
                                         d="M34.5524 45.3716C35.1386 46.6217 34.6033 48.1232 33.3009 48.5817C29.1743 50.0343 24.7234 50.3834 20.3948 49.5722C15.2442 48.6069 10.5271 46.0475 6.91016 42.2557C3.29318 38.4638 0.959162 33.6313 0.237921 28.4408C-0.368215 24.0788 0.19048 19.6493 1.83617 15.5958C2.35556 14.3165 3.88066 13.8527 5.10172 14.4972V14.4972C6.32277 15.1417 6.77389 16.6504 6.28665 17.9423C5.1119 21.0571 4.72854 24.4293 5.19034 27.7527C5.76733 31.905 7.63454 35.7711 10.5281 38.8045C13.4217 41.838 17.1954 43.8855 21.3159 44.6578C24.6137 45.2758 28.0003 45.052 31.1671 44.0255C32.4805 43.5997 33.9662 44.1215 34.5524 45.3716V45.3716Z"
-                                        fill="#C7E6FF"
+                                        fill="var(--color-blue-300)"
                                     />
                                 </g>
 

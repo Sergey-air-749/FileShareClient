@@ -3,6 +3,8 @@ import { FormEvent, useEffect, useState } from 'react';
 import style from '@/style/delete.account.module.css';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { useIntl } from 'react-intl';
+import { submitAccountDeleteServer, verifyAccountDeleteSessionServer } from './actions';
 
 export default function DeleteAccount() {
     const [isVerify, setIsVerify] = useState(false);
@@ -20,56 +22,46 @@ export default function DeleteAccount() {
 
     const router = useRouter();
 
+    const intl = useIntl();
+
     const apiUrl = process.env.NEXT_PUBLIC_SERVER_API_URL;
 
     useEffect(() => {
-        const verifySession = async () => {
+        const verifyAccountDeleteSession = async () => {
             try {
-                const token = localStorage?.getItem('token');
+                const response = await verifyAccountDeleteSessionServer();
 
-                const response = await axios.get(
-                    apiUrl + '/api/get/session',
-
-                    {
-                        headers: {
-                            authorization: `Bearer ${token}`,
-                            'Content-Type': 'application/json',
-                        },
-                    }
-                );
-
-                const localSession = localStorage.getItem('session');
-                const serverSession = response.data.sessionId;
-
-                //console.log(response);
-                //console.log(localSession);
+                const localSession = sessionStorage.getItem('session');
+                const serverSession = response.sessionId;
 
                 if (localSession != serverSession) {
                     router.back();
                 } else {
                     setIsVerify(true);
                 }
-            } catch (error) {
-                console.log(error);
-                if (axios.isAxiosError(error)) {
-                    const serverMessage = error;
-                    //console.log(serverMessage);
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            } catch (error: any) {
+                closeLoaderFun();
 
-                    if (serverMessage.response?.data?.msg != undefined) {
-                        console.log(serverMessage.response?.data?.msg);
-                        if (serverMessage.response?.data?.msg == 'Нет сессий') {
-                            location.pathname = '/account/delete/verification';
-                        }
-                        setError(serverMessage.response?.data?.msg);
-                    } else {
-                        console.log(serverMessage.message);
-                        setError(serverMessage.message);
-                    }
+                if (error.message == 'noSessions') {
+                    location.pathname = '/account/delete/verification';
+                    console.log(error.message);
+                } else {
+                    console.log(error.message);
+
+                    const serverMessage = error.message;
+
+                    setError(
+                        intl.formatMessage({
+                            id: `error.massage.${serverMessage}`,
+                            defaultMessage: intl.formatMessage({ id: 'error.massage.unknown' }) + serverMessage,
+                        })
+                    );
                 }
             }
         };
 
-        verifySession();
+        verifyAccountDeleteSession();
     }, []);
 
     const submitAccountDelete = async (e: FormEvent<HTMLFormElement>) => {
@@ -78,38 +70,26 @@ export default function DeleteAccount() {
         try {
             showLoaderFun();
 
-            const token = localStorage?.getItem('token');
+            const response = submitAccountDeleteServer();
 
-            await axios.delete(
-                apiUrl + '/api/account/delete',
-
-                {
-                    headers: {
-                        authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    },
-                }
-            );
             //console.log('Response:', response);
 
             location.pathname = '/account/delete/successfully';
+            // sessionStorage.removeItem('token');
 
-            localStorage.removeItem('token');
-        } catch (error) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
             closeLoaderFun();
-            console.log(error);
-            if (axios.isAxiosError(error)) {
-                const serverMessage = error;
-                //console.log(serverMessage);
+            console.log(error.message);
 
-                if (serverMessage.response?.data?.msg != undefined) {
-                    console.log(serverMessage.response?.data?.msg);
-                    setError(serverMessage.response?.data?.msg);
-                } else {
-                    console.log(serverMessage.message);
-                    setError(serverMessage.message);
-                }
-            }
+            const serverMessage = error.message;
+
+            setError(
+                intl.formatMessage({
+                    id: `error.massage.${serverMessage}`,
+                    defaultMessage: intl.formatMessage({ id: 'error.massage.unknown' }) + serverMessage,
+                })
+            );
         }
     };
 
@@ -177,17 +157,13 @@ export default function DeleteAccount() {
                             </div>
 
                             <div className={style.formTitle}>
-                                <h2>Удалить аккаунт</h2>
+                                <h2>{intl.formatMessage({ id: 'deleteAccount.formTitleH2' })}</h2>
                             </div>
                         </div>
 
                         <div className={style.deleteAccountInfo}>
-                            <h3>Внимательно прочтите это перед тем как удалить аккаунта</h3>
-
-                            <p>
-                                Ваш аккаунт, отправленные вам файлы и история, будет навсегда удален, отменить удаление
-                                можно в течение 14 дней
-                            </p>
+                            <h3>{intl.formatMessage({ id: 'deleteAccount.info.warning.title' })}</h3>
+                            <p>{intl.formatMessage({ id: 'deleteAccount.info.warning.info' })}</p>
                         </div>
 
                         <span className={style.error}>{error}</span>
@@ -197,10 +173,10 @@ export default function DeleteAccount() {
                         {isVerify == true ? (
                             <div className={style.formButtons}>
                                 <button type="submit" className={style.styleButtonDelete}>
-                                    Удалить
+                                    {intl.formatMessage({ id: 'deleteAccount.button.submit' })}
                                 </button>
                                 <button type="button" onClick={() => buttonBackPage()} className={style.buttonCancel}>
-                                    Отмена
+                                    {intl.formatMessage({ id: 'deleteAccount.button.cancel' })}
                                 </button>
                             </div>
                         ) : (
@@ -221,10 +197,10 @@ export default function DeleteAccount() {
                                 xmlns="http://www.w3.org/2000/svg"
                             >
                                 <g clipPath="url(#clip0_223_516)">
-                                    <circle cx="25" cy="25" r="22.5" stroke="#21487A" strokeWidth="5" />
+                                    <circle cx="25" cy="25" r="22.5" stroke="var(--color-blue-900)" strokeWidth="5" />
                                     <path
                                         d="M34.5524 45.3716C35.1386 46.6217 34.6033 48.1232 33.3009 48.5817C29.1743 50.0343 24.7234 50.3834 20.3948 49.5722C15.2442 48.6069 10.5271 46.0475 6.91016 42.2557C3.29318 38.4638 0.959162 33.6313 0.237921 28.4408C-0.368215 24.0788 0.19048 19.6493 1.83617 15.5958C2.35556 14.3165 3.88066 13.8527 5.10172 14.4972V14.4972C6.32277 15.1417 6.77389 16.6504 6.28665 17.9423C5.1119 21.0571 4.72854 24.4293 5.19034 27.7527C5.76733 31.905 7.63454 35.7711 10.5281 38.8045C13.4217 41.838 17.1954 43.8855 21.3159 44.6578C24.6137 45.2758 28.0003 45.052 31.1671 44.0255C32.4805 43.5997 33.9662 44.1215 34.5524 45.3716V45.3716Z"
-                                        fill="#C7E6FF"
+                                        fill="var(--color-blue-300)"
                                     />
                                 </g>
 

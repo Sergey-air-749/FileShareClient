@@ -1,9 +1,10 @@
 .home {
     width: 100%;
-    height: 100vh;
-    background-color: black;
+    height: 100%;
+    background-color: var(--color-bg);
     /* overflow-y: scroll; */
     position: absolute;
+    scrollbar-color: #898989 var(--color-bg); /* Цвет ползунка и дорожки */
 }
 
 .header {
@@ -11,7 +12,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    background-color: black;
+    background-color: var(--color-bg);
     padding: 10px 20px 10px 20px;
 }
 
@@ -19,7 +20,11 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    color: #ffffff;
+    color: var(--color-text);
+}
+
+.headerHomeLink {
+    text-decoration: none;
 }
 
 .userAvatarBlock {
@@ -29,7 +34,7 @@
 }
 
 .userNameText {
-    color: #ffffff;
+    color: var(--color-text);
 }
 
 
@@ -43,7 +48,7 @@
 
 .burgerMenuBackground {
     display: flex;
-    justify-content: end;
+    justify-content: center;
     position: fixed;
     top: 0;
     left: 0;
@@ -51,7 +56,7 @@
     height: 100%;
     /* background-color: #0e0e0e; */
     backdrop-filter: saturate(1.5) blur(40px);
-    background-color: rgb(14 14 14 / 70%);
+    background-color: var(--burger-menu-background);
 }
 
 .burgerMenu {
@@ -80,7 +85,7 @@
 }
 
 .burgerMenuTitle {
-    color: #ffffff;
+    color: var(--color-text);
 }
 
 .burgerMenuButtonClose {
@@ -129,15 +134,16 @@
 .userInfoBlock {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    justify-content: center;
+    gap: 5px;
 }
 
 .userName {
-    color: #ffffff;
+    color: var(--color-text);
 }
 
 .userEmail {
-    color: #8b8b8b;
+    color: var(--color-gray-150);
     word-break: break-all;
 }
 
@@ -204,7 +210,7 @@
     position: fixed;
     width: 100%;
     height: 100%;
-    background-color: #000000;
+    background-color: var(--color-bg);
 }
 
 .userDataLoader {
@@ -245,36 +251,37 @@
 
 .Link {
     font-size: 16px;
-    color: #b8b8b8;
+    color: var(--color-gray-250);
     text-decoration: none;
     transition: 0.2s all ;
     padding: 5px;
 }
 
 .Link:hover {
-    color: #ededed;
+    color: var(--color-gray-100);
 }
 
 .Link:active {
-    color: #b8b8b8;
+    color: var(--color-gray-250);
 }
 
 
 
 .LinkBurgerMenu {
     font-size: 20px;
-    color: #b8b8b8;
+    color: var(--color-gray-250);
     text-decoration: none;
     padding: 5px;
+    padding-left: 0px;
     transition: 0.2s all ;
 }
 
 .LinkBurgerMenu:hover {
-    color: #d4d4d4;
+    color: var(--color-gray-100);
 }
 
 .LinkBurgerMenu:active {
-    color: #b8b8b8;
+    color: var(--color-gray-250);
 }
 
 
@@ -306,7 +313,11 @@
 
 
 
-@media (max-width: 500px) {
+@media (max-width: 800px) {
+
+    .home {
+        height: 100vh;
+    }
 
     .header {
         padding: 15px 20px 15px 20px;
@@ -329,11 +340,16 @@
     }
 
     .headerTitle {
-        display: flex;
-        align-items: center;
         gap: 10px;
-        color: #ffffff;
     }
 
 }
 
+/* [data-theme='light'] {
+    
+    .home {
+        background-color: rgb(255, 255, 255);
+    }
+ */
+
+/* } */

@@ -1,18 +1,29 @@
-import { Metadata } from "next";
-import ChangeEmailVerification from "./ChangeEmailVerification";
+import { Metadata } from 'next';
+import ChangeEmailVerification from './ChangeEmailVerification';
+import { cookies } from 'next/headers';
 
-export const metadata: Metadata = {
-  title: "Подтвердите почту для её изменения",
-};
+export async function generateMetadata(): Promise<Metadata> {
+    const cookieStore = await cookies();
+    const locale = cookieStore.get('language')?.value;
+    let messages;
 
+    if (locale == undefined) {
+        messages = (await import(`@/translations/ru.json`)).default;
+    } else {
+        messages = (await import(`@/translations/${locale}.json`)).default;
+    }
 
-function ChangeEmailVerificationPage() {
-
-  return (
-    <div style={{width: "100%", height: "100%"}}>
-      <ChangeEmailVerification/>
-    </div>
-  );
+    return {
+        title: messages['changeEmailVerification.page.title'],
+    };
 }
 
-export default ChangeEmailVerificationPage
+function ChangeEmailVerificationPage() {
+    return (
+        <div style={{ width: '100%', height: '100%' }}>
+            <ChangeEmailVerification />
+        </div>
+    );
+}
+
+export default ChangeEmailVerificationPage;

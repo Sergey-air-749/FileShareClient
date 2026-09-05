@@ -1,0 +1,512 @@
+.sendfile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.blockForm {
+    width: 400px;
+}
+
+.formSendFile {
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+}
+
+.formHead {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 50px;
+}
+
+.formIcon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.formTitle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--color-text);
+    padding-bottom: 40px;
+    gap: 10px;
+}
+
+.formTitle h2 {
+    text-align: center;
+}
+
+.formTitle p {
+    text-align: center;
+    color: var(--color-gray-150);
+}
+
+
+.formInputs {
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    gap: 20px;
+}
+
+.styleInput {
+    background-color: var(--color-gray-900);
+    border: 1px solid var(--color-gray-600);
+    color: var(--color-text);
+    border-radius: 100px;
+    padding: 12px 15px;
+    font-size: 16px;
+    outline: none;
+}
+
+.styleTextareaInput {
+    /* height: 200px; */
+    background-color: var(--color-gray-900);
+    border: 1px solid var(--color-gray-600);
+    color: var(--color-text);
+    border-radius: 10px;
+    padding: 12px 15px;
+    font-size: 16px;
+    outline: none;
+    resize: none;
+}
+
+.styleInput::placeholder, .styleTextareaInput::placeholder {
+    color: var(--color-gray-150);
+}
+
+
+/* recipientDetails */
+
+.recipientDetailsBlock {
+    display: flex;
+    align-items: center;
+    background-color: #212121;
+    border: 1px solid rgb(57 57 57);
+    border-radius: 100px;
+    padding: 10px;
+}
+
+.recipientDetails {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.recipientDetailsAvatarBlock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.recipientDetailsAvatar {
+    background-color: rgb(57 57 57);
+    border-radius: 100px;
+    width: 50px;
+    height: 50px;
+}
+
+.recipientDetailsInfo span {
+    color: #ffffff;
+}
+
+
+.recipientDetailsNotFound {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recipientDetailsNotFound span {
+    color: #cfcfcf;
+}
+
+
+
+
+
+
+
+
+
+
+
+.selectBlock {
+    width: 100%;
+}
+
+.selectOptionStyle {
+    background-color: var(--dark-gray-input);
+    border: 1px solid #2e2e2e;
+    color: #d0d0d0;
+    font-size: 16px;
+    /* color: #9a9a9a; */
+    width: 100%;
+    border-radius: 100px;
+    padding: 12px 15px;
+    outline: none;
+
+    -webkit-appearance: none; /* Для старых Safari */
+    -moz-appearance: none; /* Для старых Firefox */
+    appearance: none; /* Для современных браузеров */
+    /*  background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 24h24V0H0z" fill="none"/></svg>'); Пример SVG-стрелки */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="%239a9a9a"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>'); /* Пример SVG-стрелки */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px; 
+    padding-right: 30px; /* Место для стрелки */
+    cursor: pointer;
+
+}
+
+.selectOptionStyle::placeholder {
+    color: #9a9a9a;
+}
+
+.fileInput {
+    display: none;
+}
+
+
+
+.formButtons {
+    display: flex;
+    flex-direction: column;
+    padding-top: 100px;
+    gap: 10px;
+}
+
+
+.styleButtonFileSelect {
+    background-color: #212121;
+    border: none;
+    color: var(--color-width);
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 100px;
+    padding: 12px 15px;
+    transition: 0.2s all ;
+    outline: none;
+    width: 100%;
+}
+
+.styleButtonFileSelect:hover {
+    background-color: #2c2b2b;
+}
+
+.styleButtonFileSelect:active {
+    background-color: #212121;
+}
+
+.styleButtonSubmit {
+    background-color: var(--blue);
+    border: none;
+    color: var();
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 100px;
+    padding: 12px 15px;
+    transition: 0.2s all ;
+    outline: none;
+    width: 100%;
+}
+
+.styleButtonSubmit:hover {
+    background-color: var(--blueHover);
+}
+
+.styleButtonSubmit:active {
+    background-color: var(--blue);
+}
+
+
+
+.styleButtonSubmitFileLoader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+    background-color: var(--blue);
+    border: none;
+    color: var(--color-width);
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 100px;
+    padding: 12px 15px;
+    transition: 0.2s all ;
+    outline: none;
+    width: 100%;
+    gap: 10px;
+}
+
+
+
+
+
+.styleButton {
+    background-color: var(--blue);
+    border: none;
+    color: var(--color-width);
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 100px;
+    padding: 12px 15px;
+    transition: 0.2s all ;
+    outline: none;
+    width: 100%;
+    gap: 10px;
+}
+
+.styleButton:hover {
+    background-color: var(--blueHover);
+}
+
+.styleButton:active {
+    background-color: var(--blue);
+}
+
+
+
+/* .styleButtonAddFile {
+    width: 100%;
+} */
+
+
+.notFile {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+    color: var(--color-width);
+    gap: 10px;
+}
+
+
+.filePreview {
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid #2e2e2e;
+    background-color: #1f1f1f;
+    border-radius: 15px;
+    padding: 20px;
+    color: var(--color-width);
+    gap: 20px;
+}
+
+.filePreviewFiles {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.filePreviewTitle {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.setFilePopUpTitleInfo {
+    color: #ffffff;
+}
+
+.setFilePopUpFilesLength {
+    color: #c6c6c6;
+    word-break: break-all;
+}
+
+
+
+
+.fileItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.fileInfo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 5;
+    gap: 10px;
+}
+
+.fileIcon {
+    display: flex;
+    flex-shrink: 0;
+}
+
+.fileName {
+    color: #ffffff;
+    word-break: break-all;
+}
+
+.buttonFileClose {
+    background: none;
+    border: none;
+}
+
+.Fileblock {
+    width: 100%;
+}
+
+
+
+
+
+
+
+.navExchangeBlock {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 100px;
+    padding-top: 70px;
+}
+
+.navExchange {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    background-color: #242424;
+    padding: 5px;
+    border-radius: 50px;
+    /* gap: 20px; */
+}
+
+.LinkExchange {
+    color: #bfbfbf;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px 30px;
+    border-radius: 50px;
+    transition: 0.2s all ;
+}
+
+.LinkExchange:hover {
+    background-color: rgb(52, 52, 52);
+}
+
+.select {
+    color: #ffffff;
+    background-color: var(--blue);
+}
+
+.select:hover {
+    color: #ffffff;
+    background-color: var(--blueHover);
+}
+
+
+.message {
+    color: rgb(255, 255, 255);
+}
+
+.error {
+    color: rgb(255, 137, 137);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.bodyStyle {
+  height: 300px; /* Пример высоты */
+  overflow-y: scroll;
+  background-color: #f0f0f0;
+}
+
+.bodyStyle::-webkit-scrollbar {
+  width: 15px; /* Ширина всего элемента навигации */
+}
+
+.bodyStyle::-webkit-scrollbar-track {
+  background: #fff; /* Цвет дорожки */
+}
+
+.bodyStyle::-webkit-scrollbar-thumb {
+  background-color: #050c26; /* Цвет бегунка */
+  border-radius: 20px; /* Округление бегунка */
+  border: 3px solid #050c26; /* Оформление границ бегунка */
+}
+
+.bodyStyle::-webkit-scrollbar {
+  width: 15px; /* Ширина всего элемента навигации */
+}
+
+.bodyStyle::-webkit-scrollbar-track {
+  background: #fff; /* Цвет дорожки */
+}
+
+.bodyStyle::-webkit-scrollbar-thumb {
+  background-color: #050c26; /* Цвет бегунка */
+  border-radius: 20px; /* Округление бегунка */
+  border: 3px solid #050c26; /* Оформление границ бегунка */
+}
+
+
+
+
+.submitFileLoaderBackground {
+    background-color: #00000073; 
+    position: fixed;
+    top: 0px; 
+    left: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.userDataLoaderImg {
+  animation: load linear 2s infinite; 
+}
+
+@keyframes load {
+    0% { 
+        transform: rotate(0deg); 
+    }
+
+    100% { 
+        transform: rotate(360deg); 
+    }    
+
+}
+
+
+
+
+
+
+
+
+@media (max-width: 430px) {
+
+    .blockForm {
+        width: 350px;
+    }
+
+}
+/* 
+@media (max-width: 380px) {
+
+    .blockForm {
+        width: 350px;
+    }
+
+} */

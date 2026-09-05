@@ -32,7 +32,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: var(--width);
+    color: var(--color-text);
     padding-bottom: 40px;
     gap: 10px;
 }
@@ -43,7 +43,7 @@
 
 .formTitle p {
     text-align: center;
-    color: #c6c6c6;
+    color: var(--color-gray-150);
 }
 
 
@@ -55,9 +55,9 @@
 }
 
 .styleInput {
-    background-color: var(--dark-gray-input);
-    border: 1px solid #2e2e2e;
-    color: var(--width);
+    background-color: var(--color-gray-950);
+    border: 1px solid var(--color-gray-600);
+    color: var(--color-text);
     border-radius: 100px;
     padding: 12px 15px;
     font-size: 16px;
@@ -66,18 +66,18 @@
 
 .styleTextareaInput {
     /* height: 200px; */
-    background-color: var(--dark-gray-input);
-    border: 1px solid #2e2e2e;
-    color: var(--width);
-    border-radius: 10px;
-    padding: 12px 15px;
+    background-color: var(--color-gray-950);
+    border: 1px solid var(--color-gray-600);
+    color: var(--color-text);
+    border-radius: 20px;
+    padding: 13px 15px;
     font-size: 16px;
     outline: none;
     resize: none;
 }
 
-.styleInput::placeholder, .styleTextareaInput::placeholder {
-    color: #9a9a9a;
+.styleInput::placeholder, .styleInputDeviceID::placeholder, .styleTextareaInput::placeholder {
+    color: var(--color-gray-250);
 }
 
 
@@ -86,8 +86,9 @@
 .recipientDetailsBlock {
     display: flex;
     align-items: center;
-    background-color: #212121;
-    border: 1px solid rgb(57 57 57);
+    background-color: var(--color-gray-800);
+    border: 1px solid var(--color-gray-500);
+    /* border: 1px solid #393939; */
     border-radius: 100px;
     padding: 10px;
 }
@@ -106,14 +107,15 @@
 }
 
 .recipientDetailsAvatar {
-    background-color: rgb(57 57 57);
+    /* background-color: #393939; */
+    background-color: var(--color-gray-500);
     border-radius: 100px;
     width: 50px;
     height: 50px;
 }
 
 .recipientDetailsInfo span {
-    color: #ffffff;
+    color: var(--color-text)
 }
 
 
@@ -125,7 +127,7 @@
 }
 
 .recipientDetailsNotFound span {
-    color: #cfcfcf;
+    color: var(--color-gray-150);
 }
 
 
@@ -143,9 +145,10 @@
 }
 
 .selectOptionStyle {
-    background-color: var(--dark-gray-input);
-    border: 1px solid #2e2e2e;
-    color: #d0d0d0;
+    background-color: var(--color-gray-950);
+    border: 1px solid var(--color-gray-600);
+    /* border: 1px solid #2e2e2e; */
+    color: var(--color-gray-250);
     font-size: 16px;
     /* color: #9a9a9a; */
     width: 100%;
@@ -167,7 +170,7 @@
 }
 
 .selectOptionStyle::placeholder {
-    color: #9a9a9a;
+    color: var(--color-gray-250);
 }
 
 .fileInput {
@@ -185,9 +188,9 @@
 
 
 .styleButtonFileSelect {
-    background-color: #212121;
+    background-color: var(--color-gray-700);
     border: none;
-    color: var(--width);
+    color: var(--color-text);
     font-size: 16px;
     font-weight: 600;
     border-radius: 100px;
@@ -198,17 +201,17 @@
 }
 
 .styleButtonFileSelect:hover {
-    background-color: #2c2b2b;
+    background-color: var(--color-gray-600);
 }
 
 .styleButtonFileSelect:active {
-    background-color: #212121;
+    background-color: var(--color-gray-700);
 }
 
 .styleButtonSubmit {
-    background-color: var(--blue);
+    background-color: var(--color-blue-500);
     border: none;
-    color: var(--width);
+    color: var(--color-width);
     font-size: 16px;
     font-weight: 600;
     border-radius: 100px;
@@ -219,11 +222,11 @@
 }
 
 .styleButtonSubmit:hover {
-    background-color: var(--blueHover);
+    background-color: var(--color-blue-600);
 }
 
 .styleButtonSubmit:active {
-    background-color: var(--blue);
+    background-color: var(--color-blue-500);
 }
 
 
@@ -234,9 +237,9 @@
     justify-content: center;
     overflow: hidden;
     flex-shrink: 0;
-    background-color: var(--blue);
+    background-color: var(--color-blue-500);
     border: none;
-    color: var(--width);
+    color: var(--color-width);
     font-size: 16px;
     font-weight: 600;
     border-radius: 100px;
@@ -252,9 +255,9 @@
 
 
 .styleButton {
-    background-color: var(--blue);
+    background-color: var(--color-blue-500);
     border: none;
-    color: var(--width);
+    color: var(--color-width);
     font-size: 16px;
     font-weight: 600;
     border-radius: 100px;
@@ -266,11 +269,11 @@
 }
 
 .styleButton:hover {
-    background-color: var(--blueHover);
+    background-color: var(--color-blue-600);
 }
 
 .styleButton:active {
-    background-color: var(--blue);
+    background-color: var(--color-blue-500);
 }
 
 
@@ -284,7 +287,7 @@
     display: flex;
     justify-content: center;
     padding-bottom: 10px;
-    color: var(--width);
+    color: var(--color-width);
     gap: 10px;
 }
 
@@ -293,11 +296,11 @@
     display: flex;
     flex-direction: column;
 
-    border: 1px solid #2e2e2e;
-    background-color: #1f1f1f;
+    border: 1px solid var(--color-gray-600);
+    background-color: var(--color-gray-950);
     border-radius: 15px;
     padding: 20px;
-    color: var(--width);
+    color: var(--color-width);
     gap: 20px;
 }
 
@@ -314,11 +317,11 @@
 }
 
 .setFilePopUpTitleInfo {
-    color: #ffffff;
+    color: var(--color-text);
 }
 
 .setFilePopUpFilesLength {
-    color: #c6c6c6;
+    color: var(--color-gray-150);
     word-break: break-all;
 }
 
@@ -344,8 +347,20 @@
     flex-shrink: 0;
 }
 
-.fileName {
-    color: #ffffff;
+.fileInfoData {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 5px;
+}
+
+.fileInfoDataName {
+    color: var(--color-text);
+    word-break: break-all;
+}
+
+.fileInfoDataSize {
+    color: var(--color-gray-150);
     word-break: break-all;
 }
 
@@ -361,6 +376,59 @@
 
 
 
+.inputDeviceIDBlock {
+    display: flex;
+
+}
+
+.styleInputDeviceID {
+    background-color: var(--color-gray-950);
+    border: 1px solid var(--color-gray-600);
+    border-right: 0px; 
+    color: var(--color-text);
+    border-radius: 100px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    padding: 12px 15px;
+    font-size: 16px;
+    outline: none;
+    width: 100%;
+}
+
+.styleButtonWhatDeviceID {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-gray-950);
+    border: 1px solid var(--color-gray-600);
+    border-left: 0px; 
+    color: var(--color-text);
+    border-radius: 100px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    font-size: 16px;
+    outline: none;
+    width: 50px;
+}
+
+.messageWhatDeviceIDBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-gray-800);
+    border-radius: 20px;
+    padding: 20px;
+    gap: 15px;
+}
+
+.messageWhatDeviceIDBlock span {
+    color:  var(--color-gray-150);
+}
+
+.messageWhatDeviceIDBlock a {
+    color:  var(--color-blue-link-100);
+}
 
 
 
@@ -375,14 +443,14 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
-    background-color: #242424;
+    background-color: var(--color-gray-700);
     padding: 5px;
     border-radius: 50px;
     /* gap: 20px; */
 }
 
 .LinkExchange {
-    color: #bfbfbf;
+    color: var(--color-gray-200);
     width: 100%;
     text-align: center;
     text-decoration: none;
@@ -392,26 +460,25 @@
 }
 
 .LinkExchange:hover {
-    background-color: rgb(52, 52, 52);
+    background-color: var(--color-gray-500);
 }
 
 .select {
-    color: #ffffff;
-    background-color: var(--blue);
+    color: var(--color-width);
+    background-color: var(--color-blue-500);
 }
 
 .select:hover {
-    color: #ffffff;
-    background-color: var(--blueHover);
+    background-color: var(--color-blue-600);
 }
 
 
 .message {
-    color: rgb(255, 255, 255);
+    color: var(--color-text);
 }
 
 .error {
-    color: rgb(255, 137, 137);
+    color: var(--color-red-100);
 }
 
 
@@ -464,14 +531,283 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+/* submitFileLoaderPopUp */
+
+
 .submitFileLoaderBackground {
-    background-color: #00000073; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-black-transparent-45); 
     position: fixed;
     top: 0px; 
     left: 0px;
     width: 100%;
     height: 100%;
+    z-index: 9999;
 }
+
+.submitFileLoaderPopUp {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 520px;
+    height: 630px;
+    padding: 10px;
+    background-color: var(--color-gray-700);
+    border: 1px solid var(--color-gray-950);
+    border-radius: 20px;
+}
+
+.submitFileLoaderPopUpHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    flex-shrink: 0;
+}
+
+.submitFileLoaderPopUpHeader h2 {
+    color: var(--color-text);
+}
+
+
+
+
+
+
+
+.submitFileLoaderPopUpContent {
+    overflow: hidden;
+    height: 90%;
+}
+
+.submitFileLoaderPopUpUserRecipientDataBlock {
+    padding: 10px;
+    padding-bottom: 20px;
+}
+
+.submitFileLoaderPopUpWhoToSendItToHeader {
+    padding-bottom: 20px;
+}
+
+/* submitFileLoaderPopUpRecipientDetails */
+
+.submitFileLoaderPopUpRecipientDetailsBlock {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-gray-500);
+    border-radius: 100px;
+    padding: 10px;
+}
+
+.submitFileLoaderPopUpRecipientDetails {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.submitFileLoaderPopUpRecipientDetailsAvatarBlock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.submitFileLoaderPopUpRecipientDetailsAvatar {
+    /* background-color: #393939; */
+    background-color: var(--color-gray-500);
+    border-radius: 100px;
+    width: 50px;
+    height: 50px;
+}
+
+.submitFileLoaderPopUpRecipientDetailsInfo span {
+    color: var(--color-text)
+}
+
+
+.submitFileLoaderPopUpRecipientDetailsNotFound {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.submitFileLoaderPopUpRecipientDetailsNotFound span {
+    color: var(--color-gray-150);
+}
+
+
+
+
+
+
+
+.submitFileLoaderPopUpPreviewFilesBlock {
+    padding: 10px;
+}
+
+.submitFileLoaderPopUpPreviewFilesInfo {
+    display: flex;
+    padding-bottom: 20px;
+    align-items: center;
+    gap: 10px;
+}
+
+.submitFileLoaderPopUpPreviewFilesInfo h2 {
+    color: var(--color-text);
+}
+
+.submitFileLoaderPopUpPreviewFilesInfo span {
+    color: var(--color-gray-150);
+}
+
+
+.submitFileLoaderPopUpPreviewFilesListBlock {
+    scrollbar-color: #898989 var(--color-gray-700); /* Цвет ползунка и дорожки */
+    border-radius: 15px;
+    height: 34vh;
+}
+
+.submitFileLoaderPopUpPreviewFilesList {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: var(--color-file-cart-bg);
+    gap: 20px;
+}
+
+.submitFileLoaderPopUpPreviewListNotFile {
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+    gap: 10px;
+}
+
+.submitFileLoaderPopUpPreviewListNotFile span {
+    color: var(--color-text);
+}
+
+
+.styleTextareaInputLoaderPopUpPreview {
+    background-color: var(--color-gray-500);
+    color: var(--color-text);
+    border-radius: 20px;
+    padding: 13px 15px;
+    font-size: 16px;
+    outline: none;
+    resize: none;
+}
+
+
+
+
+
+.submitFileLoaderPopUpFooter {
+    flex-shrink: 0;
+}
+
+
+
+.submitFileLoaderPopUpProgressBarBlock {
+    overflow: hidden;
+    padding: 20px 10px;
+}
+
+.submitFileLoaderPopUpProgressBar {
+    height: 30px;
+    width: 100%;
+    background-color: var(--color-gray-500);
+    border-radius: 100px;
+}
+
+.submitFileLoaderPopUpProgressBarAggregate {
+    height: 100%;
+    background-color: var(--color-blue-400);
+    border-radius: 100px;
+    transition: 0.5s all linear;
+}
+
+
+
+
+.submitFileLoaderPopUpWarningDoNotClose {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0px 10px;
+    padding-bottom: 10px;
+    flex-shrink: 0;
+}
+
+.submitFileLoaderPopUpWarningDoNotClose span {
+    color: var(--color-gray-150);
+    overflow: hidden;
+    text-align: center;
+}
+
+
+
+
+.submitFileLoaderPopUpSuccessfulBlock {
+    display: flex;
+    justify-content: center;
+    padding: 5px 0px
+}
+
+.styleButtonFileLoaderPopUpCloseBlock {
+    padding: 10px;
+}
+
+.styleButtonFileLoaderPopUpClose {
+    background-color: var(--color-blue-500);
+    border: none;
+    color: var(--color-width);
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 100px;
+    padding: 12px 15px;
+    transition: 0.2s all ;
+    outline: none;
+    width: 100%;
+}
+
+.styleButtonFileLoaderPopUpClose:hover {
+    background-color: var(--color-blue-600);
+}
+
+.styleButtonFileLoaderPopUpClose:active {
+    background-color: var(--color-blue-500);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .userDataLoaderImg {
   animation: load linear 2s infinite; 
@@ -495,6 +831,8 @@
 
 
 
+
+
 @media (max-width: 430px) {
 
     .blockForm {
@@ -502,11 +840,12 @@
     }
 
 }
-/* 
+
 @media (max-width: 380px) {
 
-    .blockForm {
-        width: 350px;
+    .submitFileLoaderPopUp {
+        height: 100%;
+        border-radius: 0px;
     }
 
-} */
+}

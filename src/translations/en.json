@@ -1,0 +1,762 @@
+{
+  "home.layout.headerTitleH2": "File sharing",
+  "home.layout.burgerMenuTitle": "Menu",
+
+  "home.layout.linkSendFile": "Send",
+  "home.layout.linkGetFile": "Get",
+  "home.layout.linkStory": "Story",
+  "home.layout.linkSettings": "Settings",
+  "home.layout.linkSignup": "Signup",
+  "home.layout.linkLogin": "Login",
+
+
+
+
+
+  "sendfilePage.page.title": "Send file",
+  "sendfilePage.page.description": "Here you can send a file to another device",
+
+  "sendfilePage.formTitleH2": "Send file",
+  "sendfilePage.formDescriptionP": "Here you can send a file to another device",
+
+  "sendfilePage.selectOptionSend.file": "Send file",
+  "sendfilePage.selectOptionSend.text": "Send text",
+
+  "sendfilePage.setFilePopUpTitleInfo": "Files",
+  "sendfilePage.setFilePopUpFilesLength": "Number of files",
+  "sendfilePage.addFile": "Add file",
+  
+  "sendfilePage.noFilesSelected": "No files selected",
+
+  "sendfilePage.inputTextTextarea": "Enter text...",
+  "sendfilePage.inputSelectFile": "Select file",
+
+  "sendfilePage.inputDeviceID": "Your Device ID",
+
+  "sendfilePage.messageWhatDeviceIDBlock.1": "1. Open the website",
+  "sendfilePage.messageWhatDeviceIDBlock.1.5": "on the other device",
+  "sendfilePage.messageWhatDeviceIDBlock.2": "2. Tap the \"Get\" button; it is located at the bottom of the screen next to the \"Send\" button",
+  "sendfilePage.messageWhatDeviceIDBlock.3": "3. On the receive page, find the \"Your Device ID\" line and enter the code below into that field",
+  "sendfilePage.messageWhatDeviceIDBlock.4.file": "4. On this device, select the files you want to send and tap the \"Send\" button",
+  "sendfilePage.messageWhatDeviceIDBlock.4.text": "4. On this device, enter the text you want to send and tap the \"Send\" button",
+  "sendfilePage.messageWhatDeviceIDBlock.5": "5. Wait for the transfer to complete; the files should appear on the other device",
+
+
+
+  "sendfilePage.userIsGuest.username": "Guest",
+
+  "sendfilePage.userNotfound": "User not found",
+
+  "sendfilePage.buttonSubmitSend": "Send",
+
+  "sendfilePage.buttonLinkSend": "Send",
+  "sendfilePage.buttonLinkGet": "Get",
+
+
+
+
+
+
+  "sendfilePage.submitLoaderPopUp.h2": "Sending",
+  "sendfilePage.submitLoaderPopUp.h2.file.successful": "Files sent",
+  "sendfilePage.submitLoaderPopUp.h2.text.successful": "Text sent",
+  "sendfilePage.submitLoaderPopUp.WhoToSendItTo": "Recipient",
+
+  "sendfilePage.submitLoaderPopUp.sendFileBlock.title.files": "Files",
+  "sendfilePage.submitLoaderPopUp.sendFileBlock.title.text": "Text",
+
+  "sendfilePage.submitLoaderPopUp.sendFileBlock.filesLength": "Number of files",
+
+  "sendfilePage.submitLoaderPopUp.warningDoNotClosePopUp": "Do not close the page until sending is complete",
+
+  "sendfilePage.massage.sendFileSuccessful": "Files sent successfully",
+  "sendfilePage.massage.sendTextSuccessful": "Text sent successfully",
+
+  "sendfilePage.submitLoaderPopUp.close": "Done",
+
+
+
+
+
+
+
+
+
+
+  "getfilePage.page.title": "Get file",
+  "getfilePage.page.description": "Here you can receive files from other devices",
+
+  "getfilePage.formTitleH2": "Get file",
+  "getfilePage.formDescriptionP": "Here you can receive files from other devices",
+
+  "getfilePage.yourDeviceID": "Your device ID",
+  "getfilePage.loding": "Loading",
+  "getfilePage.yourDeviceID.copy.click": "ID copied!",
+  "getfilePage.openFileList": "Open file list",
+
+  "getfilePage.buttonLinkSend": "Send",
+  "getfilePage.buttonLinkGet": "Get",
+
+
+  "getfilePage.getFilePopUpTitleInfoH2": "Accept files",
+  "getfilePage.getFilePopUpFilesLengthSpan": "Number of files",
+  
+  "getfilePage.file.sentToUser": "Sender",
+  "getfilePage.file.userWillReceive": "Recipient",
+  "getfilePage.file.sentFromDevice": "Sent from device",
+  "getfilePage.file.date": "Time",
+  "getfilePage.file.size": "Size",
+
+  "getfilePage.file.size.byte": "Byte",
+  "getfilePage.file.size.kilobyte": "KB",
+  "getfilePage.file.size.megabyte": "MB",
+  "getfilePage.file.size.gigabyte": "GB",
+
+  "getfilePage.file.reject": "Reject",
+  "getfilePage.file.download": "Download",
+  "getfilePage.file.copy": "Copy",
+  "getfilePage.file.copy.click": "Text copied!",
+
+  "getfilePage.files.rejectAll": "Reject all",
+  "getfilePage.files.acceptEverything": "Accept everything",
+
+
+  "getfilePage.file.thereAreNoFilesInTheHistory": "No files",
+
+
+  "getfilePage.filtersGetFilePopUpH2": "Filters",
+  
+  "getfilePage.selectOptionfilters.all": "All",
+  "getfilePage.selectOptionfilters.files": "Files",
+  "getfilePage.selectOptionfilters.texts": "Texts",
+
+  "getfilePage.selectOptionfilters.sentToUserNames": "Enter the sender's name (Example: Name1, Name2)",
+
+  "getfilePage.selectOptionfiltersStatus.resetFilters": "Reset filters",
+
+
+
+
+
+
+  "storyPage.page.title": "Story",
+  "storyPage.page.description": "History of your files",
+  
+  "storyPage.formTitleH2": "Story",
+  "storyPage.formDescriptionP": "History of your files",
+
+  "storyPage.storyLinkStyleSend": "Sent",
+  "storyPage.storyLinkStyleGet": "Received",
+
+
+
+  "sendFileStory.page.title": "History of sent files",
+  "sendFileStory.page.description": "Here you can see all the files you sent, the time, to whom you sent them and from what device",
+
+  "sendFileStory.linkStoryOptionsSent": "Sent",
+  "sendFileStory.linkStoryOptionsGet": "Received",
+
+  "sendFileStory.formTitleH2": "History of sent files",
+  "sendFileStory.formDescriptionP": "Here you can see all the files you sent, the time, to whom you sent them and from what device",
+  "sendFileStory.formFileStoryHeadH2": "Story",
+
+  "sendFileStory.inputSearch": "Search by name",
+  
+  "sendFileStory.file.sentToUser": "Sender",
+  "sendFileStory.file.userWillReceive": "Recipient",
+  "sendFileStory.file.sentFromDevice": "Sent from device",
+  "sendFileStory.file.date": "Time",
+
+  "sendFileStory.file.status": "Status",
+  "sendFileStory.file.status.sent": "Sent",
+  "sendFileStory.file.status.accepted": "Accepted",
+  "sendFileStory.file.status.refusal": "Refusal",
+
+  "sendFileStory.file.delete": "Delete",
+  "sendFileStory.file.cancelSending": "Cancel sending",
+
+  "sendFileStory.file.thereAreNoFilesInTheHistory": "There are no files in the history.",
+
+  "sendFileStory.settingsStoryPopUpH2": "Managing stories",
+  "sendFileStory.settingsStoryPopUp.clearAllHistory": "Clear all history",
+
+  "sendFileStory.messageDeleteStoryPopUpH2": "Clear all history",
+  "sendFileStory.messageDeleteStoryPopUpSpan": "Your entire history will be permanently deleted.",
+  "sendFileStory.messageDeleteStoryPopUp.delete": "Delete",
+  "sendFileStory.messageDeleteStoryPopUp.cancel": "Cancel",
+
+  "sendFileStory.filtersStoryPopUpH2": "Filters",
+  
+  "sendFileStory.selectOptionfilters.all": "All",
+  "sendFileStory.selectOptionfilters.files": "Files",
+  "sendFileStory.selectOptionfilters.texts": "Texts",
+
+  "sendFileStory.selectOptionfiltersStatus.all": "Any status",
+  "sendFileStory.selectOptionfiltersStatus.sent": "Sent",
+  "sendFileStory.selectOptionfiltersStatus.accepted": "Accepted",
+  "sendFileStory.selectOptionfiltersStatus.refusal": "Denied",
+
+  "sendFileStory.selectOptionfiltersStatus.resetFilters": "Reset filters",
+
+
+
+
+
+
+
+  "getFileStory.page.title": "History of received files",
+  "getFileStory.page.description": "Here you can see all the files you've downloaded, the time, from whom, and from which device",
+
+  "getFileStory.linkStoryOptionsSent": "Sent",
+  "getFileStory.linkStoryOptionsGet": "Received",
+
+  "getFileStory.formTitleH2": "History of received files",
+  "getFileStory.formDescriptionP": "Here you can see all the files you've downloaded, the time, from whom, and from which device",
+  "getFileStory.formFileStoryHeadH2": "Story",
+
+  "getFileStory.inputSearch": "Search by name",
+  
+  "getFileStory.file.sentToUser": "Sender",
+  "getFileStory.file.userWillReceive": "Recipient",
+  "getFileStory.file.sentFromDevice": "Sent from device",
+  "getFileStory.file.date": "Time",
+
+  "getFileStory.file.delete": "Delete",
+
+  "getFileStory.file.thereAreNoFilesInTheHistory": "There are no files in the history.",
+
+  "getFileStory.settingsStoryPopUpH2": "Managing stories",
+  "getFileStory.settingsStoryPopUp.clearAllHistory": "Clear all history",
+
+  "getFileStory.messageDeleteStoryPopUpH2": "Clear all history",
+  "getFileStory.messageDeleteStoryPopUpSpan": "Your entire history will be permanently deleted.",
+  "getFileStory.messageDeleteStoryPopUp.delete": "Delete",
+  "getFileStory.messageDeleteStoryPopUp.cancel": "Cancel",
+
+  "getFileStory.filtersStoryPopUpH2": "Filters",
+  
+  "getFileStory.selectOptionfilters.all": "All",
+  "getFileStory.selectOptionfilters.files": "Files",
+  "getFileStory.selectOptionfilters.texts": "Texts",
+
+  "getFileStory.selectOptionfiltersStatus.all": "Any status",
+  "getFileStory.selectOptionfiltersStatus.sent": "Sent",
+  "getFileStory.selectOptionfiltersStatus.accepted": "Accepted",
+  "getFileStory.selectOptionfiltersStatus.refusal": "Denied",
+
+  "getFileStory.selectOptionfiltersStatus.resetFilters": "Reset filters",
+
+
+
+
+  
+
+  "login.page.title": "Login",
+
+  "login.formTitleH2": "Login",
+  "login.input.username": "Username",
+  "login.input.email": "Email address",
+  "login.input.password": "Password",
+
+  "login.button.submit": "Login",
+
+  "login.in": "Login by",
+  "login.in.username": "Username",
+  "login.in.email": "Mail",
+
+  "login.link.noAccountRegistration": "No account registration",
+  "login.link.recoverAccount": "Recover account?",
+  "login.link.forgotYourPassword": "Forgot your password?",
+  
+
+
+
+
+  "resetPassword.page.title": "Reset Password",
+  "resetPassword.page.description": "Enter your account registered email address",
+  
+  "resetPassword.formTitleH2": "Reset Password",
+  "resetPassword.formDescriptionP": "Enter your account registered email address",
+  "resetPassword.input.email": "Email Address",
+  "resetPassword.button.submit": "Continue",
+  
+
+
+
+
+  "resetPasswordVerification.page.title": "Enter a new password",
+  "resetPasswordVerification.page.description": "Enter a new password for your account",
+
+  "resetPasswordVerification.formTitleH2": "Enter the code from your email",
+
+  "resetPasswordVerification.input.enterTheCodeFromTheEmail": "Enter the code from your email",
+  "resetPasswordVerification.input.newPassword": "Enter a new password",
+  "resetPasswordVerification.input.repeatNewPassword": "Repeat a new password",
+
+  "resetPasswordVerification.input.validation.password.error": "The password must be at least 8 characters long, including numbers, uppercase and lowercase letters, and special characters: @, $, !, %, *, ?, &.",
+  "resetPasswordVerification.input.password.passwordDoesnMatch": "Password does not match",
+
+  "resetPasswordVerification.button.submit": "Submit code",
+  "resetPasswordVerification.button.getNewCode": "Get a new code",
+  "resetPasswordVerification.message.getNewCode": "New code sent",
+  "resetPasswordVerification.button.cancel": "Cancel",
+
+
+
+
+
+
+  
+
+
+  "signup.page.title": "Signup",
+
+  "signup.formTitleH2": "Signup",
+
+  "signup.input.email": "Email Address",
+  "signup.input.username": "Username",
+  "signup.input.password": "Password",
+  "signup.input.repeatPassword": "Repeat Password",
+
+  "signup.input.validation.email.error": "Email must be at least 3 characters long and contain the @ symbol",
+  "signup.input.validation.username.error": "Username must be at least 3 characters long and not contain spaces",
+  "signup.input.validation.password.error": "Password must be at least 8 characters long and include numbers, uppercase and lowercase letters, and special characters: @, $, !, %, *, ?, &.",
+  "signup.input.password.passwordDoesnMatch": "Password doesn't match",
+
+  "signup.button.submit": "Signup",
+
+  "signup.link.haveAnAccountLogin": "Have an account login",
+
+
+
+
+
+
+  "signupEmail.page.title": "Confirm email",
+  "signupEmail.page.description": "Confirm email to complete registration",
+
+
+  "signupEmail.formTitleH2": "Enter the code from your email",
+
+  "signupEmail.input.enterTheCodeFromTheEmail": "Enter the code from your email",
+  "signupEmail.message.getNewCode": "New code sent",
+
+  "signupEmail.button.submit": "Submit code",
+  "signupEmail.button.getNewCode": "Get new code",
+  "signupEmail.button.cancel": "Cancel",
+
+
+
+
+
+
+  "whatyouwanttochoose.page.title": "What would you like to select to complete registration?",
+
+  "whatyouwanttochoose.formTitleH2": "What would you like to select to complete registration?",
+
+  "whatyouwanttochoose.button.createNew": "Register a new account",
+  "whatyouwanttochoose.button.updateOld": "Update guest information",
+
+  "whatyouwanttochoose.info.createNew.h3": "Register a new account",
+  "whatyouwanttochoose.info.updateOld.h3": "Update guest information",
+
+  "whatyouwanttochoose.info.createNew.span": " - Selecting this option will register a completely new account",
+  "whatyouwanttochoose.info.updateOld.span": " - Selecting this option will register a new account, but your ID, files sent to you, and file history will be transferred to the new account.",
+
+
+
+
+  
+  "recovering.account.page.title": "Recover Your Account",
+  "recovering.account.page.description": "You can restore your account after deletion if no more than 14 days have passed since it was deleted",
+
+  "recovering.account.formTitleH2": "Recover Your Account",
+  "recovering.account.formDescriptionP": "Enter the details for the account you want to recover",
+
+  "recovering.account.input.name": "Username",
+  "recovering.account.input.email": "Email",
+  "recovering.account.input.password": "Password",
+
+  "recovering.account.button.submit": "Recover Your Account",
+
+  "recovering.account.by": "Recover Your Account by",
+  "recovering.account.by.username": "Username",
+  "recovering.account.by.email": "Email",
+
+  "recovering.account.link.forgotYourPassword": "Forgot your password?",
+
+
+
+
+
+  "recovering.account.verification.page.title": "Verify your email to change it",
+
+  "recovering.account.verification.formTitleH2": "Enter the code from your email",
+  "recovering.account.verification.formDescriptionP": "We have sent a confirmation code to the email address associated with the account you are trying to recover",
+
+  "recovering.account.verification.input.code": "Enter the code from your email",
+
+  "recovering.account.verification.button.submit": "Submit code",
+
+  "recovering.account.verification.button.getТewСode": "Get a new code",
+  "recovering.account.verification.message.getTewCode": "New code sent",
+
+  "recovering.account.verification.button.cancel": "Cancel",
+
+
+
+
+
+
+  "recovering.account.successfully.page.title": "Recover your account",
+
+  "recovering.account.successfully.formTitleH2": "Recover your account",
+
+  "recovering.account.successfully.info": "Your account, files sent to you, and history have been restored",
+  "recovering.account.successfully.link.home": "Home",
+
+
+
+
+
+  "settings.page.title": "Settings",
+  "settings.page.description": "Site settings",
+
+  "settings.settingsHeaderH2": "Main",
+
+  "settings.date.title": "Time Format",
+  "settings.languages.title": "Language",
+
+  "settings.date.option.value.12": "12 - hour",
+  "settings.date.option.value.23": "24 - hour",
+
+  "settings.languages.option.value.ru": "Russian - Русский",
+  "settings.languages.option.value.en": "English - Английский",
+
+  "settingsNav.headerTitleH2": "Settings",
+  "settingsNav.link.main": "Main",
+  "settingsNav.link.decor": "Decor",
+  
+
+
+
+  
+
+
+  
+
+  "decor.page.title": "Design",
+  "decor.page.description": "Design Management",
+
+  "decor.settingsHeaderH2": "Design",
+
+  "decor.themes.title": "Theme",
+
+  "decor.themes.option.value.system": "As in the system",
+  "decor.themes.option.value.light": "Light",
+  "decor.themes.option.value.dark": "Dark",
+
+
+
+
+
+
+
+
+
+
+
+
+  "accountAccessDeniedPage.page.title": "Access Denied",
+  "accountAccessDeniedPage.page.description": "Account settings are not available in guest mode",
+  "accountAccessDeniedPage.page.link": "Return to home",
+
+
+
+
+
+  "account.page.title": "Account",
+  "account.page.description": "Manage Accounts",
+
+  "account.headerTitleH2": "Account",
+  "account.userData.userAvatarImg": "User Avatar",
+
+  "account.popup.setAvatar.title": "Your avatar",
+  "account.popup.setAvatar.button.change": "Change",
+  "account.popup.setAvatar.button.delete": "Delete",
+  "account.popup.setAvatar.button.save": "Save",
+  "account.popup.setAvatar.button.selectAnotherOne": "Select another one",
+
+  "account.accountSetting.link.change.email": "Change Email Address",
+  "account.accountSetting.link.change.name": "Change Username",
+  "account.accountSetting.link.change.password": "Change Password",
+  "account.accountSetting.link.change.delete": "Delete Account",
+
+  "account.accountSetting.link.logout": "Logout",
+
+
+
+
+
+
+
+
+  "changeEmail.page.title": "Change Email Address",
+
+  "changeEmail.headerTitleH2": "Change Email Address",
+  "changeEmail.formDescriptionP": "Enter a new email address",
+
+  "changeEmail.input.email": "Change Email Address",
+  "changeEmail.input.validation.email": "Email must be at least 3 characters long and contain the @ symbol",
+
+  "changeEmail.currentEmail": "Current Email:",
+  "changeEmail.currentEmail.login": "Loading...",
+
+  "changeEmail.button.submit": "Save Changes",
+  "changeEmail.button.cancel": "Cancel",
+
+
+
+  
+
+
+
+  "changeEmailVerification.page.title": "Verify your email to change it",
+
+  "changeEmailVerification.formTitleH2": "Enter the code from your email",
+  "changeEmailVerification.formDescriptionP": "We've sent the verification code to",
+
+  "changeEmailVerification.input.code": "Enter the code from your email",
+
+  "changeEmailVerification.button.submit": "Submit code",
+
+  "changeEmailVerification.button.getТewСode": "Get a new code",
+  "changeEmailVerification.message.getTewCode": "New code sent",
+
+  "changeEmailVerification.button.cancel": "Cancel",
+
+
+
+
+
+
+  "changeUserName.page.title": "Change username",
+
+  "changeUserName.formTitleH2": "Change username",
+  "changeUserName.formDescriptionP": "Enter a new username",
+
+  "changeUserName.input.newUserName": "New username",
+  "changeUserName.input.newUserName.validation": "Username must be at least 3 characters long",
+
+  "changeUserName.info.currentName": "Current name",
+  "changeUserName.info.currentName.loding": "Loading...",
+  
+  "changeUserName.button.submit": "Save changes",
+  "changeUserName.button.cancel": "Cancel",
+
+  
+
+
+
+
+
+
+
+  
+  "changePassword.page.title": "Change password",
+
+  "changePassword.formTitleH2": "Change password",
+  "changePassword.formDescriptionP": "Enter a new password",
+
+  "changePassword.input.oldPasswode": "Old password",
+  "changePassword.input.newPasswode": "New password",
+  "changePassword.input.repeatPassword": "Repeat new password",
+
+  "changePassword.input.newPasswode.validation": "The password must be at least 8 characters long and include numbers, uppercase letters, lowercase letters, and special characters: @, $, !, %, *, ?, &.",
+  "changePassword.passwordDoesNotMatch.validation": "Passwords do not match",
+  
+  "changePassword.button.submit": "Save changes",
+  "changePassword.button.cancel": "Cancel",
+
+
+
+
+
+
+
+
+
+
+  "deleteAccount.page.title": "Delete Account",
+
+  "deleteAccount.formTitleH2": "Delete Account",
+
+  "deleteAccount.info.warning.title": "Please read this carefully before deleting your account",
+  "deleteAccount.info.warning.info": "Your account, files sent to you, and history will be permanently deleted; the deletion can be undone within 14 days.",
+  
+  "deleteAccount.button.submit": "Delete",
+  "deleteAccount.button.cancel": "Cancel",
+
+
+
+
+
+
+
+
+
+
+
+  "deleteAccountVerification.page.title": "Enter your password to continue",
+
+  "deleteAccountVerification.formTitleH2": "Enter your password to continue",
+  "deleteAccountVerification.formDescriptionP": "Confirm that this is your account",
+  
+  "deleteAccountVerification.input.password": "Password",
+
+  "deleteAccountVerification.button.submit": "Continue",
+  "deleteAccountVerification.button.cancel": "Cancel",
+
+
+
+
+
+
+
+
+
+  "deleteAccountSuccessfully.page.title": "Account successfully deleted",
+
+  "deleteAccountSuccessfully.formTitleH2": "Your account has been deleted",
+
+  "deleteAccountSuccessfully.info": "Your account, uploaded files, and history have been deleted; the deletion can be undone within 14 days.",
+
+  "deleteAccountSuccessfully.link.home": "Go to home page",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  "signup.error.aUserEmailAlreadyExists": "A user with this email already exists",
+  "signup.error.userNameIsTaken": "This username is taken",
+  "signup.error.UserIsNotAGuest": "The user is not a guest",
+
+  "login.error.invalidUserName": "Invalid username",
+  "login.error.invalidUserEmail": "Invalid email",
+  "login.error.accountDetailsNotExist": "No account exists with these details",
+  "login.error.incorrectPassword": "Incorrect password",
+
+  "resetPassword.error.accountEmailAddressNotExist": "No account exists with this email",
+
+  "emailVerification.error.accountEmailAddressNotExist": "No account exists with this email",
+  "emailVerification.error.invalidConfirmationCode": "Invalid confirmation code",
+  "emailVerification.error.codeExpiredRequestNewCode": "The code has expired. Please request a new code.",
+  "emailVerification.error.verificationErrorPleaseTryAgain": "Verification error; please try again",
+  "emailVerification.error.somethingWentWrong": "Something went wrong",
+
+
+
+
+
+
+  "error.massage.somethingWentWrong": "Something went wrong",
+  "error.massage.unknown": "Error: ",
+
+  "error.massage.aUserEmailAlreadyExists": "A user with this email already exists",
+  "error.massage.userNameIsTaken": "This username is taken",
+  "error.massage.userIsNotAGuest": "The user is not a guest",
+
+  "error.massage.invalidUserName": "Invalid username",
+  "error.massage.invalidUserEmail": "Invalid email",
+  "error.massage.accountDetailsNotExist": "No account exists with these details",
+  "error.massage.incorrectPassword": "Incorrect password",
+
+  "error.massage.accountEmailAddressNotExist": "No account exists with this email",
+  "error.massage.failedToSendTheConfirmationCode": "Failed to send the confirmation code",
+  "error.massage.invalidConfirmationCode": "Invalid confirmation code",
+  "error.massage.codeExpiredRequestNewCode": "The code has expired. Please request a new one.",
+  "error.massage.verificationErrorPleaseTryAgain": "Verification error; please try again",
+
+  "error.massage.anErrorOccurredWhileSending": "An error occurred while sending; please try again",
+  "error.massage.errorDuringCancellationPleaseTryAgain": "Error during cancellation; please try again",
+
+
+  
+  "error.massage.emailNotVerified": "Email not verified",
+
+  "error.massage.invalidUserID": "Invalid ID or this account does not exist.",  
+  "error.massage.deviceIDDoNotMatch": "Device IDs do not match",
+
+  "error.massage.fileNotFound": "File not found",
+  "error.massage.textNotFound": "Text not found",
+
+  "error.massage.userNotFound": "User not found",
+  "error.massage.fileSenderNotFound": "File sender not found",
+
+
+
+
+  "error.massage.cookieNotFound": "Could not find cookies in the request",
+  "error.massage.cookieParseError": "An error occurred while processing the cookie",
+
+
+
+
+
+  "error.massage.senderTimeZoneUndefined": "Sender's time zone is undefined",
+  
+  
+  "error.massage.failedToCancelSsending": "Error: failed to cancel sending",
+  
+
+  "error.massage.thisAccountHasNotBeenDeleted": "This account has not been deleted",
+  "error.massage.accountDeleted": "Account deleted",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  "userIsGuest.username": "Guest",
+  "userIsDelete.username": "Deleted account",
+
+  "file.notFound": "No files found",
+
+
+  
+  "filtersFilePop.titleH2": "Filters",
+  
+  "filtersFilePop.selectOptionfilters.all": "All",
+  "filtersFilePop.selectOptionfilters.files": "Files",
+  "filtersFilePop.selectOptionfilters.texts": "Text",
+
+  "filtersFilePop.selectOptionfiltersStatus.all": "Any status",
+  "filtersFilePop.selectOptionfiltersStatus.sent": "Sent",
+  "filtersFilePop.selectOptionfiltersStatus.accepted": "Accepted",
+  "filtersFilePop.selectOptionfiltersStatus.refusal": "Rejected",
+
+  "filtersFilePop.selectOptionfilters.sentToUserNames": "Enter sender name (Example: Name1, Name2)",
+
+  "filtersFilePop.resetFilters": "Reset filters"
+}

@@ -7,6 +7,8 @@ import { useAppSelector } from '@/components/hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { useIntl } from 'react-intl';
+import { logOutFunServer, setDefaultAvatarServer, upLoadAvatarServer } from './actions';
 
 export default function Account() {
     const [fileAvatar, setFileAvatar] = useState<File[]>([]);
@@ -15,6 +17,8 @@ export default function Account() {
 
     const [submitLoader, setSubmitLoader] = useState(false);
     const [error, setError] = useState('');
+
+    const intl = useIntl();
 
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -71,91 +75,68 @@ export default function Account() {
             showSubmitLoaderFun();
 
             if (fileAvatar != null) {
-                const token = localStorage?.getItem('token');
-
                 const date = new Date();
-
                 let month: number | string = date.getMonth() + 1;
 
                 if (month < 10) {
                     month = '0' + month;
                 }
 
-                // console.log(`${date.getDate()}${month}${date.getFullYear()}`)
+                console.log(fileAvatar[0]);
+                console.log(`${date.getDate()}${month}${date.getFullYear()}`);
 
                 const formData = new FormData();
                 formData.append('avatar', fileAvatar[0]);
-                formData.append('v', `${date.getDate()}${month}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`);
-
-                // formData.forEach((value, key) => {
-                //console.log(`${key}:`, value);
-                // });
-
-                await axios.post(
-                    apiUrl + '/api/change/avatar',
-
-                    formData,
-
-                    {
-                        headers: {
-                            authorization: `Bearer ${token}`,
-                        },
-                    }
+                formData.append(
+                    'v',
+                    `${date.getDate()}${month}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`
                 );
+
+                const response = await upLoadAvatarServer(formData);
 
                 //console.log(response);
                 closeAvatarFullViewPopUp();
                 location.reload();
             } else {
             }
-        } catch (error) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
             closeSubmitLoaderFun();
-            console.log(error);
-            if (axios.isAxiosError(error)) {
-                const serverMessage = error;
-                //console.log(serverMessage);
+            closeAvatarFullViewPopUp();
+            console.log(error.message);
 
-                if (serverMessage.response?.data?.msg != undefined) {
-                    console.log(serverMessage.response?.data?.msg);
-                    setError(serverMessage.response?.data?.msg);
-                } else {
-                    console.log(serverMessage.message);
-                    setError(serverMessage.message);
-                }
-            }
+            const serverMessage = error.message;
+
+            setError(
+                intl.formatMessage({
+                    id: `error.massage.${serverMessage}`,
+                    defaultMessage: intl.formatMessage({ id: 'error.massage.unknown' }) + serverMessage,
+                })
+            );
         }
     };
 
     const setDefaultAvatar = async () => {
-        const token = localStorage?.getItem('token');
-
         try {
             showSubmitLoaderFun();
 
-            await axios.post(
-                apiUrl + '/api/change/avatar/default',
-                {},
-                {
-                    headers: {
-                        authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-        } catch (error) {
-            closeSubmitLoaderFun();
-            console.log(error);
-            if (axios.isAxiosError(error)) {
-                const serverMessage = error;
-                //console.log(serverMessage);
+            const response = await setDefaultAvatarServer();
+            location.reload();
 
-                if (serverMessage.response?.data?.msg != undefined) {
-                    console.log(serverMessage.response?.data?.msg);
-                    setError(serverMessage.response?.data?.msg);
-                } else {
-                    console.log(serverMessage.message);
-                    setError(serverMessage.message);
-                }
-            }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            closeSubmitLoaderFun();
+            closeAvatarFullViewPopUp();
+            console.log(error.message);
+
+            const serverMessage = error.message;
+
+            setError(
+                intl.formatMessage({
+                    id: `error.massage.${serverMessage}`,
+                    defaultMessage: intl.formatMessage({ id: 'error.massage.unknown' }) + serverMessage,
+                })
+            );
         }
 
         //console.log(response);
@@ -172,14 +153,9 @@ export default function Account() {
         setFilePreviwe(null);
     };
 
-    const logOutFun = () => {
-        const token = localStorage.getItem('recoveringGuestToken');
-
-        if (token != null) {
-            localStorage.setItem('token', token);
-        }
-
-        window.location.reload();
+    const logOutFun = async () => {
+        await logOutFunServer();
+        router.push('/sendfile');
     };
 
     const buttonBackPage = () => {
@@ -194,7 +170,7 @@ export default function Account() {
                         <form className={style.avatarPreviwe} onSubmit={(e) => upLoadAvatar(e)}>
                             <div className={style.avatarPreviweHead}>
                                 <div className={style.previweHeadTitle}>
-                                    <h2>Ваша аватарка</h2>
+                                    <h2>{intl.formatMessage({ id: 'account.popup.setAvatar.title' })}</h2>
                                 </div>
 
                                 <div className={style.previweHeadButtonClose}>
@@ -208,7 +184,7 @@ export default function Account() {
                                             height="30px"
                                             viewBox="0 -960 960 960"
                                             width="30px"
-                                            fill="#FFFFFF"
+                                            fill="var(--color-text)"
                                         >
                                             <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
                                         </svg>
@@ -237,14 +213,14 @@ export default function Account() {
                                         onClick={() => fileInputChange()}
                                         className={style.styleButtonSave}
                                     >
-                                        Изменить
+                                        {intl.formatMessage({ id: 'account.popup.setAvatar.button.change' })}
                                     </button>
                                     <button
                                         type="button"
                                         onClick={() => setDefaultAvatar()}
                                         className={style.styleButtonCancel}
                                     >
-                                        Удалить
+                                        {intl.formatMessage({ id: 'account.popup.setAvatar.button.delete' })}
                                     </button>
                                 </div>
                             ) : (
@@ -277,14 +253,16 @@ export default function Account() {
                                     ) : (
                                         <div className={style.avatarPreviweButtons}>
                                             <button type="submit" className={style.styleButtonSave}>
-                                                Сохранить
+                                                {intl.formatMessage({ id: 'account.popup.setAvatar.button.save' })}
                                             </button>
                                             <button
                                                 type="button"
                                                 onClick={() => fileInputChange()}
                                                 className={style.styleButtonChooseAnother}
                                             >
-                                                Выбрать другую
+                                                {intl.formatMessage({
+                                                    id: 'account.popup.setAvatar.button.selectAnotherOne',
+                                                })}
                                             </button>
                                         </div>
                                     )}
@@ -310,7 +288,7 @@ export default function Account() {
                                 height="36px"
                                 viewBox="0 -960 960 960"
                                 width="36px"
-                                fill="#ffffff"
+                                fill="var(--color-text)"
                             >
                                 <path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z" />
                             </svg>
@@ -318,14 +296,12 @@ export default function Account() {
                     </div>
 
                     <div className={style.headerTitle}>
-                        <h2>Аккаунт</h2>
+                        <h2>{intl.formatMessage({ id: 'account.headerTitleH2' })}</h2>
                     </div>
                 </header>
 
                 {isAuth == false ? (
-                    <div className={style.loadingBlock}>
-                        <span className={style.loading}>Загрузка...</span>
-                    </div>
+                    <div></div>
                 ) : (
                     <div className={style.accountInfo}>
                         <div className={style.accountInfoBlock}>
@@ -340,7 +316,7 @@ export default function Account() {
                                     <img
                                         className={style.userAvatarImg}
                                         src={userData?.avatar[400] as string | undefined}
-                                        alt={`Аватар пользователя ${userData?.username}`}
+                                        alt={`${intl.formatMessage({ id: 'account.userData.userAvatarImg' })} ${userData?.username}`}
                                     />
                                 </div>
 
@@ -363,26 +339,26 @@ export default function Account() {
                         <div className={style.accountSetting}>
                             <div className={style.links}>
                                 <Link className={style.link} href={'account/change/email'}>
-                                    Изменить адрес эл. почты
+                                    {intl.formatMessage({ id: 'account.accountSetting.link.change.email' })}
                                 </Link>
                                 <Link className={style.link} href={'account/change/name'}>
-                                    Изменить имя пользователя
+                                    {intl.formatMessage({ id: 'account.accountSetting.link.change.name' })}
                                 </Link>
                                 <Link className={style.link} href={'account/change/password'}>
-                                    Изменить пароль
+                                    {intl.formatMessage({ id: 'account.accountSetting.link.change.password' })}
                                 </Link>
                                 <Link
                                     className={`${style.colorRed} ${style.link}`}
                                     href={'account/delete/verification'}
                                 >
-                                    Удалить аккаунт
+                                    {intl.formatMessage({ id: 'account.accountSetting.link.change.delete' })}
                                 </Link>
                             </div>
                         </div>
 
                         <div className={style.accountSettingDop}>
                             <button className={style.buttonLogOut} onClick={() => logOutFun()}>
-                                Выход
+                                {intl.formatMessage({ id: 'account.accountSetting.link.logout' })}
                             </button>
                         </div>
                     </div>

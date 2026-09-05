@@ -31,7 +31,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: var(--width);
+    color: var(--color-text);
     padding-bottom: 40px;
     gap: 10px;
 }
@@ -42,7 +42,7 @@
 
 .formTitle p {
     text-align: center;
-    color: #c6c6c6;
+    color: var(--color-gray-150);
 }
 
 
@@ -51,9 +51,6 @@
     flex-direction: column;
 }
 
-.getFilePopUpFilesList {
-    border-radius: 15px;
-}
 
 
 
@@ -69,6 +66,8 @@
 }
 
 
+/* getFilePopUp */
+
 .getFilePopUpBackground {
     display: flex;
     align-items: center;
@@ -77,19 +76,20 @@
     top: 0px;
     left: 0px;
     width: 100%;
-    height: 100vh; 
-    background-color: rgba(0, 0, 0, 0.4);
+    height: 100%; 
+    background-color: var(--color-black-transparent-45);
+    z-index: 9998;
 }  
 
 .getFilePopUp {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 500px;
-    height: 600px;
+    width: 520px;
+    height: 700px;
     padding: 10px;
-    background-color: rgb(36, 36, 36);;
-    border: 1px solid rgb(31, 31, 31);;
+    background-color: var(--color-gray-700);
+    border: 1px solid var(--color-gray-950);
     border-radius: 20px;
 }
 
@@ -101,6 +101,19 @@
     flex-shrink: 0;
 }
 
+.getFilePopUpHeaderButtons {
+    display: flex;
+    gap: 10px;
+}
+
+.buttonFilefilterPopUp {
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    background: none;
+    border: none;
+}
+
 .buttonFilePopUpClose {
     display: flex;
     overflow: hidden;
@@ -109,11 +122,71 @@
     border: none;
 }
 
+.intermediateBlock {
+    overflow: visible;
+}
+
+
+
+
+
+
+
+
+
+.textCopyMessageBlock {
+    overflow: hidden;
+    padding-bottom: 15px;
+}
+
+.textCopyMessage {
+    width: 100%;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: var(--color-gray-600);
+    color: var(--color-text);
+}
+
+
+
+.fileErrorMessageBlock {
+    overflow: hidden;
+    padding-bottom: 10px;
+}
+
+.fileErrorMessage {
+    width: 100%;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: var(--color-red-900);
+    color: var(--color-red-100);
+}
+
+
+.getFilePopUpFilesList {
+    border-radius: 15px;
+    scrollbar-color: #898989 var(--color-gray-700); /* Цвет ползунка и дорожки */
+}
+
+
+
+
+
+
 .openFilePopUp {
     background: none;
     border: none;
-    color: rgb(129, 196, 255);
+    color: var(--color-blue-300);
+    transition: all 0.2s;
     font-size: 16px;
+}
+
+.openFilePopUp:hover {
+    color: var(--color-blue-400);
+}
+
+.openFilePopUp:active {
+    color: var(--color-blue-300);
 }
 
 .getFilePopUpTitle {
@@ -124,13 +197,14 @@
 }
 
 .getFilePopUpTitleInfo {
-    color: #ffffff;
+    color: var(--color-text);
 }
 
 .getFilePopUpFilesLength {
     display: flex;
     align-items: center;
-    color: #c2c2c2;
+    /* color: #c2c2c2; */
+    color: var(--color-gray-150);
     word-break: break-all;
 }
 
@@ -138,9 +212,9 @@
     display: flex;
     flex-direction: column;
     /* padding-top: 15px; */
-    padding-right: 10px;
+    /* padding-right: 10px; */
     gap: 15px;
-    color: var(--width);
+    color: var(--color-text);
 }
 
 .fileItem {
@@ -151,7 +225,7 @@
     padding: 20px;
     /* border: 1px solid rgb(125, 125, 125); */
     /* border-radius: 10px; */
-    background-color: #00000070;
+    background-color: var(--color-file-cart-bg);
     border-radius: 15px;
     gap: 10px;
 }
@@ -198,7 +272,7 @@
 .fileName {
     display: flex;
     flex-shrink: 0;
-    color: #ffffff;
+    color: var(--color-text);
     word-break: break-all;
 }
 
@@ -214,14 +288,14 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
-    border-top: 1px solid rgb(125, 125, 125);
+    border-top: 1px solid var(--color-gray-300);
     width: 100%;
 }
 
 .textBlock {
     width: 100%;
     padding: 10px 15px;
-    border: 1px solid rgb(125, 125, 125);
+    border: 1px solid var(--color-gray-300);
     word-break: break-all;
     border-radius: 10px;
 }
@@ -236,97 +310,105 @@
 
 
 
+.notFilesStory {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+}
+
+
 
 
 .styleButtonDownlode {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--blue);
+    background-color: var(--color-blue-500);
     border: none;
-    color: var(--width);
+    color: var(--color-width);
     font-size: 16px;
     font-weight: 600;
     border-radius: 100px;
-    padding: 10px 15px;
+    padding: 10px 20px;
     transition: 0.2s all ;
     outline: none;
     gap: 5px;
 }
 
 .styleButtonDownlode:hover {
-    background-color: var(--blueHover);
+    background-color: var(--color-blue-600);
 }
 
 .styleButtonDownlode:active {
-    background-color: var(--blue);
+    background-color: var(--color-blue-500);
 }
 
 .styleButtonDownlodeCancel {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #353535;
+    background-color: var(--color-gray-700);
     border: none;
-    color: var(--width);
+    color: var(--color-text);
     font-size: 16px;
     font-weight: 600;
     border-radius: 100px;
-    padding: 10px 15px;
+    padding: 10px 20px;
     transition: 0.2s all ;
     outline: none;
     gap: 5px;
 }
 
 .styleButtonDownlodeCancel:hover {
-    background-color: #2f2f2f;
+    background-color: var(--color-gray-600);
 }
 
 .styleButtonDownlodeCancel:active {
-    background-color: #353535;
+    background-color: var(--color-gray-500);
 }
 
 
 .styleButtonAccept {
-    background-color: var(--blue);
+    background-color: var(--color-blue-500);
     border: none;
-    color: var(--width);
+    color: var(--color-width);
     font-size: 16px;
     font-weight: 600;
     border-radius: 100px;
-    padding: 12px 15px;
+    padding: 12px 20px;
     transition: 0.2s all ;
     outline: none;
     width: 100%;
 }
 
 .styleButtonAccept:hover {
-    background-color: var(--blueHover);
+    background-color: var(--color-blue-600);
 }
 
 .styleButtonAccept:active {
-    background-color: var(--blue);
+    background-color: var(--color-blue-500);
 }
 
 .styleButtonCancel {
-    background-color: #353535;
+    background-color: var(--color-gray-500);
     border: none;
-    color: var(--width);
+    color: var(--color-text);
     font-size: 16px;
     font-weight: 600;
     border-radius: 100px;
-    padding: 12px 15px;
+    padding: 12px 20px;
     transition: 0.2s all ;
     outline: none;
     width: 100%;
 }
 
 .styleButtonCancel:hover {
-    background-color: #2f2f2f;
+    background-color: var(--color-gray-600);
 }
 
 .styleButtonCancel:active {
-    background-color: #353535;
+    background-color: var(--color-gray-500);
 }
 
 
@@ -353,13 +435,13 @@
 }
 
 
-.styleButtonSample {
+/* .styleButtonSample {
     display: flex;
     align-items: center;
     justify-content: center;
 
     border: none;
-    color: var(--width);
+    color: var(--color-width);
     font-size: 16px;
     font-weight: 600;
     border-radius: 100px;
@@ -381,6 +463,211 @@
 
 .RelodeFilePing {
     background-color: #393939;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* filterGetFilePopUp */
+
+.filtersGetFilePopUpBackground {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--color-black-transparent-45);
+    z-index: 9999;
+}
+
+.filtersGetFilePopUp {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 520px;
+    height: 550px;
+    padding: 10px;
+    background-color: var(--color-gray-700);
+    border: 1px solid var(--color-gray-600);
+    border-radius: 20px;
+}
+
+.filtersGetFilePopUpHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px 20px 10px;
+}
+
+.filtersGetFilePopUpHeader h2 {
+    color: var(--color-text);
+}
+
+.buttonFilePopUpClose {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+}
+
+
+.buttonFiltersGetFilePopUpClose {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+}
+
+.filtersGetFilePopUpOptions {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+}
+
+.filtersGetFilePopUpOptionBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.filtersGetFilePopUpButtons {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    padding: 20px 10px 10px 10px;
+    align-items: center;
+}
+
+.styleButtonResetFilters {
+    background-color: var(--color-gray-500);
+    border: none;
+    color: var(--color-text);
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 100px;
+    padding: 12px 15px;
+    transition: 0.2s all;
+    outline: none;
+    width: 100%;
+}
+
+.styleButtonResetFilters:hover {
+    background-color: var(--color-gray-600);
+}
+
+.styleButtonResetFilters:active {
+    background-color: var(--color-gray-500);
+}
+
+.delete {
+    color: #ff7070;
+}
+
+
+
+
+
+
+.inputSearchBlock {
+    padding: 5px 0px 10px 0px;
+    flex-shrink: 0;
+}
+
+.inputFilters {
+    background-color: var(--color-file-cart-bg);
+    border: 1px solid var(--color-gray-600);
+    color: var(--color-text);
+    border-radius: 100px;
+    padding: 12px 15px;
+    font-size: 16px;
+    outline: none;
+    width: 100%;
+}
+
+.inputFilters::placeholder {
+    color: #9a9a9a;
+}
+
+.inputFiltersText {
+    background-color: var(--color-gray-500);
+    border: 1px solid var(--color-gray-900);
+    color: var(--color-text);
+    border-radius: 100px;
+    padding: 12px 15px;
+    font-size: 16px;
+    outline: none;
+    width: 100%;
+}
+
+.inputFiltersText::placeholder {
+    color: var(--color-gray-150);
+}
+
+.inputFiltersDate {
+    background-color: var(--color-gray-500);
+    border: 1px solid var(--color-gray-900);
+    color: var(--color-text);
+    border-radius: 100px;
+    padding: 12px 15px;
+    font-size: 16px;
+    outline: none;
+    width: 100%;
+}
+
+.inputFiltersDate::placeholder {
+    color: var(--color-gray-150);
+}
+
+/* .inputFiltersDate[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+} */
+
+
+.selectOptionStyle {
+    background-color: var(--color-gray-500);
+    border: 1px solid var(--color-gray-900);
+    color: var(--color-text);
+    font-size: 16px;
+    /* color: #9a9a9a; */
+    width: 100%;
+    border-radius: 100px;
+    padding: 12px 15px;
+    outline: none;
+
+    -webkit-appearance: none; /* Для старых Safari */
+    -moz-appearance: none; /* Для старых Firefox */
+    appearance: none; /* Для современных браузеров */
+    /*  background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 24h24V0H0z" fill="none"/></svg>'); Пример SVG-стрелки */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="%239a9a9a"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>'); /* Пример SVG-стрелки */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px; 
+    padding-right: 30px; /* Место для стрелки */
+    cursor: pointer;
+
 }
 
 
@@ -404,7 +691,10 @@
 
 
 
-.formData {
+
+
+
+.userDataBlock {
     padding-top: 100px;
     padding-bottom: 140px;
 }
@@ -420,7 +710,7 @@
 .styleInput {
     background-color: var(--black);
     border: 1px solid #2e2e2e;
-    color: var(--width);
+    color: var(--color-width);
     border-radius: 100px;
     padding: 12px 15px;
     font-size: 16px;
@@ -438,7 +728,7 @@
     display: flex;
     justify-content: center;
     gap: 10px;
-    color: var(--width);
+    color: var(--color-text);
 }
 
 /* .fileItem {
@@ -453,7 +743,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: var(--width);
+    color: var(--color-text);
     gap: 20px;
 }
 
@@ -473,6 +763,9 @@
 }
 
 
+.yourDeviceIDCopy {
+    color: var(--color-gray-150);
+}
 
 
 .navExchangeBlock {
@@ -486,14 +779,14 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
-    background-color: #242424;
+    background-color: var(--color-gray-700);
     padding: 5px;
     border-radius: 50px;
     /* gap: 20px; */
 }
 
 .LinkExchange {
-    color: #bfbfbf;
+    color: var(--color-gray-200);
     width: 100%;
     text-align: center;
     text-decoration: none;
@@ -503,19 +796,36 @@
 }
 
 .LinkExchange:hover {
-    background-color: rgb(52, 52, 52);
+    background-color: var(--color-gray-500);
 }
+
 
 .select {
     color: #ffffff;
-    background-color: var(--blue);
+    background-color: var(--color-blue-500);
 }
 
 .select:hover {
     color: #ffffff;
-    background-color: var(--blueHover);
+    background-color: var(--color-blue-600);
 }
 
+
+/* 
+@media (max-width: 1600px) {
+
+    .getFilePopUpBackground {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%; 
+    }  
+
+} */
 
 
 @media (max-width: 500px) {

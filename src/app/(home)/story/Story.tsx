@@ -1,5 +1,6 @@
 'use client';
 import style from '@/style/story.module.css';
+import { useIntl } from 'react-intl';
 
 import { useRouter } from 'next/navigation';
 
@@ -7,6 +8,7 @@ import Link from 'next/link';
 
 export default function Story() {
     const router = useRouter();
+    const intl = useIntl();
 
     const buttonBackPage = () => {
         router.back();
@@ -24,7 +26,7 @@ export default function Story() {
                                     height="36px"
                                     viewBox="0 -960 960 960"
                                     width="36px"
-                                    fill="#e3e3e3"
+                                    fill="var(--color-text)"
                                 >
                                     <path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z" />
                                 </svg>
@@ -32,7 +34,11 @@ export default function Story() {
                         </div>
 
                         <div className={style.navigationPageTitle}>
-                            <h2>История</h2>
+                            <h2>
+                                {intl.formatMessage({
+                                    id: 'storyPage.formTitleH2',
+                                })}
+                            </h2>
                         </div>
                     </div>
 
@@ -52,7 +58,11 @@ export default function Story() {
                     </div>
 
                     <div className={style.formTitle}>
-                        <h2>История ваших файлов</h2>
+                        <h2>
+                            {intl.formatMessage({
+                                id: 'storyPage.formDescriptionP',
+                            })}
+                        </h2>
                     </div>
                 </div>
 
@@ -83,7 +93,9 @@ export default function Story() {
                                         fill="#96C3FF"
                                     />
                                 </svg>
-                                Отправленные
+                                {intl.formatMessage({
+                                    id: 'storyPage.storyLinkStyleSend',
+                                })}
                             </div>
                         </Link>
 
@@ -112,7 +124,9 @@ export default function Story() {
                                         fill="#96C3FF"
                                     />
                                 </svg>
-                                Полученые
+                                {intl.formatMessage({
+                                    id: 'storyPage.storyLinkStyleGet',
+                                })}
                             </div>
                         </Link>
                     </div>

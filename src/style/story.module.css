@@ -32,7 +32,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: var(--width);
+    color: var(--color-text);
     gap: 10px;
 }
 
@@ -69,19 +69,19 @@
     font-weight: 600;
     font-size: 16px;
     padding: 10px 50px 10px 10px;
-    background-color: #242424;
+    background-color: var(--color-gray-700);
     font-size: 18px;
     text-decoration: none;
-    color: #008CFF;
+    color: var(--color-blue-500);
     transition: 0.2s all ;
 }
 
 .storyLinkStyle:hover {
-    background-color: #1f1f1f;
+    background-color: var(--color-gray-800);
 }
 
 .storyLinkStyle:active {
-    background-color: #242424;
+    background-color: var(--color-gray-700);
 }
 
 
@@ -130,7 +130,7 @@
     display: flex;
     width: 350px;
     justify-content: space-between;
-    background-color: #242424;
+    background-color: var(--color-gray-700);
     padding: 5px;
     border-radius: 50px;
     /* gap: 20px; */
@@ -150,12 +150,12 @@
 
 
 .navigationPageTitle {
-    color: #ffffff;
+    color: var(--color-text);
 }
 
 
 .LinkStoryOptions {
-    color: #bfbfbf;
+    color: var(--color-gray-200);
     width: 100%;
     text-align: center;
     text-decoration: none;
@@ -165,17 +165,17 @@
 }
 
 .LinkStoryOptions:hover {
-    color: #cecece;
+    color: var(--color-gray-150);
 }
 
 .LinkStoryOptions:active {
-    color: #bfbfbf;
+    color: var(--color-gray-200);
 }
 
 
 .select {
     color: #ffffff;
-    background-color: var(--blue);
+    background-color: var(--color-blue-500);
 }
 
 
@@ -190,6 +190,11 @@
         width: auto;
     }
 
+    .navigationPage {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
 }
 
 @media (max-width: 380px) {
@@ -198,8 +203,8 @@
        width: 300px;
     }
 
-    .buttonBackPageBlock {
+    /* .buttonBackPageBlock {
         padding-left: 10px;
-    }
+    } */
 
 }

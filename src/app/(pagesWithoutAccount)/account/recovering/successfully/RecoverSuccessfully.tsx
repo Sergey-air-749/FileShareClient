@@ -1,8 +1,11 @@
 'use client';
 import Link from 'next/link';
 import style from '@/style/recovering.successfully.module.css';
+import { useIntl } from 'react-intl';
 
 export default function RecoverSuccessfully() {
+    const intl = useIntl();
+
     return (
         <div className={style.recoverAccountSuccessfully}>
             <form className={style.recoverAccountSuccessfullyForm}>
@@ -72,17 +75,17 @@ export default function RecoverSuccessfully() {
                             </div>
 
                             <div className={style.formTitle}>
-                                <h2>Ваш аккаунт васстановлен</h2>
+                                <h2>{intl.formatMessage({ id: 'recovering.account.successfully.formTitleH2' })}</h2>
                             </div>
                         </div>
 
                         <div className={style.recoverAccountSuccessfullyInfo}>
-                            <p>Ваш аккаунт, отправленные вам файлы и история, были васстановлены</p>
+                            <p>{intl.formatMessage({ id: 'recovering.account.successfully.info' })}</p>
                         </div>
 
                         <div className={style.recoverAccountSuccessfullyButtons}>
                             <Link href="/" className={style.linkButton}>
-                                На главную
+                                {intl.formatMessage({ id: 'recovering.account.successfully.link.home' })}
                             </Link>
                         </div>
                     </main>
